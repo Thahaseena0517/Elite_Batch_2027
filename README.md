@@ -6,6 +6,6 @@ Daily programs
 
 WT (Weekly Test) ZIP files
 
-mportant interview-focused topics disccued in class
+Important interview-focused topics disccued in class
 
 Materials provided for monthly interviews
