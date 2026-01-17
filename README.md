@@ -1,0 +1,11 @@
+This Git repository contains daily notes from the Elite Class – Batch 2027.
+
+It includes:
+
+Daily programs
+
+WT (Weekly Test) ZIP files
+
+mportant interview-focused topics disccued in class
+
+Materials provided for monthly interviews
