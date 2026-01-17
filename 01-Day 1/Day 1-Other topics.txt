@@ -1,0 +1,7 @@
+Other topics
+
+ArrayList vs Linkedist
+When to use Adjacency List and matrix
+package.json vs package-lock json
+Versions in dependencies
+Idempotency
