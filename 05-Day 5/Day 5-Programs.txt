@@ -1,0 +1,252 @@
+Day 5-Programs
+
+In a distant galaxy, there exists an ancient space station covered in a vast 
+array of digital codes. These codes are believed to hold the key to unlocking 
+powerful alien technology. The interstellar explorers call these codes "prime 
+sequences."
+
+The prime-sequence beauty of the digital code is defined as the number of prime 
+sequences that meet the following conditions:
+    -The prime sequence has a length of k.
+    - is a divisor of the entire digital code.
+    -The prime sequence is a prime number.
+
+Given the digital code on the space station, represented as an integer code, and
+the length of the prime sequences k, return the prime-sequence beauty of the code.
+
+Note:
+-----
+Leading zeros in prime sequences are allowed.
+0 is not a divisor of any value.
+A prime sequence is a contiguous sequence of characters in the main digital code.
+
+Input Format:
+-------------
+Line-1: space separated String and integer, code and K
+
+Output Format:
+-------------
+An integer, the prime-sequence beauty of the code.
+
+
+Sample Input:
+-------------
+239246 2 
+
+Sample Output:
+--------------
+1 
+
+Explanation:
+------------
+The following are the prime sequences of length k:
+    "23" from "239246": 23 is a divisor of 239246 and is a prime number.
+    "39" from "239246": 39 is not a divisor.
+    "92" from "239246": 92 is not a divisor.
+    "24" from "239246": 24 is is not a divisor 239246.
+    "46" from "239246": 46 is a divisor of 239246 but is not a prime number.
+    Therefore, the prime-sequence beauty is 1.
+
+Sample Input:
+-------------
+24224 1
+
+Sample Output:
+--------------
+3
+
+
+The integer array arr[] is given and print the resultant value of the bitwise-OR
+of the sum of all the possible sub-arrays of the given array arr[].
+
+Note: A sub-array is a sequence of array-elements that could be drawn from other
+      sequence of array-elements by removing zero or more elements without 
+      changing the order of the remaining elements.
+
+Input Format:
+-------------
+Line-1: Read the size of array P.
+Line-2: Read the array elements(space separated values).
+
+Output Format:
+--------------
+Print the resultant value.
+
+
+Sample input-1:
+---------------
+4
+0 2 1 3
+
+Sample output-1:
+----------------
+7
+
+Explanation:
+------------
+The sums of sub-arrays are
+0 1 2 3 4 5 6. 
+and bitwise OR operation
+0 OR 1 OR 2 OR 3 OR 4 OR 5 OR 6 = 7.
+
+
+
+Sample input-2:
+---------------
+4
+0 0 0 0
+
+Sample output-2:
+----------------
+0
+
+Explanation:
+------------
+Only one sum sub-arrays i.e. 0.
+
+Imagine you're a botanist managing a long row of garden plots. Each plot is 
+planted with a flower that has a unique color code represented by an integer. 
+You are given an array garden of length n, where each element denotes the color 
+of the flower in that plot, and an integer k which indicates the number of 
+consecutive plots you will examine at a time. Your objective is to determine 
+how many different flower colors appear in every contiguous block of k plots.
+
+Return an array result where result[i] is the count of unique flower colors in 
+the section of the garden from plot i to plot i + k - 1.
+
+Example 1:
+
+Input: 
+7				\\n
+1 2 3 2 2 1 3	\\array garden
+3				\\k
+
+Output: 
+[3, 2, 2, 2, 3]
+
+Explanation:
+
+For plots 0 to 2: [1,2,3] → 3 unique colors
+For plots 1 to 3: [2,3,2] → 2 unique colors
+For plots 2 to 4: [3,2,2] → 2 unique colors
+For plots 3 to 5: [2,2,1] → 2 unique colors
+For plots 4 to 6: [2,1,3] → 3 unique colors
+Example 2:
+
+Input: 
+7
+1 1 1 1 2 3 4
+4
+
+Output: 
+[1, 2, 3, 4]
+
+Explanation:
+For plots 0 to 3: [1,1,1,1] → 1 unique color
+For plots 1 to 4: [1,1,1,2] → 2 unique colors
+For plots 2 to 5: [1,1,2,3] → 3 unique colors
+For plots 3 to 6: [1,2,3,4] → 4 unique colors
+
+Constraints:
+• 1 <= k <= garden.length <= 10^5
+• 1 <= garden[i] <= 10^5
+
+
+
+
+You are a robot explorer navigating a vast digital maze stored as a string of 
+digits. Each digit or pair of digits on the path represents a movement instruction, 
+which translates to a specific direction using the following map:
+    
+    "1" → Move 'A'
+    
+    "2" → Move 'B'
+    
+    ...
+    
+    "26" → Move 'Z'
+
+However, the maze has tricky encoding rules. Sometimes a single digit can be 
+read alone, and sometimes two digits together form a valid move — but not every 
+combination is valid. For example, "05" is invalid, while "5" is fine. Your 
+robot can only navigate using valid instruction steps, and you must find how 
+many unique navigation sequences the robot can follow to reach the end of the maze.
+
+Given the string s of digits, determine the total number of distinct ways the 
+robot can interpret and follow the path from start to end without making an 
+invalid move.
+
+If no valid navigation is possible, return 0.
+
+
+Input Format:
+-------------
+A string s.
+
+Output Format:
+--------------
+Print an integer result.
+
+
+Sample Input-1:
+---------------
+123
+
+Sample Output-1:
+----------------
+3
+
+Explanation:
+------------
+123 can be converted as: ABC, LC, AW
+
+
+Sample Input-2:
+---------------
+326
+
+Sample Output-2:
+----------------
+2
+
+Explanation:
+------------
+326 can be converted as: CBF, CZ
+
+
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String str=sc.next();
+        System.out.println(check(str,0));
+        // int count=0;
+        // check(str,1,str.length(),count,"");
+        // System.out.println(count);
+        
+    }
+    static int check(String str,int index){
+        if(index>=str.length()){
+            return 1;
+        }
+        int c=0;
+        if(str.charAt(index)!='0'){
+            c=c+check(str,index+1);
+            if(index+1<str.length() && Integer.parseInt(str.substring(index,index+1))<=26){
+                c=c+check(str,index+2);
+            }
+        }
+        return c;
+    }
+    
+    // static void check(String str,int i,int n,int count,String s){
+    //     if(i==n) return;
+    //     if(Integer.parseInt(str) >=26 && Integer.parseInt(str)>=26){
+    //         return;
+    //     }
+    //     else{
+    //         count++;
+    //     }
+    //     check(str.substring(i),i+1,n,count,s+str.substring(0,i));
+    // }
+}
