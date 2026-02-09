@@ -1,0 +1,165 @@
+D15 Programs
+D15 Program-1
+
+VishnuVardan is working with Decision Trees for AI-based predictions.
+To analyze alternative outcomes, Kishore has planned to flip the decision 
+tree horizontally to simulate a reverse processing approach.
+
+Rules for Flipping the Decision Tree:
+	- The original root node becomes the new rightmost node.
+	- The original left child becomes the new root node.
+	- The original right child becomes the new left child.
+This transformation is applied level by level recursively.
+
+Note:
+------
+- Each node in the given tree has either 0 or 2 children.
+- Every right node in the tree has a left sibling sharing the same parent.
+- Every right node has no further children (i.e., they are leaf nodes).
+
+Your task is to help VishnuVardan flip the Decision Tree while following 
+the given transformation rules.
+
+Input Format:
+-------------
+Space separated integers, nodes of the tree.
+
+Output Format:
+--------------
+Print the list of nodes of flipped tree as described below.
+
+
+Sample Input-1:
+---------------
+4 2 3 5 1
+
+Sample Output-1:
+----------------
+5 1 2 3 4
+
+
+Sample Input-2:
+---------------
+4 2 5
+
+Sample Output-2:
+----------------
+2 5 4
+
+import java.util.*;
+class Node{
+    int val;
+    Node left;Node right;
+    public Node(int val){
+        this.val=val;
+        left=right=null;
+    }
+}
+public class Sol{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        String[] s=sc.nextLine().split(" ");
+        int[] arr=new int[s.length];
+        for(int i=0;i<s.length;i++){
+            arr[i]=Integer.parseInt(s[i]);
+        }
+        Node root=build(arr);
+        root=solve(root);
+        printTree(root);
+    }
+    
+    public static Node build(int[] arr){
+        Node root=new Node(arr[0]);
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        int i=1;
+        while(!q.isEmpty() && i<arr.length){
+            Node t=q.poll();
+            if(arr[i]!=-1){
+                t.left=new Node(arr[i]);
+                q.add(t.left);
+            }
+            i++;
+            if(i<arr.length && arr[i]!=-1){
+                t.right=new Node(arr[i]);
+                q.add(t.right);
+            }
+            i++;
+        }
+        return root;
+    }
+
+    public static void printTree(Node root){
+        if(root==null) return;
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            Node t=q.poll();
+            System.out.print(t.val+" ");
+            if(t.left!=null) q.add(t.left);
+            if(t.right!=null)q.add(t.right);
+        }
+    }
+    
+    public static Node solve(Node root){
+        if(root==null || root.left==null) return root;
+        Node newRoot=solve(root.left);
+        root.left.left=root.right;
+        root.left.right=root;
+        
+        root.left=null;
+        root.right=null;
+        
+        return newRoot;
+    }
+}
+
+D15 Program-2
+Imagine you’re managing a busy cafe where every order is logged. You have a 
+record—a list of dish names ordered throughout the day—and you want to determine 
+which dishes are the most popular. Given an list of strings representing the dish 
+names and an integer P, your task is to return the P most frequently ordered dishes.
+
+The results must be sorted by the number of orders, from the most frequent to 
+the least. If two dishes have been ordered the same number of times, they 
+should be listed in alphabetical order.
+
+Input Format:
+-------------
+Line-1: comma separated line of words, list of words.
+Line-2: An integer P, number of words to display. 
+
+Output Format:
+--------------
+Print P number of most common used words.
+
+Example 1:
+----------
+Input=
+coffee,sandwich,coffee,tea,sandwich,muffin
+2
+Output=
+[coffee, sandwich]
+
+Explanation: "coffee" and "sandwich" are the two most frequently ordered items. 
+Although both appear frequently, "coffee" is placed before "sandwich" because 
+it comes earlier alphabetically.
+
+Example 2:
+----------
+Input=
+bagel,muffin,scone,bagel,bagel,scone,scone,muffin,muffin
+3
+Output=
+[bagel, muffin, scone] 
+
+Explanation: "bagel", "muffin", and "scone" are the three most popular dishes 
+with order frequencies of 3, 3, and 2 respectively. Since "bagel" and "muffin" 
+have the same frequency, they are ordered alphabetically.
+
+Constraints:
+
+- 1 ≤ orders.length ≤ 500  
+- 1 ≤ orders[i].length ≤ 10  
+- Each orders[i] consists of lowercase English letters.  
+- P is in the range [1, The number of unique dish names in orders].

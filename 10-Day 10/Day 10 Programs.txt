@@ -1,0 +1,276 @@
+Day 10 Programs
+
+Raju is organizing a friendly competition where each participant submits a 
+secret code representing their choices on a series of questions which are 
+answered as yes or no. Each code is a number, and when you convert it to binary, 
+every digit indicates a specific answer: 0 for "no" and 1 for "yes." 
+
+The uniqueness of each participant's code lies in how much it differs from another's. 
+To measure this, you compare two codes digit by digit and count the number of 
+positions where their answers disagree.
+
+Given an array of these integer-encoded codes, help Raju to calculate the total 
+sum of these disagreement counts for every possible pair of participants.
+
+Example 1:
+----------
+Input: 
+5 13 3
+Output: 
+6
+
+Explanation:
+Converting to binary (using four bits for clarity):
+
+5 is 0101
+13 is 1101
+3 is 0011
+Now, compare each pair and count the number of positions with different digits:
+
+Comparing 5 (0101) and 13 (1101) gives 1 differences.
+Comparing 5 (0101) and 3 (0011) gives 2 differences.
+Comparing 13 (1101) and 3 (0011) gives 3 differences.
+Total differences = 1 + 2 + 3 = 6.
+
+import java.util.*;
+class Sol{
+    static String binaryString(int num){
+        int[] bi=new int[4];
+        for(int i=3;i>=0;i--){
+            bi[i]=num%2;
+            num=num/2;
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<4;i++){
+            sb.append(bi[i]);
+        }
+        return sb.toString();
+    }
+    static int check(String s1,String s2){
+        int count=0;
+        for(int i=0;i<4;i++){
+            if(s1.charAt(i)!=s2.charAt(i)) count++;
+        }
+        return count;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String line=sc.nextLine();
+        String[] p=line.split(" ");
+        int n=p.length;
+        // int[] arr=new int[n];
+         ArrayList<String> li=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            int a=Integer.parseInt(p[i]);
+            li.add(binaryString(a));
+        }
+        // System.out.println(li);
+       int l=0,r=1,ans=0;
+       for(int i=0;i<n;i++){
+           for(int j=i+1;j<n;j++){
+               ans+=check(li.get(i),li.get(j));
+           }
+       }
+       System.out.println(ans);
+       
+        
+        
+    }
+    
+}
+
+
+
+
+Given the preorder and postorder traversals of a binary tree, construct 
+the original binary tree and print its level order traversal.
+
+Input Format:
+---------------
+Space separated integers, pre order data
+Space separated integers, post order data
+
+Output Format:
+-----------------
+Print the level-order data of the tree.
+
+
+Sample Input:
+----------------
+1 2 4 5 3 6 7
+4 5 2 6 7 3 1
+
+Sample Output:
+----------------
+[[1], [2, 3], [4, 5, 6, 7]]
+
+Explanation:
+--------------
+        1
+       / \
+      2   3
+     / \  / \
+    4   5 6  7
+
+
+Sample Input:
+----------------
+1 2 3
+2 3 1
+
+Sample Output:
+----------------
+[[1], [2, 3]]
+
+Explanation:
+--------------
+    1
+   / \
+  2  3
+
+
+
+Given the preorder and postorder traversals of a binary tree, construct 
+the original binary tree and print its level order traversal.
+
+Input Format:
+---------------
+Space separated integers, pre order data
+Space separated integers, post order data
+
+Output Format:
+-----------------
+Print the level-order data of the tree.
+
+
+Sample Input:
+----------------
+1 2 4 5 3 6 7
+4 5 2 6 7 3 1
+
+Sample Output:
+----------------
+[[1], [2, 3], [4, 5, 6, 7]]
+
+Explanation:
+--------------
+        1
+       / \
+      2   3
+     / \  / \
+    4   5 6  7
+
+
+Sample Input:
+----------------
+1 2 3
+2 3 1
+
+Sample Output:
+----------------
+[[1], [2, 3]]
+
+Explanation:
+--------------
+    1
+   / \
+  2  3
+
+import java.util.*;
+class Sol{
+    static class Node{
+        int val;
+        Node left,right;
+        Node(int val){
+            this.val=val;
+        }
+    }
+    static Node root;
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String[] pre=sc.nextLine().split(" ");
+        String[] post=sc.nextLine().split(" ");
+        root=buildTree(pre,0,pre.length-1,post,0,post.length-1);
+        ArrayList<ArrayList<Integer>> li=new ArrayList<>();
+        levelOrder(root,li);
+        System.out.println(li);
+    }
+    static Node buildTree(String[] pre,int ps,int pe,String[] post,int qs,int qe){
+        if(ps>pe||qs>qe) return null;
+        Node root=new Node(Integer.parseInt(pre[ps]));
+        if(ps==pe) return root;
+        int leftVal=Integer.parseInt(pre[ps+1]);
+        int idx=qs;
+        while(Integer.parseInt(post[idx])!=leftVal) idx++;
+        int leftSize=idx-qs+1;
+        root.left=buildTree(pre,ps+1,ps+leftSize,post,qs,idx);
+        root.right=buildTree(pre,ps+leftSize+1,pe,post,idx+1,qe-1);
+        return root;
+    }
+    static void levelOrder(Node root,ArrayList<ArrayList<Integer>> li){
+        if(root==null) return;
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int n=q.size();
+            ArrayList<Integer> le=new ArrayList<>();
+            for(int i=0;i<n;i++){
+                Node curr=q.poll();
+                le.add(curr.val);
+                if(curr.left!=null) q.add(curr.left);
+                if(curr.right!=null) q.add(curr.right);
+            }
+            li.add(le);
+        }
+    }
+}
+
+
+
+There are N cities, and M routes[], each route is a path between two cities.
+routes[i] = [city1, city2], there is a travel route between city1 and city2.
+Each city is numbered from 0 to N-1.
+ 
+There are one or more Regions formed among N cities. 
+A Region is formed in such way that you can travel between any two cities 
+in the region that are connected directly and indirectly.
+ 
+Your task is to findout the number of regions formed between N cities. 
+ 
+Input Format:
+-------------
+Line-1: Two space separated integers N and M, number of cities and routes
+Next M lines: Two space separated integers city1, city2.
+ 
+Output Format:
+--------------
+Print an integer, number of regions formed.
+ 
+ 
+Sample Input-1:
+---------------
+5 4
+0 1
+0 2
+1 2
+3 4
+ 
+Sample Output-1:
+----------------
+2
+ 
+ 
+Sample Input-2:
+---------------
+5 6
+0 1
+0 2
+2 3
+1 2
+1 4
+2 4
+ 
+Sample Output-2:
+----------------
+1
+ 

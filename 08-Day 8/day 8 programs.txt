@@ -1,0 +1,367 @@
+day 8 programs
+You are participating in a futuristic space exploration mission where you must 
+navigate through a series of planets aligned in a straight line. The planets 
+are numbered from 0 to n-1, and you start your journey on planet 0.
+
+You are given a 0-indexed array planets, where each element planets[i] represents 
+the maximum number of planets you can move forward from planet i. In simpler terms, 
+standing on planet i, you can move to any planet from i+1 to i+planets[i], as 
+long as you don't exceed the last planet.
+
+Your goal is to reach the final planet (planet n-1) in the fewest number of moves 
+possible.
+
+It is guaranteed that a path to the final planet always exists.
+
+Return the minimum number of moves needed to reach planet n-1.
+
+Sample Input:
+-------------
+5
+2 3 1 0 4
+
+Sample Output:
+--------------
+2
+
+Explanation:
+------------
+- Move from planet 0 to planet 1.
+- Move from planet 1 to planet 4 (last planet).
+
+
+import java.util.*;
+class Sol{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        for (int i=0;i<n;i++) {
+            arr[i]=sc.nextInt();
+        }
+        int ans=rec(0,0,arr);
+        if (ans == Integer.MAX_VALUE)
+            System.out.println(-1);
+        else
+            System.out.println(ans);
+    }
+    static int rec(int idx,int jumps,int[] arr) {
+        if (idx>=arr.length-1)
+            return jumps;
+        if (arr[idx]==0)
+            return Integer.MAX_VALUE;
+        int mini=Integer.MAX_VALUE;
+        for(int i=1;i<=arr[idx];i++) {
+            mini=Math.min(mini,rec(idx+i,jumps+1,arr));
+        }
+
+        return mini;
+    }
+}
+
+
+
+
+There are N computers in a network, all the computers are connected as tree 
+structure. And one new connection is added in the Network. The computers in 
+the network are identified with their IDs, the IDs are numbered between 1 to N.
+
+The connections in the network is given as coonection[i] = [comp-A, comp-B], 
+there is a connection between comp-A and comp-B.
+
+Your task is to remove a connection in the network and print it, so that 
+all the computers are connected as tree structure. If there are multiple 
+options to remove, remove the connection that occurs last in the input.
+
+
+Input Format:
+-------------
+Line-1: Two space separated integers N, number of computers.
+Next N lines: Two space separated integers, comp-A & comp-B.
+
+Output Format:
+--------------
+Print the connection which is removed.
+
+
+Sample Input-1:
+---------------
+6
+1 2
+3 4
+3 6
+4 5
+5 6
+2 3
+
+Sample Output-1:
+---------------
+5 6
+
+
+Sample Input-2:
+---------------
+4
+1 2
+2 3
+3 4
+2 4
+
+Sample Output-2:
+---------------
+2 4
+
+import java.util.*;
+class Main{
+    static int[] parent;
+    static int find(int x){
+        if(parent[x]!=x){
+            parent[x]=find(parent[x]);
+        }
+        return parent[x];
+    }
+    static boolean union(int x, int y){
+        int px=find(x);
+        int py=find(y);
+        if (px==py){
+            return false;
+        }
+        parent[px]=py;
+        return true;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int N=sc.nextInt();
+        parent=new int[N+1];
+        for(int i=1;i<=N;i++){
+            parent[i]=i;
+        }
+        int ansU=-1,ansV=-1;
+        for(int i=0; i<N;i++){
+            int u=sc.nextInt();
+            int v=sc.nextInt();
+            if (!union(u, v)){
+                ansU=u;
+                ansV=v;
+            }
+        }
+        System.out.println(ansU+" "+ansV);
+    }
+}
+
+
+You are developing an application for a garden management system where each tree 
+in the garden is represented as a binary tree structure. The system needs to 
+allow users to plant new trees in a systematic way, ensuring that each tree is 
+filled level by level.
+
+A gardener wants to:
+ - Plant trees based on user input.
+ - Ensure trees grow in a balanced way by filling nodes level by level.
+ - Inspect the garden layout by performing an in-order traversal, which helps 
+   analyze the natural arrangement of trees.
+
+Your task is to implement a program that:
+    - Accepts a list of N tree species (as integers).
+    - Builds a binary tree using level-order insertion.
+    - Displays the in-order traversal of the tree.
+
+Input Format:
+-------------
+- An integer N representing the number of tree plants.
+- A space-separated list of N integers representing tree species.
+
+Output Format:
+--------------
+A list of integers, in-order traversal of tree.
+
+
+Sample Input:
+-------------
+7
+1 2 3 4 5 6 7
+
+Sample Output:
+--------------
+4 2 5 1 6 3 7
+
+
+Explanation:
+------------
+The tree looks like this:
+
+        1
+       / \
+      2   3
+     / \  / \
+    4   5 6  7
+The in order is : 4 2 5 1 6 3 7
+
+
+
+NODE Reference:
+
+class Node {
+    int data;
+    Node left, right;
+    
+    public Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+import java.util.*;
+class Sol{
+    static class Node{
+        int data;
+        Node left;
+        Node right;
+        Node(int data){
+            this.data=data;
+            left=null;
+            right=null;
+        }
+    }
+    static Node insert(int[] arr,int i){
+        if(i>=arr.length){
+            return null;
+        }
+        Node root=new Node(arr[i]);
+        root.left=insert(arr,2*i+1);
+        root.right=insert(arr,2*i+2);
+        return root;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        Node root=insert(arr,0);
+        inorder(root);
+        
+    }
+    static void inorder(Node root){
+        if(root==null) return;
+        inorder(root.left);
+        System.out.println(root.data);
+        inorder(root.right);
+    }
+}
+
+
+Write a program to construct a binary tree from level-order input, while treating -1 
+as a placeholder for missing nodes. The program reads input, constructs the tree, 
+and provides an in-order traversal to verify correctness.
+
+Input Format:
+---------------
+Space separated integers, level order data (where -1 indiactes null node).
+
+Output Format:
+-----------------
+Print the in-order data of the tree.
+
+NODE REFERENCE
+--------------
+class Node {
+    int value;
+    Node left, right;
+
+    public Node(int value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+
+Sample Input:
+----------------
+1 2 3 -1 -1 4 5
+
+Sample Output:
+----------------
+2 1 4 3 5
+
+Explanation:
+--------------
+    1
+   / \
+  2   3
+     / \
+    4   5
+
+
+Sample Input:
+----------------
+1 2 3 4 5 6 7
+
+Sample Output:
+----------------
+4 2 5 1 6 3 7
+
+Explanation:
+--------------
+        1
+       / \
+      2   3
+     / \  / \
+    4  5 6  7
+
+import java.util.*;
+class Sol {
+    static class Node {
+    int value;
+    Node left,right;
+
+    Node(int value) {
+        this.value=value;
+        this.left=null;
+        this.right=null;
+    }
+}
+    static Node create(int[] arr){
+        if(arr.length==0 || arr[0]==-1)
+            return null;
+        Node root=new Node(arr[0]);
+        Queue<Node> queue=new LinkedList<>();
+        queue.add(root);
+        int i=1;
+        while(!queue.isEmpty() && i<arr.length) {
+            Node curr=queue.poll();
+            if(i<arr.length && arr[i]!=-1){
+                curr.left=new Node(arr[i]);
+                queue.add(curr.left);
+            }
+            i++;
+            if(i<arr.length && arr[i]!=-1){
+                curr.right=new Node(arr[i]);
+                queue.add(curr.right);
+            }
+            i++;
+        }
+        return root;
+    }
+    static void inorder(Node root) {
+        if(root==null)
+            return;
+        inorder(root.left);
+        System.out.print(root.value+ " ");
+        inorder(root.right);
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String line=sc.nextLine();
+        String[] parts=line.split(" ");
+        int[] arr=new int[parts.length];
+        for(int i=0;i<parts.length;i++){
+            arr[i]=Integer.parseInt(parts[i]);
+        }
+        Node root=create(arr);
+        inorder(root);
+    }
+}

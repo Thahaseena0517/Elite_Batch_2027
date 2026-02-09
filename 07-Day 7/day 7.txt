@@ -1,0 +1,179 @@
+"Emphatic Pronunciation" of a given word is where we take the word and
+replicate some of the letter to emphasize their impact.
+
+Instead of saying 'oh my god', someone may say "ohhh myyy goddd", 
+We define emphatic pronunciation of a word, which is derived by replicating 
+a group (or single) of letters in the original word. 
+
+So that the replicated group is atleast 3 characters or more and 
+greater than or equal to size of original group. 
+For example Good -> Goood is an eemphatic pronunciation,
+but Goodd is not because in Goodd the 'd' are only occuring twice consecutively.
+ 
+In the question you are given the "Emphatic pronunciation" word, 
+you have to findout how many words can legal result in the 
+"emphatic pronunciation" word.
+
+Input Format:
+-------------
+Line-1 -> A String contains a single word, Emphatic Pronunciation word
+Line-2 -> Space seperated word/s
+
+Output Format:
+--------------
+Print an integer as your result
+
+
+Sample Input-1:
+---------------
+goood
+good goodd
+
+Sample Output-1:
+----------------
+1
+
+
+Sample Input-2:
+---------------
+heeelllooo
+hello hi helo
+
+Sample Output-2:
+----------------
+2
+
+import java.util.*;
+class P{
+    static boolean isValid(String e,String w) {
+        int i=0,j=0;
+        while (i<e.length() && j<w.length()) {
+            if (e.charAt(i)!=w.charAt(j)) return false;
+            char ch=e.charAt(i);
+            int eCount=0;
+            while (i<e.length() && e.charAt(i)==ch) {
+                eCount++;
+                i++;
+            }
+            int wCount = 0;
+            while (j<w.length() && w.charAt(j)==ch) {
+                wCount++;
+                j++;
+            }
+            if (eCount<wCount) return false;
+            if (eCount>wCount && eCount<3) return false;
+        }
+        return i==e.length()&&j==w.length();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String e=sc.nextLine();
+        String t=sc.nextLine();
+        String[] str=t.trim().split(" ");
+        // System.out.println(str[0]);
+        int c=0;
+        for(String w:str){
+            if(isValid(e,w)){
+              c++; 
+            }
+        }
+        System.out.println(c);
+    }
+}
+
+
+In the world of secret codes and cryptography, you are entrusted with deciphering 
+a hidden message. You have two encoded keys, key1 and key2, both of equal length. 
+Each character in key1 is paired with the corresponding character in key2. 
+
+This relationship follows the standard rules of an equivalence cipher:
+• Self-Mapping: Every character inherently maps to itself.  
+• Mutual Mapping: If a character from key1 maps to one in key2, then that 
+  character in key2 maps back to the one in key1.  
+• Chain Mapping: If character A maps to B, and B maps to C, then A, B, and C 
+  are all interchangeable in this cipher.
+
+Using this mapping, you must decode a cipherText, by replacing every character 
+with the smallest equivalent character from its equivalence group. 
+The result should be the relatively smallest possible decoded message.
+
+
+Input Format:
+-------------
+Three space separated strings, key1 , key2 and cipherText
+
+Output Format:
+--------------
+Print a string, decoded message which is relatively smallest string of cipherText.
+
+Sample Input-1:
+---------------
+attitude progress apriori
+
+Sample Output-1: 
+----------------
+aaogoog
+
+Explanation: 
+-------------
+The mapping pairs form groups: [a, p], [o, r, t], [g, i], [e, u], 
+[d, e, s]. By substituting each character in cipherText with the smallest from 
+its group, you decode the message to "aaogoog".
+
+
+Constraints:  
+• 1 <= key1.length, key2.length, cipherText.length <= 1000  
+• key1.length == key2.length  
+• key1, key2, and cipherText consist solely of lowercase English letters.
+
+
+import java.util.*;
+class P{
+    static int[] parent=new int[26];
+    static int find(int x){
+        if(parent[x]==x){
+            return x;
+        }
+        return find(parent[x]);
+    }
+    static void union(int a,int b){
+        int pa=find(a);
+        int pb=find(b);
+        if(pa==pb){
+            return;
+        }
+        if(pa<pb){
+            parent[pb]=pa;
+        }
+        if(pa>pb){
+            parent[pa]=pb;
+        }
+        
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String key1=sc.next();
+        String key2=sc.next();
+        String cipher=sc.next();
+        for (int i=0;i<26;i++){
+            parent[i]=i;
+        }
+        for (int i = 0; i < key1.length(); i++) {
+            int a=key1.charAt(i)-'a';
+            int b=key2.charAt(i)-'a';
+            union(a,b);
+        }
+
+        StringBuilder res=new StringBuilder();
+        for(char c:cipher.toCharArray()) {
+            int root=find(c-'a');
+            res.append((char)(root+'a'));
+        }
+        System.out.println(res.toString());
+    }
+}
+        
+    
+    
+

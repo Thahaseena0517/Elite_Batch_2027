@@ -1,0 +1,123 @@
+Day 9 programs
+
+You are a database integrity engineer working for a global cloud company. 
+Your team maintains a distributed database network, where each server either:
+    - Stores equivalent data to another server (serverX == serverY).
+    - Stores different data from another server (serverX != serverY).
+
+The transitive consistency rule must be followed:
+    - If A == B and B == C, then A == C must be true.
+    - If A == B and B != C, then A != C must be true.
+
+Your task is to analyze the given constraints and determine whether they 
+follow transitive consistency. If all relations are consistent, return true; 
+otherwise, return false
+
+Input Format:
+-------------
+Space separated strnigs, list of relations
+
+Output Format:
+--------------
+Print a boolean value, whether transitive law is obeyed or not.
+
+
+Sample Input-1:
+---------------
+a==b c==d c!=e e==f
+
+Sample Output-1:
+----------------
+true
+
+
+Sample Input-2:
+---------------
+a==b b!=c c==a
+
+Sample Output-2:
+----------------
+false
+
+Explanation:
+------------
+{a, b} form one equivalence group.
+{c} is declared equal to {a} (c == a), which means {a, b, c} should be equivalent.
+However, b != c contradicts b == a and c == a.
+
+Sample Input-3:
+---------------
+a==b b==c c!=d d!=e f==g g!=d
+
+Sample Output-3:
+----------------
+true
+
+
+You are given a crystal with an energy level n. Your goal is to discover all 
+the different ways this crystal could have been created by combining smaller shards.
+
+Each combination must:
+- Use only shards with energy values between 2 and n - 1.
+- Be represented as a list of shard values whose product equals n.
+- Use any number of shards (minimum 2), and the order is ascending order.
+
+Your task is to return all unique shard combinations that can multiply together 
+to recreate the original crystal.
+
+Example 1:
+---------
+Input:
+28
+
+Output:
+[[2, 14], [2, 2, 7], [4, 7]]
+
+Example 2:
+----------
+Input:
+23
+
+Output:
+[]
+
+
+
+Constraints:
+- 1 <= n <= 10^4
+- Only shards with energy between 2 and n - 1 can be used.
+
+
+Given the in-order and post-order traversals of a binary tree, construct 
+the original binary tree. 
+
+The output should list the nodes in the order they appear in pre-order.
+
+Input Format:
+-------------
+An integer N representing the number nodes.
+A space-separated list of N integers, the nodes in in-order traversal.
+A space-separated list of N integers, the nodes in post-order traversal.
+
+Output Format:
+--------------
+Print the list of the nodes in pre-order.
+
+
+Sample Input:
+-------------
+7
+4 2 5 1 6 3 7
+4 5 2 6 7 3 1
+
+Sample Output:
+--------------
+[1, 2, 4, 5, 3, 6, 7]
+
+Explanation:
+        1
+       / \
+      2   3
+     / \  / \
+    4   5 6  7
+    

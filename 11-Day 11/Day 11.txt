@@ -1,0 +1,57 @@
+Day 11
+My codesans in 32 n
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        for(int l=0;l<n;l++){
+            arr[l]=sc.nextInt();
+        }
+        Set<Integer> ans=new HashSet<>();
+        generate(0,0,arr,ans);
+        int res=0;
+        for(int i=0;i<ans.size();i++){
+            res=res || ans.get(i);
+        }
+        System.out.println(res);
+        // Set<Integer> set=new HashSet<>();
+        // int i=0,j=0,sum=0;
+        // while(j<n){
+        //   sum+=arr[j];
+        //     // System.out.println(sum);
+        //   set.add(sum);
+        //   j++;
+        //   if(j==n-1){
+        //       sum+=arr[j];
+        //       set.add(sum);
+        //       sum=0;
+        //       i++;
+        //       j=i;
+        //   }
+        // }
+        // System.out.println(set);
+    }
+    static void generate(int sum,int idx,int[] arr,Set<Integer> ans){
+        if(idx==arr.length){
+            return;
+        }
+        ans.add(sum);
+        generate(sum+arr[idx],idx+1,arr,ans);
+        generate(sum,idx+1,arr,ans);
+        
+    }
+}
+
+//or of sum of sub arrays
+
+every number will influence every bit , carry
+influence of every number plus influence of aggregation(sir told)
+prefix sum method
+
+
+
+root ,a1, level
+if(a1.length==)
+a1.add
