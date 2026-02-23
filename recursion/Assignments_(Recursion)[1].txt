@@ -1,0 +1,185 @@
+1) 704. Binary Search
+
+Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+case=1
+input=6
+-1 0 3 5 9 12
+9
+output=4
+
+Explanation: 9 exists in nums and its index is 4
+
+case=2
+input=6
+-1 0 3 5 9 12
+2
+output=-1
+
+Explanation: 2 does not exist in nums so return -1
+
+2) Tree traversal (preorder, inorder, postorder)
+
+Given the root of a binary tree, perform pre-order, in-order and post-order traversal of the binary tree.
+
+Note: A Binary tree data structure is built from the user input and the root node is provided, you just need to implement the preOrder(), inOrder() and postOrder() methods.
+An array element having value -1 represents NULL.
+
+case=1
+input=7
+1 2 3 4 5 6 7
+output=[1, 2, 4, 5, 3, 6, 7]
+[4, 2, 5, 1, 6, 3, 7]
+[4, 5, 2, 6, 7, 3, 1]
+
+Explanation: 
+Input: first line is the number of nodes in the binary tree, followed by their value.
+Output: first line is pre-order traversal, followed by in-order and post-order traversal.
+
+case=2
+input=7
+1 2 3 -1 5 -1 7
+output=[1, 2, 5, 3, 7]
+[2, 5, 1, 3, 7]
+[5, 2, 7, 3, 1]
+
+import java.util.*;
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int data)
+    {
+        this.data = data;
+        left = right = null;
+    }
+}
+class BinaryTree
+{
+    Node root;
+
+    // build tree from array level-wise
+    Node buildTree(int[] arr)
+    {
+        if(arr.length == 0 || arr[0] == -1)
+        {
+            return null;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        Node root = new Node(arr[0]);
+        queue.add(root);
+        int i = 1;
+
+        while(!queue.isEmpty() && i < arr.length)
+        {
+            Node current = queue.poll();
+
+            if (i < arr.length && arr[i] != -1)
+            {
+                current.left = new Node(arr[i]);
+                queue.add(current.left);
+            }
+            i++;
+
+            if (i < arr.length && arr[i] != -1)
+            {
+                current.right = new Node(arr[i]);
+                queue.add(current.right);
+            }
+            i++;
+        }
+        return root;
+    }
+
+    void preOrder(Node Node, List<Integer> result)
+    {
+        // Implement your code here
+    }
+    void inOrder(Node Node, List<Integer> result)
+    {
+        // Implement your code here
+    }
+    void postOrder(Node Node, List<Integer> result)
+    {
+        // Implement your code here
+    }
+}
+class test
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++)
+        {
+            arr[i] = sc.nextInt();
+        }
+        sc.close();
+
+        BinaryTree tree = new BinaryTree();
+        tree.root = tree.buildTree(arr);
+
+        List<Integer> resPreOrder = new ArrayList<>();
+
+        tree.preOrder(tree.root, resPreOrder);
+        System.out.println(resPreOrder);
+
+        List<Integer> resInOrder = new ArrayList<>();
+        tree.inOrder(tree.root, resInOrder);
+        System.out.println(resInOrder);
+
+        List<Integer> resPostOrder = new ArrayList<>();
+        tree.postOrder(tree.root, resPostOrder);
+        System.out.println(resPostOrder);
+    }
+}
+
+3) 131. Palindrome partitioning
+
+Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+
+case=1
+input=aab
+output=[[a, a, b], [aa, b]]
+Explanation: In the above output every substring of the partition is a palindrome.
+
+case=2
+input=abba
+output=[[a, b, b, a], [a, bb, a], [abba]]
+
+4) 22. Generate Parentheses
+
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+case=1
+input=3
+output=[((())), (()()), (())(), ()(()), ()()()]
+
+case=2
+input=1
+output=[()]
+
+5) 486. Predict the winner
+
+You are given an integer array nums. Two players are playing a game with this array: player 1 and player 2.
+
+Player 1 and player 2 take turns, with player 1 starting first. Both players start the game with a score of 0. At each turn, the player takes one of the numbers from either end of the array (i.e., nums[0] or nums[nums.length - 1]) which reduces the size of the array by 1. The player adds the chosen number to their score. The game ends when there are no more elements in the array.
+
+Return true if Player 1 can win the game. If the scores of both players are equal, then player 1 is still the winner, and you should also return true. You may assume that both players are playing optimally.
+
+Input: nums = [1,5,2]
+Output: false
+Explanation: Initially, player 1 can choose between 1 and 2. 
+If he chooses 2 (or 1), then player 2 can choose from 1 (or 2) and 5. If player 2 chooses 5, then player 1 will be left with 1 (or 2). 
+So, final score of player 1 is 1 + 2 = 3, and player 2 is 5. 
+Hence, player 1 will never be the winner and you need to return false.
+
+Input: nums = [1,5,233,7]
+Output: true
+Explanation: Player 1 first chooses 1. Then player 2 has to choose between 5 and 7. No matter which number player 2 choose, player 1 can choose 233.
+Finally, player 1 has more score (234) than player 2 (12), so you need to return True representing player1 can win.
+

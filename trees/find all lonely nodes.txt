@@ -1,0 +1,98 @@
+In a joint family, every person assigned with an ID, an integer value.
+and the entire family is arranged in the from of tree.
+
+You will be given the family tree,
+your task is to find and print the person ID, who is only child to his/her parent.
+i.e, the person with no siblings. Print all such person ID's in ascending order.
+
+NOTE: 
+	- If only one person is there in the family, please consider him as a parent.
+	- In the given tree, please consider '-1' as null.
+
+Input Format:
+-------------
+Line-1: Space separated integers, person ID's in the family.
+
+Output Format:
+--------------
+Line-1: Print the list of person IDs in ascending order.
+
+
+Sample Input-1:
+---------------
+2 3 4 -1 5
+
+Sample Output-1:
+----------------
+[5]
+
+Sample Input-2:
+---------------
+11 99 88 77 -1 -1 66 55 -1 -1 -1 -1 -1 -1 44
+
+Sample Output-2:
+----------------
+[44, 55, 66, 77]
+
+import java.util.*;
+
+class BinaryTreeNode {
+    public int data;
+    public BinaryTreeNode left, right;
+
+    public BinaryTreeNode(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+
+class TreeOperations {
+    public ArrayList<Integer> getPersonIDs(BinaryTreeNode root) {
+        ArrayList<Integer> nodes = new ArrayList<>();
+        findLonelyNodes(root, nodes);
+        return nodes;
+    }
+
+    private void findLonelyNodes(BinaryTreeNode root, ArrayList<Integer> nodes) {
+        //WRITE YOUR CODE HERE
+    }
+}
+
+public class Solution {
+    static BinaryTreeNode root;
+
+    // Modified to return the updated root
+    BinaryTreeNode insertLevelOrder(String[] arr, int i) {
+        // Base case for recursion
+        if (i >= arr.length || arr[i].equals("-1")) {
+            return null;
+        }
+
+        BinaryTreeNode root = new BinaryTreeNode(Integer.parseInt(arr[i]));
+
+        // insert left child
+        root.left = insertLevelOrder(arr, 2 * i + 1);
+
+        // insert right child
+        root.right = insertLevelOrder(arr, 2 * i + 2);
+
+        return root;
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        Solution ln = new Solution();
+        TreeOperations sol = new TreeOperations();
+
+        // Reading input
+        String str[] = sc.nextLine().split(" ");
+        root = ln.insertLevelOrder(str, 0);
+
+        // Get lonely nodes
+        ArrayList<Integer> result = sol.getPersonIDs(root);
+        Collections.sort(result);  // Sort the result to print in ascending order
+        System.out.println(result);
+    }
+}
+

@@ -1,0 +1,676 @@
+/* 
+// 4.Given an array, construct binary tree and check whether it is a mirror of 
+// itself (i.e., symmetric around its center).
+// Use Depth First Search approach.
+// Note: A leaf is a node with no children and -1 represents null value.
+// You are free to implement the code in any programming language 
+// Sample test case
+// case=1
+// input=7
+// 1 2 2 3 4 4 3
+// output=true
+//           1
+//          /|\
+//         / | \
+//        /  |  \
+//       2   |   2
+//      / \  |  / \
+//     3   4 | 4   3
+//           |
+// case=2
+// input=7
+// 1 2 2 -1 3 -1 3
+// output=false
+//           1
+//          /|\
+//         / | \
+//        /  |  \
+//       2   |   2
+//        \  |    \
+//         3 |     3
+//           |
+// case=3
+// input=1
+// 3
+// output=true
+
+
+
+
+
+// import java.util.*;
+// // Structure of Node
+// class Node
+// {
+//     int data;
+//     Node left, right;
+//     Node(int data)
+//     {
+//         this.data = data;
+//         left = right = null;
+//     }
+// }
+// class Test{
+//     // Build binary tree from level-order array. -1 means null.
+// Node buildTree(int[] arr)
+// {
+//     if (arr.length == 0 || arr[0] == -1)
+//         return null;
+
+//     Node root = new Node(arr[0]);
+//     Queue<Node> queue = new LinkedList<>();
+//     queue.add(root);
+
+//     int i = 1; // Start from the second element
+//     while (!queue.isEmpty() && i < arr.length)
+//     {
+//         Node current = queue.poll();
+
+//         // Assign left child
+//         if (i < arr.length && arr[i] != -1)
+//         {
+//             current.left = new Node(arr[i]);
+//             queue.add(current.left);
+//         }
+//         i++;
+
+//         // Assign right child
+//         if (i < arr.length && arr[i] != -1)
+//         {
+//             current.right = new Node(arr[i]);
+//             queue.add(current.right);
+//         }
+//         i++;
+//     }
+//     return root;
+// }
+// private boolean ismirror(Node n1, Node n2){
+//     if (n1==null && n2==null){
+//         return true;
+//     }
+//     if (n1==null || n2==null){
+//         return false;
+//     }
+//     return n1.data == n2.data && ismirror(n1.left, n2.right) && ismirror(n1.right, n2.left);
+//     }
+//     public boolean isSymmetric(Node root){
+//         if (root==null){
+//             return true;
+//         }
+//         return ismirror(root.left, root.right);
+//     }
+//     public static void main(String args[]){
+//         Scanner sc=new Scanner(System.in);
+//         int n = sc.nextInt();
+//         int arr[] = new int[n];
+//         for (int i=0 ; i<n ; i++){
+//             arr[i] = sc.nextInt();
+//         }
+//         Test t = new Test();
+//         Node root = t.buildTree(arr);
+//         System.out.println(t.isSymmetric(root));
+        
+//     }
+// }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 5.You are given the root of a binary tree containing digits from 0 to 9 only.
+// Each root-to-leaf path in the tree represents a number.
+// For example, the root-to-leaf path 1 -> 2 -> 3 represents the number 123.
+// Return the total sum of all root-to-leaf numbers. Test cases are generated 
+// so that the answer will fit in a 32-bit integer.
+// A leaf node is a node with no children.
+// Note: Use Depth First Search approach.
+// Sample test case
+// case=1
+// input=3
+// 1 2 3
+// output=25
+// Explanation:
+// The root-to-leaf path 1->2 represents the number 12.
+// The root-to-leaf path 1->3 represents the number 13.
+// Therefore, sum = 12 + 13 = 25.
+// case=2
+// input=5
+// 4 9 0 5 1
+// output=1026
+// Explanation:
+// The root-to-leaf path 4->9->5 represents the number 495.
+// The root-to-leaf path 4->9->1 represents the number 491.
+// The root-to-leaf path 4->0 represents the number 40.
+// Therefore, sum = 495 + 491 + 40 = 1026.
+
+
+
+import java.util.*;
+
+// Structure of Node
+class Node{
+    int data;
+    Node left, right;
+    Node(int data){
+        this.data = data;
+        left = right = null;
+}
+}
+// Build binary tree from level-order array. -1 means null.
+class Test{
+Node buildTree(int[] arr)
+{
+    if (arr.length == 0 || arr[0] == -1)
+        return null;
+    Node root = new Node(arr[0]);
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(root);
+    int i = 1; // Start from the second element
+    while (!queue.isEmpty() && i < arr.length)
+{
+        Node current = queue.poll();
+        // Assign left child
+        if (i < arr.length && arr[i] != -1)
+{
+            current.left = new Node(arr[i]);
+            queue.add(current.left);
+}
+        i++;
+        // Assign right child
+        if (i < arr.length && arr[i] != -1)
+{
+            current.right = new Node(arr[i]);
+            queue.add(current.right);
+}
+        i++;
+}
+    return root;
+}
+    public int findSum(Node root, int curSum){
+        curSum = (curSum*10 + root.data);
+        if (root.left==null && root.right==null){
+            return curSum;
+        }
+        int totalSum=0;
+        if (root.left!=null) totalSum += findSum(root.left, curSum);
+        if (root.right!=null) totalSum +=findSum(root.right, curSum);
+        return totalSum;
+        }
+    public int totalSum(Node root){
+        if (root==null) return 0;
+        return findSum(root, 0);
+
+}
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int a[] = new int[n];
+        for (int i=0 ; i<n ; i++){
+            a[i] = sc.nextInt();
+        }
+        Test t = new Test();
+        Node root = t.buildTree(a);
+        System.out.println(t.totalSum(root));
+    }
+}
+
+
+// Given number of vertices V and edges E, construct a graph represented as 
+// adjacency list and perform a DFS traversal of the graph using recursion.
+// You are free to implement the code in any programming language 
+// case=1
+// input=5 7
+// 0 1
+// 0 4
+// 1 2
+// 1 3
+// 1 4
+// 2 3
+// 3 4
+// 0
+// output=[0, 1, 2, 3, 4]
+// Explanation: First line is the number of vertices followed by number of edges, 
+// followed by values for edges, followed by node to start the dfs.
+// class Graph
+// {
+//     int V; // number of vertices
+//     List<List<Integer>> adjList;
+//     Graph(int V)
+//     {
+//         this.V = V;
+//         adjList = new ArrayList<>();
+//         for (int i = 0; i < V; i++)
+//         {
+//             adjList.add(new ArrayList<>());
+//         }
+//     }
+//     void addEdge(int u, int v)
+//     {
+//         adjList.get(u).add(v);
+//         adjList.get(v).add(u); // comment this line if the graph is directed
+//     }
+// }
+
+
+
+
+/ Given number of vertices V and edges E, construct a graph represented as 
+// adjacency list and perform a DFS traversal of the graph using iterative approach.
+// You are free to implement the code in any programming language 
+// case=1
+// input=5 7
+// 0 1
+// 0 4
+// 1 2
+// 1 3
+// 1 4
+// 2 3
+// 3 4
+// 0
+// output=[0, 4, 3, 2, 1]
+// Explanation: First line is the number of vertices followed by number of edges, 
+// followed by values for edges, followed by node to start the dfs.
+
+
+// import java.util.*;
+// class Graph {
+//     int V; 
+//     List<List<Integer>> adjList;
+//     Graph(int V) {
+//         this.V = V;
+//         adjList = new ArrayList<>();
+//         for (int i = 0; i < V; i++) {
+//             adjList.add(new ArrayList<>());
+//         }
+//     }
+//     void addEdge(int u, int v) {
+//         adjList.get(u).add(v);
+//         adjList.get(v).add(u); 
+//     }
+//     List<Integer> dfsiterative(int start) {
+//         List<Integer> result = new ArrayList<>();
+//         boolean[] visited = new boolean[V];
+//         Stack<Integer> stack = new Stack<>();
+//         for (int i=0;i<V;i++) {
+//             Collections.sort(adjList.get(i),Collections.reverseOrder());
+//         }
+//         stack.push(start);
+//         while(!stack.isEmpty()){
+//             int node=stack.pop();
+//             if (!visited[node]) {
+//                 visited[node] = true;
+//                 result.add(node);
+//                 for (int n:adjList.get(node)) {
+//                     if (!visited[n]) {
+//                         stack.push(n);
+//                     }
+//                 }
+//             }
+//         }
+//         return result;
+//     }
+// }
+// public class Main {
+//     public static void main(String[] args) {
+//         Scanner sc = new Scanner(System.in);
+//         int V=sc.nextInt();
+//         int E=sc.nextInt();
+//         Graph g=new Graph(V);
+//         for (int i=0;i<E;i++) {
+//             int u=sc.nextInt();
+//             int v=sc.nextInt();
+//             g.addEdge(u, v);
+//         }
+//         int start = sc.nextInt();
+//         List<Integer> output = g.dfsiterative(start);
+//         System.out.println(output);
+//     }
+// }
+
+// Given number of vertices V and edges E, construct a graph represented as 
+// adjacency list and perform a DFS traversal of the graph using recursion.
+
+// You are free to implement the code in any programming language 
+
+// case=1
+// input=5 7
+// 0 1
+// 0 4
+// 1 2
+// 1 3
+// 1 4
+// 2 3
+// 3 4
+// 0
+// output=[0, 1, 2, 3, 4]
+// Explanation: First line is the number of vertices followed by number of edges, 
+// followed by values for edges, followed by node to start the dfs.
+
+
+// import java.util.*;
+// class Graph{
+//     int V; // number of vertices
+//     List<List<Integer>> adjList;
+//     Graph(int V){
+//         this.V = V;
+//         adjList = new ArrayList<>();
+//         for (int i = 0; i < V; i++){
+//             adjList.add(new ArrayList<>());
+//         }
+//     }
+//     void addEdge(int u, int v){
+//         adjList.get(u).add(v);
+//         adjList.get(v).add(u); // comment this line if the graph is directed
+//     }
+//     void dfs(int current,List<Integer> res,boolean[] visited){
+//         visited[current] = true;
+//         res.add(current);
+//         for (int i:adjList.get(current)){
+//             if (!visited[i]){
+//                 dfs(i,res,visited);
+//             }
+//         }
+//     }
+//     List<Integer> dfs(int start){
+//         List<Integer> res = new ArrayList<>();
+//         boolean[] visited = new boolean[this.V];
+//         Arrays.fill(visited, false);
+//         dfs(start,res,visited);
+//         return res;
+//     }
+// }
+// class graphDfs{
+//         public static void main(String args[]){
+//         Scanner sc=new Scanner(System.in);
+//         int v = sc.nextInt();
+//         int e = sc.nextInt();
+//         Graph g = new Graph(v);
+//         for (int i=0;i<e;i++){
+//             g.addEdge(sc.nextInt(),sc.nextInt());
+//         }
+//         int start=sc.nextInt();
+//         System.out.println(g.dfs(start));
+//     }
+// }
+//this is for the recursive approach and the output will be in the order of 0->1->2->3->4.
+
+/ You are given an m x n binary matrix grid. An island is a group of 
+// 1's (representing land) connected 4-directionally (horizontal or vertical.) 
+// You may assume all four edges of the grid are surrounded by water.
+// The area of an island is the number of cells with a value 1 in the island.
+// Return the maximum area of an island in grid. If there is no island, return 0.
+// Note: Use DFS Approach (Recursive or Iterative)
+// Sample test cases
+// case=1
+// input=4 5
+// 1 1 1 1 0
+// 1 1 0 1 0
+// 1 1 0 0 1
+// 0 0 1 1 1
+// output=9
+// Explanation: The answer is 9, because the island must be connected
+// 4-directionally.
+// case=2
+// input=4 5
+// 1 1 0 0 0
+// 1 1 0 0 0
+// 0 0 1 1 1
+// 0 0 0 1 1
+// output=5
+//down->r+1
+//up->r-1
+//right->c+1
+//left->c-1
+import java.util.*;
+public class Main {
+    static int rows, cols;
+    static int[][] grid;
+    static boolean[][] visited;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        rows = sc.nextInt();
+        cols = sc.nextInt();
+        grid = new int[rows][cols];
+        visited = new boolean[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                grid[i][j] = sc.nextInt();
+            }
+        }
+        int maxArea = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == 1 && !visited[i][j]) {
+                    maxArea = Math.max(maxArea, dfs(i, j));
+                }
+            }
+        }
+        System.out.println(maxArea);
+        sc.close();
+    }
+    static int dfs(int r, int c) {
+        if (r < 0 || c < 0 || r >= rows || c >= cols || grid[r][c] == 0 || visited[r][c])
+            return 0;
+        visited[r][c] = true;
+        int area = 1;
+        area += dfs(r+1,c);
+        area += dfs(r-1,c);
+        area += dfs(r,c+1);
+        area += dfs(r,c-1);
+        return area;
+    }
+}
+
+
+
+You are given a 2D grid (map) made of '1' and '0'.
+'1' represents land
+'0' represents water
+An island is formed by connecting adjacent land cells ('1') horizontally or 
+vertically (not diagonally).
+Your task is to count how many separate islands are present in the grid.
+
+You must solve this using DFS (Depth-First Search).
+
+Input Format:
+----------------------------
+Two integers n and m — number of rows and columns in the grid.
+
+n lines, each with m space-separated integers — either '1' (land) or '0' (water).
+
+Output Format:
+------------------------------
+Print a single integer — the number of islands in the grid.
+
+Sample Testcase:1
+----------------------------
+4 5
+1 1 0 0 0
+1 1 0 0 0
+0 0 1 0 0
+0 0 0 1 1
+Output=3
+Explanation:
+------------------------------
+There are 3 islands:
+Top-left 2×2 block of 1s
+A single 1 in the middle
+Two 1s at the bottom-right
+
+
+Given A 2D grid of 0s (water) and 1s (land).
+
+Find the size (number of cells) of the largest island in the grid.
+An island is a group of connected 1s (connected vertically or horizontally, not diagonally).
+If there are no islands, return 0.
+
+Input Format:
+----------------------------
+Two integers n and m — number of rows and columns in the grid.
+
+n lines, each with m space-separated characters — either '1' (land) or '0' (water).
+
+Output Format:
+------------------------------
+Print a single integer.
+
+Sample Testcase:1
+--------------------------------
+input=3 3
+0 0 0
+0 0 0
+0 0 0
+output=0
+
+Sample Testcase:2
+--------------------------------
+input=3 4
+1 1 0 0
+1 1 0 1
+0 0 0 1
+output=4
+
+
+You are given a 2D grid (image) made up of numbers where each number represents a color 
+of a pixel. The image has n rows and m columns.
+
+You are also given a starting pixel located at (sr, sc) (row and column) and a new color.
+
+Your task is to fill the entire region connected to the starting pixel with the new color. 
+A region is a group of connected pixels that have the same original color as the starting pixel. 
+You can only move in 4 directions: up, down, left, and right.
+
+You must perform this using DFS (Depth-First Search).
+
+Input Format:
+-----------------------------
+Two integers n and m — number of rows and columns.
+n lines each with m integers — representing the grid (colors of pixels).
+Three integers: sr, sc, and newColor — starting row, column, and the color to apply.
+
+Output Format:
+--------------------------
+Print the updated grid after performing flood fill.
+
+
+Sample Testcase:1
+-------------------------------
+input=4 4
+1 1 1 2
+1 1 0 2
+1 0 1 2
+0 0 0 2
+1 1 5
+Output=
+5 5 5 2
+5 5 0 2
+5 0 1 2
+0 0 0 2
+Explanation:
+----------------------
+The original color at position (1, 1) is 1.
+All connected 1s around (1, 1) should be changed to 5.
+
+You are given a 2D grid (matrix) of size m × n, where each cell contains an 
+integer value.
+Consider this grid as a graph, where:
+Each cell represents a node.
+Each node is connected to its 4-directional neighbors — up, down, left, and 
+right — if they exist within the grid boundaries.
+
+Your task is to perform a Depth First Search (DFS) traversal of this grid 
+iteratively (using a stack, not recursion), starting from the top-left cell 
+(0, 0).
+
+You need to just implement the function List<Integer> dfsIterative(int[][] grid), 
+it should return a List that has the DFS iterative traversal of the grid.
+
+Note: Reading of the input grid and display of the final result is taken care 
+at the backend.
+
+Input Format:
+-----------------------------
+Two integers m and n — number of rows and columns.
+m lines each with n integers — representing the grid.
+
+Output Format:
+--------------------------
+Print the list having Iterative DFS traversal of the grid
+
+
+Sample Testcase:1
+-------------------------------
+Input=2 3
+1 2 3
+4 5 6
+Output=[1, 2, 3, 6, 5, 4]
+
+Explanation:
+----------------------
+The Iterative DFS traversal of the grid (1->2->3->->6->5->4)
+
+Input=3 2
+1 2
+3 4
+5 6
+Output=[1, 2, 4, 3, 5, 6]
+
+You are given an m x n matrix board containing letters 'X' and 'O', capture 
+regions that are surrounded:
+
+Connect: A cell is connected to adjacent cells horizontally or vertically.
+Region: To form a region connect every 'O' cell.
+Surround: The region is surrounded with 'X' cells if you can connect the region
+with 'X' cells and none of the region cells are on the edge of the board.
+To capture a surrounded region, replace all 'O's with 'X's in-place within the 
+original board. You do not need to return anything.
+
+You need to just implement the function solve(char[][] board), the function 
+should replace all 'O's with 'X's in-place within the original board.
+
+Note: Reading of the input matrix board and display of the final result is 
+taken care at the backend.
+
+Input Format:
+-----------------------------
+Two integers m and n — number of rows and columns.
+m rows each with n character — representing the matrix board.
+
+Output Format:
+--------------------------
+Print the surrounded matrix board having replaced all 'O's with 'X's in-place 
+within the original board.
+
+
+Sample Testcase:1
+-------------------------------
+Input=4 4
+X X X X
+X O O X
+X X O X
+X O X X
+Output=[[X, X, X, X], [X, X, X, X], [X, X, X, X], [X, O, X, X]]
+
+Explanation:
+----------------------
+The surrounded matrix board having replaced all 'O's with 'X's
+X X X X
+X X X X
+X X X X
+X O X X
+
+Sample Testcase:2
+-------------------------------
+Input=1 1
+X
+Output=[[X]]
+

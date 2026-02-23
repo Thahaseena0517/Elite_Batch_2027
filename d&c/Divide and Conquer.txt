@@ -1,0 +1,340 @@
+//Divide and Conquer
+1. Quick sort. 
+2. Merge sort. 
+3. Majority Element. 
+4. Calculate pow(x,n). 
+
+
+Quick sort. 
+import java.util.*; 
+class QuickSortR  
+{ public static void swap (int[] arr, int i, int j)     
+{ 
+if(i != j) 
+{ 
+int temp = arr[i]; 
+arr[i] = arr[j]; 
+arr[j] = temp; 
+} 
+} 
+// selects last element as pivot, pi using which array is partitioned.  
+ static int partition_high(int arr[], int low, int high)    
+ {  
+          int pivot = arr[high];  
+ 
+          // smaller element index  
+          int i = low;  
+          for (int j = low; j < high; j++)  
+  {  
+              // check if current element is lesser than pivot 
+              if (arr[j] < pivot) { 
+    swap(arr, i, j); 
+    i++; 
+              }  
+          }  
+          // swap arr[i] and arr[high] (or pivot)  
+  swap(arr, i, high); 
+            return i;  
+     }     
+ 
+// selects first element as pivot, pi using which array is partitioned.  
+ static int partition_low(int arr[], int low, int high)    
+ {  
+  // First element as pivot 
+          int pivot = arr[low]; 
+          int k = high; 
+ 
+          for (int i = high; i > low; i--) { 
+              if (arr[i] > pivot) 
+   { 
+                   swap(arr, i, k); 
+    k--; 
+   } 
+          } 
+          swap(arr, low, k); 
+ 
+          // As we got pivot element index is high, now pivot element is at its sorted 
+position 
+          // return pivot element index (high) 
+          return k; 
+  } 
+// routine to sort the array partitions recursively 
+ void quick_sort(int intArray[], int low, int high)  
+ {  
+          if (low < high)  
+  {  
+              // partition the array around pi=>partitioning index and return pi 
+              int pi = partition_low(intArray, low, high);  
+    
+              // sort each partition recursively  
+              quick_sort(intArray, low, pi-1);  
+              quick_sort(intArray, pi+1, high);  
+          }  
+     }  
+ public static void main(String args[]) 
+ { 
+  // 7 
+  // 5 2 8 3 1 6 4 
+ 
+  // 6 
+  // 24 9 29 14 19 27 
+  Scanner sc=new Scanner(System.in); 
+  System.out.println("enter array size"); 
+ 
+  int n = sc.nextInt();  
+  int a[]=new int[n]; 
+ 
+  System.out.println("enter the elements of array "); 
+  for(int i=0;i<n;i++) 
+  { 
+   a[i] =sc.nextInt(); 
+  } 
+  // print the original array 
+  System.out.println ("Original Array: " + Arrays.toString(a)); 
+ 
+  // call quick_sort routine using QuickSortR object 
+  QuickSortR obj = new QuickSortR();  
+  obj.quick_sort(a, 0, n-1);  
+ 
+  // print the sorted array 
+  System.out.println("Sorted Array: " + Arrays.toString(a));  
+ }  
+} 
+Merge sort.
+Mergesort_recursive.java 
+ 
+import java.util.Scanner; 
+import java.util.*; 
+  
+public class Mergesort_recursive 
+{ 
+ public static void main(String a[]) 
+ { 
+  Scanner sc=new Scanner (System.in); 
+  System.out.println("Enter array size"); 
+  int n = sc.nextInt(); 
+ 
+  int [] list=new int[n]; 
+  System.out.println("Enter numbers "); 
+ 
+  for (int i=0 ; i<n; i++) 
+  {  
+   int  number = sc.nextInt(); 
+   list[i]=number; 
+  } 
+  System.out.println("List before  sorting: " + Arrays.toString(list));  
+  mergeSort(list,0, list.length-1); 
+  System.out.println("List after  sorting: " + Arrays.toString(list)); 
+}  
+  
+  
+public static void mergeSort(int list[],int low, int high) 
+{  
+  if (low >= high)  
+   return; 
+   
+  int middle = (low + high) / 2;   
+  mergeSort(list, low, middle); 
+  mergeSort(list, middle + 1, high); 
+  merge(list, low,middle,high); 
+ } 
+  
+ /* Function to merge the two halfs arr[l..m] and arr[m+1..r] of array arr[] */ 
+ static void merge(int arr[], int l, int m, int r) 
+ { 
+  int i, j, k; 
+  int left = m - l + 1; 
+  int right = r - m; 
+  
+  /* create temp arrays */
+
+int L[] = new int[left]; 
+  int R[] = new int[right]; 
+  
+  /* Copy data to temp arrays L[] and R[] */ 
+  for (i = 0; i < left; i++) 
+   L[i] = arr[l + i]; 
+  for (j = 0; j < right; j++) 
+   R[j] = arr[m + 1+ j]; 
+  
+  /* Merge the temp arrays back into arr[l..r]*/ 
+  i = 0; 
+  j = 0; 
+  k = l; 
+  while (i < left && j < right) 
+  { 
+   if (L[i] <= R[j]) 
+   { 
+    arr[k] = L[i]; 
+    i++; 
+   } 
+   else 
+   { 
+    arr[k] = R[j]; 
+    j++; 
+   } 
+   k++; 
+  } 
+  
+  /* Copy the remaining elements of L[], if there are any */ 
+  while (i < left) 
+  { 
+   arr[k] = L[i]; 
+   i++; 
+   k++; 
+  } 
+  
+  /* Copy the remaining elements of R[], if there are any */ 
+  while (j < right) 
+  { 
+   arr[k] = R[j]; 
+   j++; 
+   k++; 
+  } 
+   
+ } 
+}
+Majority Element.
+import java.util.*; 
+class MajorityElement  
+{ 
+private int countInRange(int[] nums, int num, int lo, int hi)  
+{ 
+} 
+int count = 0; 
+for (int i = lo; i <= hi; i++)  
+{ 
+if (nums[i] == num)  
+{ 
+count++; 
+} 
+} 
+return count; 
+private int majorityElementRec(int[] nums, int lo, int hi)  
+{ 
+// base case; the only element in an array of size 1 is the majority element. 
+if (lo == hi)  
+{ 
+} 
+return nums[lo]; 
+// recurse on left and right halves of this slice. 
+int mid = (hi+lo)/2; 
+int left = majorityElementRec(nums, lo, mid); 
+int right = majorityElementRec(nums, mid+1, hi); 
+// if the two halves agree on the majority element, return it. 
+if (left == right)  
+{ 
+} 
+return left; 
+// otherwise, count each element and return the "winner". 
+int leftCount = countInRange(nums, left, lo, hi); 
+int rightCount = countInRange(nums, right, lo, hi); 
+return leftCount > rightCount ? left : right; 
+} 
+public int majorityElement(int[] nums)  
+{ 
+return majorityElementRec(nums, 0, nums.length-1); 
+} 
+public static void main(String[] args) 
+{ 
+Scanner sc=new Scanner(System.in); 
+int n=sc.nextInt(); 
+int arr[] = new int[n]; 
+for(int i=0;i<n;i++) 
+arr[i]=sc.nextInt(); 
+int majority_ele = new MajorityElement().majorityElement(arr); 
+System.out.println(majority_ele); 
+} 
+} 
+Calculate pow(x,n).
+
+import java.util.*; 
+class Calulatepower_Recursion1 
+{ 
+ static double power(double x, int y) 
+ { 
+  double temp; 
+  if( y == 0) 
+   return 1; 
+  temp = power(x, y/2); 
+   
+  if (y%2 == 0) 
+   return temp*temp; 
+  else 
+  { 
+   if(y > 0) 
+    return x * temp * temp; 
+   else 
+    return (temp * temp) / x; 
+  } 
+ } 
+  
+ public static void main(String[] args) 
+ { 
+  Scanner sc=new Scanner(System.in);  
+System.out.println("enter x"); 
+double x = sc.nextDouble(); 
+System.out.println("enter n"); 
+int n = sc.nextInt(); 
+System.out.println("pow(" + x + ", " + n + ") = " + power(x, n)); 
+} 
+} 
+
+
+import java.util.*;
+class Solution{
+    static void generate(String s,int start,String built){
+        if(start==s.length()){
+            System.out.println(built);
+            return;
+        }
+        for(int end=s.length();end>start;end--){
+            String sub=s.substring(start,end);
+            String toprint=built+"{"+sub+"}";
+            generate(s,end,toprint);
+        }
+        
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        generate(s,0,"");
+    }
+}
+
+import java.util.*;
+class Solution{
+    static char[][] digitPair={{'1','1'},{'6','9'},{'8','8'},{'9','6'}};
+    static List<String> isStobographic(int n){
+        return helper(n,n);
+    }
+    static List<String> helper(int n,int m){
+        if(n==0){
+            return new ArrayList<String>(Arrays.asList(""));
+        }
+        if(n==1){
+            return new ArrayList<String>(Arrays.asList("0","1","8"));
+        }
+        List<String> list=helper(n-2,m);
+        List<String> res=new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            String s=list.get(i);
+            if(n!=m){
+                res.add("0"+s+"0");
+            }
+            for(char[] adigit:digitPair){
+                res.add(adigit[0]+s+adigit[1]);
+            }
+        }
+        return res;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        List<String> finals=isStobographic(n);
+        Collections.sort(finals);
+        System.out.println(finals);
+        
+    }
+    
+}

@@ -1,0 +1,240 @@
+//Recursion
+Fibonacci Series Using Recursion
+Climbing Stairs: 
+Generalization of the Problem:
+3. Reverse String 
+Happy number: 
+GCD (Greatest Common Divisor): 
+6.Strobogrammatic number II:
+
+
+Fibonacci Series Using Recursion in Java :   FibonacciCalc.java 
+public class FibonacciCalc 
+{ 
+public static int fibonacciRecursion(int n) 
+{ 
+if(n == 0) 
+{ 
+return 0; 
+} 
+if(n == 1 || n == 2) 
+{ 
+return 1; 
+} 
+return fibonacciRecursion(n-2) + fibonacciRecursion(n-1); 
+} 
+public static void main(String args[])  
+{ 
+int maxNumber = 10; 
+System.out.print("Fibonacci Series of "+maxNumber+" numbers: "); 
+for(int i = 0; i < maxNumber; i++) 
+{ 
+System.out.print(fibonacciRecursion(i) +" "); 
+} 
+}
+}
+
+
+Climbing Stairs: 
+import java.util.*; 
+class Stairs_M1 { 
+static int ClimbStairs(int n) 
+{ 
+if (n <= 2) 
+return n; 
+return  ClimbStairs(n-1) + ClimbStairs(n-2); 
+} 
+// Returns number of ways to reach s'th stair 
+static int countWays(int s) 
+{ 
+return ClimbStairs(s); 
+} 
+public static void main(String args[]) 
+{ 
+Scanner sc =new Scanner(System.in); 
+System.out.println("enter no.of stairs"); 
+int s = sc.nextInt(); 
+System.out.println("Number of ways = " + countWays(s)); 
+} 
+} 
+
+
+Generalization of the Problem:
+import java.util.*; 
+class Stairs_M2 
+{ 
+// Recursive function to count ways to reach nth stair 
+public static int countWays(int n, int m)  
+{ 
+// Base case: exactly at stair 0 
+if (n == 0) { 
+return 1; 
+} 
+// Base case: below stair 0 
+if (n < 0) { 
+return 0; 
+} 
+int totalWays = 0; 
+// Try every possible jump from 1 to m 
+for (int i = 1; i <= m; i++) { 
+totalWays += countWays(n - i, m); 
+} 
+return totalWays; 
+} 
+public static void main(String args[]) 
+{ 
+Scanner sc =new Scanner(System.in); 
+System.out.println("enter total no.of stairs"); 
+int s = sc.nextInt(); 
+System.out.println("enter possible stairs "); 
+int m = sc.nextInt(); 
+System.out.println("Number of ways = " + countWays(s, m)); 
+} }
+
+
+
+3. Reverse String 
+import java.util.*; 
+// Using Recursion 
+class ReverseString  
+{ 
+public void reverseString(char[] s, int left, int right) { 
+if (left >= right) return; 
+char tmp = s[left]; 
+s[left++] = s[right]; 
+s[right--] = tmp; 
+reverseString(s, left, right); 
+} 
+// hello world genesis kmit ngit 
+public static void main(String args[]) 
+{ 
+Scanner sc=new Scanner(System.in); 
+String[] s=sc.nextLine().split(" "); 
+for(int i = 0; i < s.length; i++) 
+{ 
+char [] data = s[i].toCharArray(); 
+new ReverseString().reverseString(data, 0, data.length - 1); 
+System.out.println(data); 
+}}}
+
+
+Happy number: 
+import java.util.Scanner; 
+class Happynumber  
+{ 
+  public static void main(String[] args)  
+  { 
+    Scanner in = new Scanner(System.in); 
+     System.out.println("Enter a number"); 
+    int num = in.nextInt(); 
+     if(isHappy(num)) 
+      System.out.println("Happy Number"); 
+    else 
+      System.out.println("Not a Happy number"); 
+  } 
+ 
+   private static boolean isHappy(int num){ 
+    if(num == 1) 
+      return true; 
+    if(num == 4) 
+      return false; 
+     //recall the function with sum value 
+    return isHappy(sumOfDigits(num)); 
+  } 
+ 
+   //Function to return sum of square of digits 
+  private static int sumOfDigits(int num){ 
+    int sum = 0; 
+    while(num>0){ 
+      sum += Math.pow(num%10, 2); 
+      num = num/10; 
+    } 
+ return sum; 
+  } 
+}
+
+GCD (Greatest Common Divisor): 
+ 
+public class GCD  
+{ 
+      public static int calculateGCD(int a, int b) 
+        { 
+            //If both the number are equal 
+           if (a == b)  
+           { 
+               return a; 
+           } 
+  
+           /* If a is equal to zero then return b */ 
+         else if (a == 0)  
+         { 
+                return b;
+        } 
+/* If b is equal to zero then return a */ 
+        else if (b == 0)  
+        { 
+                return a; 
+              }  
+        else if (a > b)  
+          { 
+                //Recursive call  
+                return calculateGCD(a % b, b); 
+           } else { 
+                //Recursive call 
+                return calculateGCD(a, b % a); 
+           } 
+     } 
+      public static void main(String[] args) 
+     { 
+        Scanner in = new Scanner(System.in); 
+        System.out.println("Enter first number"); 
+        int a= in.nextInt(); 
+        System.out.println("Enter second number"); 
+        int b= in.nextInt(); 
+        System.out.println(calculateGCD(a, b)); 
+  
+     } 
+ }
+
+6. Strobogrammatic number II:
+import java.util.*; 
+ 
+class Solution 
+{ 
+ static char[][] digitPair = { {'1', '1'}, {'8', '8'}, {'6', '9'}, {'9', '6'} };  
+ public static List<String> findStrobogrammatic(int n) { 
+  return helper(n, n); 
+ } 
+ 
+ static List<String> helper(int n, int m) { 
+  if (n == 0) return new ArrayList<String>(Arrays.asList("")); 
+  if (n == 1) return new ArrayList<String>(Arrays.asList("0", "1", "8")); 
+   
+  List<String> list = helper(n - 2, m); 
+   
+  List<String> res = new ArrayList<String>(); 
+   
+  System.out.println("list.size " + list.size()); 
+  for (int i = 0; i < list.size(); i++)  
+  { 
+   String str = list.get(i);    
+   System.out.println("n " + n + " m " + m + " str " + str); 
+ 
+   if (n != m) res.add("0" + str + "0"); 
+    
+   for (char[] aDigitPair : digitPair)  
+   { 
+    res.add(aDigitPair[0] + str + aDigitPair[1]); 
+   } 
+  }   
+  return res; 
+ } 
+ public static void main(String args[]) 
+ {
+Scanner sc=new Scanner(System.in); 
+int N=sc.nextInt(); 
+List<String> list=findStrobogrammatic(N); 
+Collections.sort(list);  
+System.out.println(list); 
+}   
+}
