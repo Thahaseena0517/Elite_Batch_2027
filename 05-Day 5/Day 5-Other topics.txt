@@ -1,3 +1,0 @@
-sql vs mongo
-circuit breaker
-half open full open

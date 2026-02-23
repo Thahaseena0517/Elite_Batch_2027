@@ -1,3 +1,0 @@
-Day 9 notes
-data consists to one answer- pure answer--cancer or not cancer.
-
