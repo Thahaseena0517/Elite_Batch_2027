@@ -1,0 +1,209 @@
+Day 31 Programs
+
+There are N sticks of various lengths, stklen[], where stklen[i] is the length of the i-th stick.
+And you need to break them into pieces of any length.
+And you will be given another integer P, number of pieces you need to make.
+You need to break the sticks to make P pieces of equal lengths.
+You can consider the unwanted piece as scrap.
+
+You can break a stick of length 6 as follows:
+ 	- 6 pieces of length-1.
+ 	- 1 piece of length-1 and 1 piece of length-2 and one piece of length-3.
+ 	- 3 pieces of length-2, etc.
+ 
+Your task is to check, can you break the sticks into P pieces of equal length,
+if possible, retrun the maximum length of the pieces possible.
+otherwise return 0.
+
+Input Format:
+---
+Line-1: Two space separated integers, N and P.
+Line-2: N space separated integers, length of the sticks.
+
+Output Format:
+---
+Print an integer result.
+
+
+Sample Input-1:
+---
+3 3
+6 8 10
+
+Sample Output-1:
+---
+6
+
+Explanation:
+---
+- Keep the stick-1 as it is.
+- Break the stick-2 into two pieces, one of length 6 and one of length 2.
+- Break the stick-3 into two pieces, one of length 6 and one of length 4.
+Finally, you have 3 pieces of length 6.
+
+
+Sample Input-2:
+---
+3 4
+6 8 10
+
+Sample Output-2:
+---
+5
+
+Explanation:
+---
+- Break the stick-1 into two pieces, one of length 5 and one of length 1.
+- Break the stick-2 into two pieces, one of length 5 and one of length 3.
+- Break the stick-3 into two pieces, one of length 5 and one of length 5.
+Finally, you have 3 pieces of length 4.
+
+
+Sample Input-3:
+---
+3 25
+6 8 10
+
+Sample Output-3:
+---
+0
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int p=sc.nextInt();
+        int[] arr=new int[n];
+        int mini=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+            mini=Math.max(mini,arr[i]);
+        }
+        System.out.println(bin(arr,1,mini,p));
+    }
+    static int bin(int[] arr,int l,int h,int p){
+        int res=0;
+        while(l<=h){
+            int mid=(l+h)/2;
+            if(check(arr,mid,p)){
+                res=mid;
+                 l=mid+1;
+            }
+            else{
+               h=mid-1;
+            }
+        }
+        return res;
+    }
+    static boolean check(int[] arr,int m,int p){
+        int count=0;
+        for(int i=0;i<arr.length;i++){
+            count+=arr[i]/m;
+        }
+        return count>=p;
+    }
+}
+
+
+A graduate at University of California (UoC) has to follow certain rules.
+
+UoC offering K subjects, the subjects are indexed from 0 to K-1.
+Some subjets have to follow the conditions, like condition[i]= [Xi, Yi],
+which specifies you must take the subject Yi before the subject Xi.2
+
+You are given total number of subjects and a list of the condition pairs.
+Return the ordering of subjects that a graduate should take to finish all subjects.
+ 	- the result set should follow the given order of conditions.
+ 	- If it is impossible to complete all subjects, return an empty set.
+
+Input Format:
+---
+Line-1: An integer K, number of subjects.
+Line-2: An integer C, number of conditions.
+Next C lines: Two space separated integers, Xi and Yi.
+
+Output Format:
+---
+Return a list of integers, the ordering of subjects that a graduate should take
+to finish all subjects
+
+
+Sample Input-1:
+---
+4
+3
+1 2
+3 0
+0 1
+
+Sample Output-1:
+---
+[2, 1, 0, 3]
+
+Explanation-1:
+---
+There are a total of 4 courses to take.
+Subject 1  should be taken after you finished subject 2.
+Subject 3  should be taken after you finished subject 0.
+Subject 0  should be taken after you finished subject 1.
+So the correct subject order is [2, 1, 0, 3].
+
+Sample Input-2:
+---
+5
+5
+0 1
+1 2
+2 3
+3 4
+4 0
+
+Sample Output-2:
+---
+[]
+
+Explanation-2:
+---
+No subject can be completed because they depend on each other.
+import java.util.*;
+ public class Sol{
+     public static void main(String[] args){
+         List<List<Integer>> li=new ArrayList<>();
+         Scanner sc=new Scanner(System.in);
+         int k=sc.nextInt();
+         int c=sc.nextInt();
+         int [] indeg=new int[k];
+         int[][] cond=new int[c][2];
+         for(int i=0;i<k;i++){
+             li.add(new ArrayList<>());
+         }
+         for(int i=0;i<c;i++){
+             cond[i][0]= sc.nextInt();
+             cond[i][1]= sc.nextInt();
+         }
+         for(int con[] : cond){
+             li.get(con[1]).add(con[0]);
+             indeg[con[0]]++;
+         }
+         List<Integer> ans = new ArrayList<>();
+         Queue<Integer> q = new LinkedList<>();
+         for(int i =0;i<indeg.length;i++){
+             if(indeg[i]==0){
+                 q.add(i);
+             }
+         }
+         while(!q.isEmpty()){
+             int a = q.poll();
+             ans.add(a);
+             for(int b : li.get(a)){
+                 indeg[b]--;
+                 if(indeg[b]==0){
+                     q.add(b);
+                 }
+             }
+         }
+         if(ans.size()==k){
+             System.out.println(ans);
+         }
+     }
+ }

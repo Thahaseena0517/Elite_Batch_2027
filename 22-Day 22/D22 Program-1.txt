@@ -1,0 +1,248 @@
+D22 Program-1
+
+A Kid built a structure using building blocks, 
+by placing the building-blocks adjacent to each other.
+
+A building-block is a vertical alignment of blocks.
+	                            ___
+here one block each represents  as |___|.
+
+The following structure made up of using building blocks
+
+                          ___
+                      ___|___|    ___
+                     |___|___|_w_|___|___              ___
+                  ___|___|___|___|___|___| w   _w_  w |___| 
+              ___|___|___|___|___|___|___|_w__|___|_w_|___|____________
+    
+               0  1   3   4   2   3    2   0   1   0   2
+
+Once the structure is completed, kid pour water(w) on it.
+
+You are given a list of integers, heights of each building-block in a row.
+ Now your task How much amount of water can be stored by the structure.
+
+ Input Format:
+ -------------
+ Space separated integers, heights of the blocks in the structure. 
+
+Output Format:
+ --------------
+ Print an integer, 
+  
+Sample Input:
+-------------
+ 0 1 3 4 2 3 2 0 1 0 2
+    
+Sample Output:
+--------------
+6
+    
+Explanation:
+------------
+In the above structure,  6 units of water (w represents the water in the structure)
+can be stored.
+
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String[] str=sc.nextLine().split(" ");
+        int[] h=new int[str.length];
+        for(int i=0;i<str.length;i++){
+            h[i]=Integer.parseInt(str[i]);
+        }
+        int[] l=new int[str.length];
+        int lmax=0,rmax=0;
+        for(int i=0;i<l.length;i++){
+            lmax=Math.max(lmax,h[i]);
+            l[i]=lmax;
+        }
+        int[] r=new int[str.length];
+        for(int i=l.length-1;i>=0;i--){
+            rmax=Math.max(rmax,h[i]);
+            r[i]=rmax;
+        }
+        int sum=0;
+        for(int i=0;i<l.length;i++){
+            int mini=Math.min(l[i],r[i]);
+            sum+=mini-h[i];
+        }
+        System.out.println(sum);
+    }
+}
+
+
+D22 Program-2
+Imagine you're the curator of an ancient manuscript archive. Each manuscript is 
+assigned a unique significance score, and the archive is arranged so that every 
+manuscript on the left has a lower score and every manuscript on the right has 
+a higher score, forming a special ordered display. Now, for an upcoming exhibition, 
+scholars have decided that only manuscripts with significance scores between 
+low and high (inclusive) are relevant. Your task is to update the archive by 
+removing any manuscripts whose scores fall outside the range [low, high]. 
+
+Importantly, while you remove some manuscripts, you must preserve the relative 
+order of the remaining ones—if a manuscript was originally displayed as a 
+descendant of another, that relationship should remain intact. It can be proven 
+that there is a unique way to update the archive.
+
+Return the main manuscript of the updated archive. Note that the main manuscript 
+(the root) may change depending on the given score boundaries.
+
+Input format:
+Line 1: space separated scores to build the manuscript archive
+Line 2: two space seperated integers, low and high.
+
+Output format:
+space separated scores of the updated archeive
+
+Example 1:
+input=
+1 0 2
+1 2
+output=
+1 2
+
+Explanation:
+Initial archieve:
+      1
+     / \
+    0   2
+
+
+Updated archieve:
+    1
+     \
+      2
+After removing manuscripts scores below 1 (i.e. 0), only the manuscript with 1
+and its right manuscript 2 remain.
+
+Example 2:
+input=
+3 0 4 2 1
+1 3
+output=
+3 2 1
+
+Explanation:
+Initial archieve:
+          3
+         / \
+        0   4
+         \
+          2
+         /
+        1
+
+Updated archieve:
+      3
+     /
+    2
+   /
+  1
+
+import java.util.*;
+class Sol{
+    static class Node{
+        int data;
+        Node left;
+        Node right;
+        Node(int data){
+            this.data=data;
+        }
+    }
+    static Node insert(Node root,int target){
+        if(root==null){
+            return new Node(target);
+        }
+        if(target<root.data){
+            root.left=insert(root.left,target);
+        }
+        else if(target>root.data){
+            root.right=insert(root.right,target);
+        }
+        return root;
+    }
+    static void levelOrder(Node root){
+        if(root==null) return;
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            Node curr=q.poll();
+            System.out.print(curr.data+" ");
+            if(curr.left!=null) q.add(curr.left);
+            if(curr.right!=null) q.add(curr.right);
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String[] str=sc.nextLine().split(" ");
+        int mini=sc.nextInt();
+        int maxi=sc.nextInt();
+        ArrayList<Integer> arr=new ArrayList<>();
+        for(int i=0;i<str.length;i++){
+            int a=Integer.parseInt(str[i]);
+            if(a>=mini && a<=maxi){
+                arr.add(a);
+            }
+        }
+        Node root=null;
+        for(int i=0;i<arr.size();i++){
+            root=insert(root,arr.get(i));
+        }
+        levelOrder(root);
+        
+    }
+}
+
+
+D22 Program-3
+
+Coach Arjun is training a cricket team and is experimenting with a new fitness 
+evaluation drill. He provided the fitness scores of N players in the team. As 
+part of the drill, he asked the team manager to keep track and perform these 
+two specific operations on the players' fitness scores:
+
+1. bestFitness(start, end) - Report the maximum fitness score among the players 
+   whose jersey numbers lie between the positions start and end inclusive.
+2. improveFitness(index, newScore) - Update the fitness score of the player at 
+   the specific index position with a new fitness score newScore.
+
+Your task is to efficiently handle these requests by using a Segment Tree data structure.
+
+Input Format:  
+-------------
+Line-1: Two integers N and Q, representing the number of players and the total 
+        number of queries respectively.
+Line-2: N space-separated integers representing the initial fitness scores of 
+        the players.
+The next Q lines: Each line contains three integers: 
+    - First integer (option) specifies the type of query:
+      - If option = 1, the next two integers (start, end) represent the range 
+        of jersey numbers (inclusive) for which to report the maximum fitness.
+      - If option = 2, the next two integers (index, newScore) represent the 
+        player's index to update and their new fitness score.
+
+Output Format:  
+--------------
+- Output an integer value for every bestFitness query, representing the maximum 
+  fitness score within the specified range.
+
+Sample Input:  
+-------------
+
+8 5
+1 2 13 4 25 16 17 28
+1 2 6        //bestFitness
+1 0 7        //bestFitness
+2 2 18       //improveFitness
+2 4 36       //improveFitness
+1 2 7        //bestFitness
+
+
+Sample Output:  
+--------------
+25
+28
+36

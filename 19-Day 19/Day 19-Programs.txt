@@ -1,0 +1,213 @@
+Day 19-Programs
+Imagine you’re decoding a secret message that outlines the hierarchical structure 
+of a covert spy network. The message is a string composed of numbers and parentheses. 
+Here’s how the code works:
+
+- The string always starts with an agent’s identification number, this is the 
+  leader of the network.
+- After the leader’s ID, there can be zero, one, or two segments enclosed in 
+  parentheses. Each segment represents the complete structure of one subordinate 
+  network.
+- If two subordinate networks are present, the one enclosed in the first (leftmost) 
+  pair of parentheses represents the left branch, and the second (rightmost) 
+  represents the right branch.
+
+Your mission is to reconstruct the entire spy network hierarchy based on this 
+coded message.
+
+Example 1:
+Input: 4(2(3)(1))(6(5))
+Output: [4, 2, 6, 3, 1, 5]
+
+Spy network:
+        4
+       / \
+      2   6
+     / \  /
+    3   1 5
+
+Explanation:
+Agent 4 is the leader.
+Agent 2 (with its own subordinates 3 and 1) is the left branch.
+Agent 6 (with subordinate 5) is the right branch.
+
+Example 2:
+Input: 4(2(3)(-1))(6(5)(7))
+Output: [4, 2, 6, 3, -1, 5, 7]
+
+Spy network:
+         4
+       /   \
+      2     6
+     / \   / \
+    3   1 5   7
+
+Explanation:
+Agent 4 leads the network.
+Agent 2 with subordinates 3 and 1 forms the left branch.
+Agent 6 with subordinates 5 and 7 forms the right branch.
+
+
+
+Mr Suresh is working with the plain text P, a list of words w[], 
+He is converting P into C [the cipher text], C is valid cipher of P, 
+if the following rules are followed:
+	- The cipher-text C is a string ends with '$' character.
+	- Every word, w[i] in w[], should be a substring of C, and 
+	the substring should have $ at the end of it.
+
+Your task is to help Mr Suresh to find the shortest Cipher C,  
+and return its length.
+
+Input Format:
+-------------
+Single line of space separated words, w[].
+
+Output Format:
+--------------
+Print an integer result, the length of the shortest cipher.
+
+
+Sample Input-1:
+---------------
+kmit it ngit
+
+Sample Output-1:
+----------------
+10
+
+Explanation:
+------------
+A valid cipher C is "kmit$ngit$".
+w[0] = "kmit", the substring of C, and the '$' is the end character after "kmit"
+w[1] = "it", the substring of C, and the '$' is the end character after "it"
+w[2] = "ngit", the substring of C, and the '$' is the end character after "ngit"
+
+
+Sample Input-2:
+---------------
+ace
+
+Sample Output-2:
+----------------
+4
+
+Explanation:
+------------
+A valid cipher C is "ace$".
+w[0] = "ace", the substring of C, and the '$' is the end character after "ace"
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+         Scanner sc=new Scanner(System.in);
+         String[] str=sc.nextLine().split(" ");
+         ArrayList<String> arr=new ArrayList<>();
+         for(int i=0;i<str.length;i++){
+             arr.add(str[i]);
+         }
+         Arrays.sort(str,(a,b)-> a.length()-b.length());
+         System.out.println(Arrays.toString(str));
+        //  StringBuilder sb=new StringBuilder();
+         for(int i=0;i<str.length-1;i++){
+             int c=0;
+             for(int j=i+1;j<str.length;j++){
+                 if(arr.get(j).endsWith(arr.get(i)))
+                 {   arr.remove(arr.get(i));
+                     break;
+                 }
+             }
+         }
+         int size=0;
+         for(int i=0;i<arr.size();i++){
+             size+=arr.get(i).length();
+         }
+         System.out.println(size+arr.size());
+    }
+   
+}
+
+
+Write a program that takes an IP address and subnet mask (in CIDR notation, 
+e.g., 192.168.1.1/24) as input and calculates the subnet mask in dotted decimal 
+format.
+
+Input Format:
+-------------
+An integer, CIDR
+
+Output Format:
+--------------
+String, Subnet's IP Address
+
+
+Sample Input-1:
+---------------
+25
+
+Sample Output-1:
+----------------
+255.255.255.128
+
+
+Sample Input-2:
+---------------
+22
+
+Sample Output-2:
+----------------
+255.255.252.0
+
+
+
+
+import java.util.*;
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data=data;
+    }
+}
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String str=sc.next();
+        ArrayList<Integer> l=new ArrayList<>();
+        ArrayList<Integer> r=new ArrayList<>();
+        Stack<Character> s=new Stack<>();
+        // int a=str.charAt(0)-'0';
+        // Node root=new Node(a);
+        s.push('(');
+        int c=0;
+        for(int i=2;i<str.length();i++){
+            if(c==0 && Character.isDigit(str.charAt(i))){
+                l.add(str.charAt(i)-'0');
+            }
+            if(c==1 && Character.isDigit(str.charAt(i))){
+                r.add(str.charAt(i)-'0');
+            }
+            if(str.charAt(i)=='('){
+                s.push('(');
+            }
+            else if(str.charAt(i)==')'){
+                s.pop();
+            }
+            if(s.isEmpty()){
+                c=1;
+            }
+        }
+        System.out.println(l);
+        System.out.println(r);
+        ArrayList<Integer> levelOrder=new ArrayList<>();
+        levelOrder.add(str.charAt(0)-'0');
+        int index=0,size=1;
+        while(index<l.size() && index<r.size()){
+            for(int i=0;i<size && index+i<l.size() && index+i<r.size();i++){
+                System.out.print(l.get(index+i)+" "+r.get(index+i));
+            }
+            index+=size;
+            size*=2;
+        }
+    }
+}

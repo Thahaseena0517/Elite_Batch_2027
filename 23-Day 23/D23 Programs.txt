@@ -1,0 +1,313 @@
+D23 Programs
+
+Tejaswi playing a game. Game has a display of N numbers in a row, nums[].
+Tejaswi has to pick the numbers one after the other.
+
+Once Tejaswi picks a number num[i], she will score num[i] points and 
+the number will be disappared on the board, simultaneously all the numbers 
+having the value num[i]+1 or num[i]-1 also disappears. 
+
+Tejaswi has to select the numbers, such that no more numbers will be left over 
+on the board.
+
+Tejaswi wants to score maximum number of points.
+
+Initially Tejaswi has 0 points with her.
+Can you help Tejaswi to score maximum number of points.
+
+Input Format:
+-------------
+Line-1 -> an integers N, number of numbers on the game board.
+Line-2 -> N space separated integers, numbers on the game board nums[].
+
+Output Format:
+--------------
+Print an integer as result, maximum score she can get.
+
+
+Sample Input-1:
+---------------
+3
+4 5 3
+
+Sample Output-1:
+----------------
+8
+
+Explanation: 
+------------
+Pick a number 5 to score 5 points, simultaneously 4 is disappeared from display.
+Then, pick number 3 to score 3 points.
+Totally 8 is the score.
+
+
+Sample Input-2:
+---------------
+6
+4 4 5 5 5 6
+
+Sample Output-2:
+----------------
+15
+
+Explanation: 
+-------------
+Delete 5 to earn 5 points, deleting both 4's and the 6.
+Then, delete 5 again to earn 5 points, and 5 again to earn 5 points.
+Totally 15 is the score.
+
+Pick a number 5 to score 5 points, simultaneously all 4's and 6 are disappeared 
+from display. Then, again pick the number 5 to score 5 points.
+And again pick the number 5 to score 5 points. Totally 15 is the score.
+
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        int maxi=0;
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+            maxi=Math.max(maxi,arr[i]);
+        }
+        if(maxi==0){
+            System.out.println(0);
+        }
+        else if(maxi==1){
+            System.out.println(arr[1]);
+        }
+        int[] same=new int[max+1];
+        for(int num: arr){
+            same[num]+=num;
+        }
+        for(int i=2;i<max+1;i++){
+            same[i]=Math.max(same[i]+same[i-1],same[i+1]);
+        }
+        System.out.println(Math.max(same[max],same[max-1]));
+    }
+}
+
+
+D23 Program-2
+There are some pages in a website, each page links with atmost two other pages.
+Each page displays a number on it. The complete website is given as binary tree 
+using the level order insertion technique.
+
+You need to return the number of pages where the number in the page is equal to 
+the sum of the numbers of its descendants. A descendant refers to any page that 
+is linked but lower down the tree stucture of the website, no matter how many 
+levels lower.
+
+Input Format:
+-------------
+Single line of space separated integers, numbers displayed in web-pages as Tree.
+
+Output Format:
+--------------
+Print an integer result.
+
+
+Sample Input-1:
+---------------
+11 3 5 2 1
+
+Sample Output-1:
+----------------
+2
+
+
+Sample Input-2:
+---------------
+3 2 1 0 0
+
+Sample Output-2:
+----------------
+3
+
+Explanation:
+------------
+For the pages diplaying the number 0: The sum of descendants is 0,
+since they have no descendant pages.
+import java.util.*;
+class Sol{
+    static class Node{
+        int val;
+        Node left;
+        Node right;
+        Node(int val){
+            this.val=val;
+        }
+    }
+     static int count=0;
+    static Node build(int[] arr){
+        if(arr.length==0 || arr[0]==-1) return null;
+        Queue<Node> q=new LinkedList<>();
+        Node root=new Node(arr[0]);
+        q.add(root);
+        int i=1;
+        while(!q.isEmpty() && i<arr.length){
+            Node curr=q.poll();
+            if(i<arr.length && arr[i]!=-1){
+                curr.left=new Node(arr[i]);
+                q.add(curr.left);
+            }i++;
+            if(i<arr.length && arr[i]!=-1){
+                curr.right=new Node(arr[i]);
+                q.add(curr.right);
+            }i++;
+        }
+        return root;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String[] str=sc.nextLine().split(" ");
+        int[] arr=new int[str.length];
+        for(int i=0;i<arr.length;i++){
+            arr[i]=Integer.parseInt(str[i]);
+        }
+        Node root=build(arr);
+        check(root);
+        System.out.println(count);
+    }
+   
+    static int check(Node root){
+        if(root==null) return 0;
+        int left=check(root.left);
+        int right=check(root.right);
+        if(root.val==left+right) count++;
+        return root.val+left+right;
+    }
+}
+
+
+D23 Program-3
+A concert organizer has n stage lights, each with a certain brightness level.
+The lights must be placed in a circular arrangement around the stage.
+
+To ensure visual comfort, the organizer wants to minimize the maximum brightness 
+difference between any two adjacent lights.
+
+You are given an array brightness[] of size n, representing the brightness levels.
+
+Your task is to determine the minimum possible value of the maximum absolute 
+difference between adjacent lights in the circular arrangement.
+
+📥 Input Format
+---------------
+First line contains integer n
+Next line n space seperated integers, brightness values
+
+📤 Output Format
+----------------
+Print a single integer representing the smallest possible maximum adjacent difference.
+
+🔒 Constraints
+--------------
+2 ≤ n ≤ 10^5
+1 ≤ brightness[i] ≤ 10^9
+
+
+Sample Input-1
+--------------
+5
+1 2 3 4 5
+
+Sample Output-1
+---------------
+2
+
+Explanation
+-----------
+Optimal circular arrangement: 1 3 5 4 2
+Maximum adjacent difference = 2
+
+
+Sample Input-2
+---------------
+6
+10 3 7 12 5 9
+3 5 7 9 10 12
+Sample Output-2
+---------------
+4
+
+Explanation
+-----------
+Best circular order: 3 7 10 12 9 5
+Maximum adjacent difference = 4
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+         Scanner sc=new Scanner(System.in);
+         int n=sc.nextInt();
+         int[] arr=new int[n];
+         for(int i=0;i<n;i++){
+             arr[i]=sc.nextInt();
+         }
+         ArrayList<Integer> li=new ArrayList<>();
+         Arrays.sort(arr);
+         for(int i=0;i<n;i++){
+             if(i%2==0) li.add(arr[i]);
+         }
+         if(arr.length%2==0){
+             for(int j=arr.length-1;j>=1;j=j-2){
+                 if(j%2!=0) li.add(arr[j]);
+             }
+         }
+         else{
+             for(int j=arr.length-2;j>=1;j--){
+             if(j%2!=0) li.add(arr[j]);
+             }
+         }
+         int maxi=Integer.MIN_VALUE;
+         for(int i=0;i<n-1;i++){
+             maxi=Math.max(maxi,Math.abs(li.get(i+1)-li.get(i)));
+         }
+         System.out.println(maxi);
+         
+    }
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

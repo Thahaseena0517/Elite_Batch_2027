@@ -1,0 +1,247 @@
+Day 18 programs
+
+You are a gardener designing a beautiful floral pathway in a vast botanical garden. 
+The garden is currently overgrown with plants, trees, and bushes arranged in a 
+complex branching structure, much like a tree. Your task is to carefully prune 
+and rearrange the plants to form a single-file walking path that visitors can 
+follow effortlessly.
+
+To accomplish this, you must flatten the garden’s layout into a linear sequence 
+while following these rules:
+    1. The garden path should maintain the same PlantNode structure, where the 
+       right branch connects to the next plant in the sequence, and the left branch 
+       is always trimmed (set to null).
+       
+    2. The plants in the final garden path should follow the same arrangement 
+       as a pre-order traversal of the original garden layout. 
+
+Example 1:
+Input:
+1 2 5 3 4 -1 6
+
+Output:
+1 2 3 4 5 6
+
+Explanation:
+input structure:
+       1
+      / \
+     2   5
+    / \    \
+   3   4    6
+   
+output structure:
+	1
+	 \
+	  2
+	   \
+		3
+		 \
+		  4
+		   \
+			5
+			 \
+			  6
+			  
+
+
+import java.util.*;
+class Node{
+    int val;
+    Node left,right;
+    public Node(int val){
+        this.val=val;
+        left=right=null;
+    }
+}
+class Sol{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        String[] s=sc.nextLine().split(" ");
+        int[] arr=new int[s.length];
+        for(int i=0;i<s.length;i++){
+            arr[i]=Integer.parseInt(s[i]);
+        }
+        Node root=build(arr);
+        modify(root);
+        print(root);
+    }
+    public static void modify(Node root){
+        if(root==null) return;
+        
+        modify(root.left);
+        modify(root.right);
+        
+        if(root.left!=null){
+            Node tempRight=root.right;
+            root.right=root.left;
+            root.left=null;
+            
+            Node curr=root.right;
+            while(curr.right!=null){
+                curr=curr.right;
+            }
+            curr.right=tempRight;
+        }
+    }
+    
+    
+    public static void print(Node root){
+        while(root!=null){
+            System.out.print(root.val+" ");
+            root=root.right;
+        }
+    }
+    
+    public static Node build(int[] arr){
+        Node root=new Node(arr[0]);
+        int i=1;
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        while(i<arr.length && !q.isEmpty()){
+            Node p=q.poll();
+            if(arr[i]!=-1){
+                p.left=new Node(arr[i]);
+                q.add(p.left);
+            }
+            i++;
+            if(i<arr.length&& arr[i]!=-1){
+                p.right=new Node(arr[i]);
+                q.add(p.right);
+            }
+            i++;
+        }
+        return root;
+    }
+}
+
+Imagine you're a digital security analyst reviewing a suspicious email. The email’s 
+content is a continuous string of characters, and you have a list of keywords 
+commonly used in phishing scams. Your mission is to scan the email text and flag 
+every segment that exactly matches one of these keywords. In other words, identify 
+all index pairs [i, j] such that the substring from position i to j in the email 
+text is one of the suspicious keywords. Return these pairs sorted by their starting 
+index, and if two pairs share the same starting index, sort them by their ending index.
+
+Input Format
+------------
+Line-1: string STR(without any space)
+Line-2: space separated strings, suspicious keywords[]
+
+Output Format
+-------------
+Print the pairs[i, j] in sorted order.
+
+
+Example 1:
+----------
+Input:  
+cybersecuritybreachalert
+breach alert cyber
+
+Output: 
+0 4
+13 18
+19 23
+
+Example 2:
+----------
+Input:  
+phishphishingphish
+phish phishing
+
+Output:
+0 4
+5 9
+5 12
+13 17
+
+
+Explanation: Notice that keywords can overlap—for instance, the word "phish" appears 
+as part of the substring [5,9] in addition to the complete "phishing" substring [5,12].
+
+Constraints:
+
+- 1 <= emailText.length <= 100  
+- 1 <= suspiciousWords.length <= 20  
+- 1 <= suspiciousWords[i].length <= 50  
+- emailText and each suspicious word consist of lowercase English letters.  
+- All suspicious words are unique.
+
+
+//using tries u need to do
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String str=sc.nextLine();
+        String[] word=sc.nextLine().split(" ");
+        Map<Integer,List<Integer>> map=new TreeMap<>();
+        for(int i=0;i<word.length;i++){
+            for(int j=0;j<=str.length()-word[i].length();j++){
+                if(str.substring(j,j+word[i].length()).equals(word[i])){
+                    int start=j;
+                    map.computeIfAbsent(start,k->new ArrayList<>());
+                    int end=j+word[i].length()-1;
+                 
+                    map.get(start).add(end);
+                    // System.out.println(start+" "+end);
+                }
+            }
+        }
+        for(int key: map.keySet()){
+            List<Integer> values=map.get(key);
+            Collections.sort(values);
+            for(int val: values){
+                System.out.println(key+" "+val);
+            }
+        }
+        
+    }
+}
+
+
+
+//gpt code
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        String text = sc.nextLine();
+        String[] words = sc.nextLine().split(" ");
+
+        List<int[]> result = new ArrayList<>();
+
+        // Check from every index
+        for (int i = 0; i < text.length(); i++) {
+
+            for (String w : words) {
+
+                int len = w.length();
+
+                // ensure substring possible
+                if (i + len <= text.length()) {
+
+                    // manual comparison
+                    if (text.substring(i, i + len).equals(w)) {
+                        result.add(new int[]{i, i + len - 1});
+                    }
+                }
+            }
+        }
+
+        // sort pairs
+        Collections.sort(result, (a, b) -> {
+            if (a[0] == b[0])
+                return a[1] - b[1];
+            return a[0] - b[0];
+        });
+
+        // print
+        for (int[] p : result) {
+            System.out.println(p[0] + " " + p[1]);
+        }
+    }
+}
