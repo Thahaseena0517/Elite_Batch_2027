@@ -1,0 +1,241 @@
+You are given an unsorted array of integers. 
+Your task is to implement the QuickSort algorithm to sort the array in ascending order.
+
+QuickSort is a divide-and-conquer algorithm that:
+	Picks an element as a pivot and partitions the given array around the pivot.
+	Recursively applies the same process to the subarrays on the left and right of the pivot.
+	You need to implement QuickSort using the Lomuto partition scheme (where the pivot is chosen as the last element of the array).
+
+Input Format:
+-------------
+Line-1: An integer n (the size of the array).
+Line-2: n space-separated integers representing the elements of the array.
+
+Output Format:
+---------------
+Line-1: Output the sorted array in a single line, with each element separated by a space.
+
+Constraints:
+------------
+1 ≤ n ≤ 10^5
+-10^9 ≤ arr[i] ≤ 10^9
+
+
+Sample Input-1:
+---------------
+6
+10 7 8 9 1 5
+
+Sample Output-1:
+----------------
+1 5 7 8 9 10
+
+
+Sample Input-2:
+---------------
+5
+3 2 1 5 4
+
+Sample Output-2:
+----------------
+1 2 3 4 5
+
+import java.util.*;
+
+class QuickSort {
+
+    public void quickSort(int[] arr, int low, int high) {
+        if (low < high) {  
+            int pi = partition_low(arr, low, high);
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+    static void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+
+    static int partition_low(int[] arr, int low, int high) {
+        int pivot = arr[low];
+        int pi = high;
+        for (int j = high; j > low; j--) {
+            if (arr[j] > pivot) {
+                swap(arr, j, pi);
+                pi--;
+            }
+        }
+        swap(arr, low, pi);
+        return pi;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        QuickSort sorter = new QuickSort();
+        
+        sorter.quickSort(arr, 0, n - 1);
+        
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+
+Mr.Sathya is solving a puzzle, the problem is given a sorted array which contains 
+only 0s and 1s. 
+
+He has to find total number of 1s in the given list, Help him in writing a program 
+to do this task in an efficient way.
+
+Input Format:
+-------------
+Line-1: An integer number, n
+Line-2: n spaced integers (contains 0s and 1s only in a sorted order)
+
+Output Format:
+--------------
+Line-1: An integer
+
+Sample Input-1
+---------------
+5
+0 0 1 1 1
+
+Sample Output-1:
+----------------
+3
+
+Sample Input-2
+---------------
+10
+1 1 1 1 1 1 1 1 1 1
+
+Sample Output-2:
+----------------
+10
+import java.util.*;
+
+class Solution {
+    static int quick(int[] arr,int n){
+        if(arr[n - 1]==0){
+            return 0;
+        }
+        if (arr[0]==1) {
+            return n;
+            
+        }
+        return partition_high(arr,0,n - 1); 
+    }
+    static int partition_high(int[] arr,int low,int high){
+        int pivot=arr[high];
+        int pi=low-1;
+        for(int j=low;j<high;j++) {
+            if(arr[j]<=pivot){
+                pi++;
+                swap(arr,pi,j);
+            }
+        }
+        swap(arr,pi+1,high);
+        return pi+1;
+    }
+    static void swap(int[] arr, int i, int j) {
+        if (i != j) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int pivotIndex=quick(arr, n);
+        System.out.println(pivotIndex);
+    }
+}
+
+During the annual school fest, a unique selection process is used to choose a student representative. 
+All students stand in a circle and are assigned consecutive roll numbers from 1 to n.
+
+Starting from the student with roll number 1, every k-th student in the circle is asked to step out 
+of the selection process. 
+The counting continues around the circle (wrapping around to the beginning as needed), 
+and each time a student leaves, the next count resumes from the immediate next student in the circle. 
+This elimination continues until only one student remains.
+
+Your task is to determine the roll number of the student who will be the last standing after 
+all rounds of elimination.
+
+Input Format:
+-------------
+Line 1: An integer n — the total number of students (with roll numbers from 1 to n).
+Line 2: An integer k — every k-th student is eliminated in each round.
+
+Output Format:
+--------------
+Line 1: A single integer indicating the roll number of the last remaining student.
+
+Constraints:
+------------
+-> 1 ≤ n ≤ 500
+-> 1 ≤ k ≤ n
+
+Sample Input-1:
+---------------
+5
+2
+
+Sample Output-1:
+----------------
+3
+
+Explanation: (Refer Hint)
+-------------------------
+Here are the steps of the game:
+1) Start at student 1.
+2) Count 2 students clockwise, which are students 1 and 2.
+3) student 2 leaves the circle. Next start is student 3.
+4) Count 2 students clockwise, which are students 3 and 4.
+5) student 4 leaves the circle. Next start is student 5.
+6) Count 2 students clockwise, which are students 5 and 1.
+7) student 1 leaves the circle. Next start is student 3.
+8) Count 2 students clockwise, which are students 3 and 5.
+9) student 5 leaves the circle. Only student 3 is left, so they are the winner.
+
+Sample Input-2:
+---------------
+6
+5
+
+Sample Output-2:
+----------------
+1
+
+Explanation:
+------------
+Students have roll numbers from 1 to 6. 
+Every 5th student is eliminated in a cycle: 5, 4, 6, 2, 3. 
+The last remaining is student 1.
+
+Note:
+-----
+You should design an efficient recursive or iterative solution to handle the largest input values.
+
+SEE Hint

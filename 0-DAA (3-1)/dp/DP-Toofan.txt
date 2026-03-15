@@ -1,0 +1,749 @@
+DP-Toofan
+
+U4_DAA_DP_SP43_Matrix_Chain_Multiplication
+U4_DAA_DP_SP42_Number_of_Corner_Rectangles
+U4_DAA_DP_AP47_House_Robber
+U4_DAA_DP_SP41_Maximum_Sub_Array
+U4_DAA_DP_SP40_MinCost_Climbing_Stairs
+U4_DAA_DP_SP39_Climbing_Stairs
+U4_DAA_DP_AP48_JumpGame
+U3_DAA_Trees_AP48_Min_Moves
+U4_DAA_DP_AP53_Paint_Fence
+U4_DAA_DP_AP52_Max_Profit
+U4_DAA_DP_AP51_Decode_Ways
+U4_DAA_DP_SP46_Zero_One_Knapsack
+U4_DAA_DP_SP45_All_Pairs_Shortest_Path
+U4_DAA_DP_SP44_OBST
+
+
+U4_DAA_DP_SP43_Matrix_Chain_Multiplication
+Your are given the sizes of N-1 matrices as a list[] of size N, 
+where the matrix are numbered from 0 to N-2 and the matrix size is 
+defined as matrix-i size is list[i]*list[i+1].
+
+Matrix multiplication follows associative rule. If you want to multiply 4 matrices, A,B,C and D.
+You can perform multiplication in the following ways, ABCD, AB(CD), A(BC)D, ((AB)C)D, (AB)(CD)..etc.
+To multiply two matrices of size m*n, n*p, you require m*n*p number of multiplications.
+
+Your task is to return the minimum number of multiplications needed to multiply the N-1 matrices.
+
+Input Format:
+------------------
+Line-1: An integer N
+Line-2: N space separated integers, the list[]
+
+Output Format:
+--------------------
+Print an integer, minimum multiplications needed.
+
+
+Sample Input-1:
+--------------------
+4
+10 30 5 60
+
+Sample Output-1:
+----------------------
+4500
+
+Explanation:
+-----------------
+posibilities are:
+(AB)C => (10×30×5) + (10×5×60) => 1500 + 3000 = 4500 multiplications
+A(BC) => (30×5×60) + (10×30×60) => 9000 + 18000 = 27000 multiplications
+
+
+Sample Input-2:
+--------------------
+5
+12 5 18 7 19
+
+Sample Output-2:
+----------------------
+2435
+
+Explanation:
+-----------------
+The best way is: A((BC)D) => (12*5*19) + (5*18*7) + (5*7*19)
+=> 1140 + 630 + 665 = 2435 multiplications
+
+
+
+U4_DAA_DP_SP42_Number_of_Corner_Rectangles
+JVS Infra Pvt Ltd purchased a flatland of size M*N, and it is divided 
+into 1*1 cells. They mave marked some cells with red colors indicated 
+with 1 and other cells with blue color indicated with 0.
+
+They want to build the walls in the form of rectangles by connecting four distinct 
+red colored cells on the flatland that forms an axis-aligned rectangle.
+And only the corners of the walls need to be red colored.
+
+Your task is to help, JVS Infra to count the number of rectangular walls
+can be built by connecting the red colored cells on the flatland.
+
+Input Format:
+-------------
+Line-1: Two space separated integers, M and N
+Next M lines: N space separated integers, either 0 or 1 only.
+
+Output Format:
+--------------
+Print an integer result.
+
+
+Sample Input-1:
+---------------
+3 4
+1 0 1 0
+1 1 1 1
+0 1 1 1
+
+Sample Output-1:
+----------------
+4
+
+Explanation:
+-----------
+Given flatland is:
+1 0 1 0
+1 1 1 1
+0 1 1 1
+Number of rectangular walls are: 4
+rectangle-1: by connecting 1's at (0, 0), (1, 0), (0, 2), (1, 2)
+rectangle-2: by connecting 1's at (1, 1), (1, 2), (2, 1), (2, 2)
+rectangle-3: by connecting 1's at (1, 1), (1, 3), (2, 1), (2, 3)
+rectangle-4: by connecting 1's at (1, 2), (2, 2), (1, 3), (2, 3)
+
+
+Sample Input-2:
+---------------
+4 5
+1 0 1 0 1
+0 0 0 1 0
+0 1 1 0 1
+1 0 1 0 0
+
+Sample Output-2:
+----------------
+2
+
+
+
+U4_DAA_DP_AP47_House_Robber
+A group of houses is arranged in a street, and each house has a certain amount of money stashed inside. 
+A robber wants to steal the maximum amount of money possible. 
+However, there is a catch: 
+"the robber cannot rob two adjacent houses as it will alert the police."
+
+You are tasked to calculate the maximum amount of money the robber can steal without alerting the police.
+
+Input Format:
+-------------
+Line-1: An integer n, representing the number of houses in the street.
+Line-2: n space-separated integers, representing the money stashed in each house.
+  
+Output Format:
+--------------
+Line-1: An integer, Print the maximum amount of money the robber can steal without alerting the police.
+
+
+Sample Input-1:
+---------------
+5
+100 50 400 200 100
+  
+Sample Output-1:
+----------------
+600
+
+Explanation:
+------------
+The robber will steal 100, 400 and 100 from the houses.
+Refer Hint for more.
+   
+Sample Input-2:
+---------------
+5
+5 3 4 11 2 
+  
+Sample Output-2:
+----------------
+16
+
+Explanation:
+------------
+Thief will steal 5 and 11 from the houses.
+
+
+U4_DAA_DP_SP41_Maximum_Sub_Array
+You are playing a game. There are N boxes placed in a row (0-indexed), 
+every box has some points. 
+
+You need to play the game with the following rules:
+    - Initially your score is  '0' points.
+	- Suppose the box has P points in it.
+	  if p>0 you will gain P points, if p<0 you will loose P points.
+	- You are allowed to choose any number of consecutive boxes, atleast 1 box.
+   	
+You are given the points in the N boxes as points[]. 
+Your target is to maximize your score, and return the highest score possible. 
+ 
+Input Format:
+-------------
+Line-1: An integer N.
+Line-2: N space separated integers, points[].
+  
+Output Format:
+--------------
+An integer, print the highest score.
+    
+Sample Input-1:
+---------------
+9
+-3 1 -2 4 -2 2 3 -5 4
+ 
+Sample Output-1:
+----------------
+7
+   
+Explanation:
+------------
+By selecting consecutive boxes are [4,-2,2,3] has the highest score is 7
+   
+ 
+Sample Input-2:
+---------------
+2
+1 -2
+  
+Sample Output-2:
+----------------
+1
+
+Explanation:
+------------
+By picking the box is [1] has the highest score is 1.
+
+
+U4_DAA_DP_SP40_MinCost_Climbing_Stairs
+Pavan is playing a game where there are N levels and each level has some points in it. 
+level[i] is the points to spend on ith level(0-indexed) to move forward. 
+Inorder to win the game he has to reach the top level.
+
+The rule book explains "In one step you have to spend the points given on the 
+present level and you can either cross one level or two levels forward".
+
+Return the minimum number of points to spend to win the game.
+
+Note:You are allowed to start at either level-0 or level-1.
+
+Constraints:
+-------------
+-> 2 <= N <=1000
+-> 0 <= level[i] <= 999
+
+Input Format:
+-------------
+Line-1: An integer N, representing the number of levels.
+Line-2: N space-separated integers, representing the points required for each level.
+  
+Output Format:
+--------------
+Line-1: Print an integer, representing the minimum number of points needed to win the game.
+
+
+Sample Input-1:
+---------------
+3
+20 30 40
+  
+Sample Output-1:
+----------------
+30
+
+Explanation:
+------------
+Pavan can start at index-1 by spending points 30 and he can win.
+   
+Sample Input-2:
+---------------
+7
+2 3 50 2 2 50 2 
+  
+Sample Output-2:
+----------------
+9
+
+Explanation:
+------------
+Start at index-1:
+  -Spend 3 points and reach to index-3
+  -Spend 2 points and reach to index-4
+  -Spend 2 points and reach to index-6
+  -Spend 2 points and he wins.
+
+
+U4_DAA_DP_SP39_Climbing_Stairs
+Sharath is playing a game where he has to cross N levels to win. 
+
+The rules of the game allow Sharath to take one of the following steps:
+    -Jump 1 level in one step.
+    -Jump 2 levels in one step.
+    
+Your task is to determine the number of distinct ways Sharath can reach the Nth level.
+
+Constraints:
+-------------
+1 <= N <= 45
+
+Input Format:
+-------------
+Line-1: An Integer N represents number of levels.
+  
+Output Format:
+--------------
+Print an integer.
+
+
+Sample Input-1:
+---------------
+2
+  
+Sample Output-1:
+----------------
+2
+
+Explanation:
+------------
+1. 1-level+ 1-level =2
+2. 2 levels in one step.
+   
+Sample Input-2:
+---------------
+4
+  
+Sample Output-2:
+----------------
+5
+
+Explanation:
+------------
+1. 1-level + 1-level + 1-level + 1-level = 4
+2. 1-level + 1-level + 2-levels = 4
+3. 1-level + 2-levels + 1-level = 4
+4. 2-levels + 1-level + 1-level = 4
+5. 2-levels + 2-levels  = 4
+
+
+U4_DAA_DP_AP48_JumpGame
+You are participating in a futuristic space exploration mission where you must navigate through a series
+of planets aligned in a straight line.
+The planets are numbered from 0 to n-1, and you start your journey on planet 0.
+
+You are given a 0-indexed array planets, where each element planets[i] represents the maximum 
+number of planets you can move forward from planet i. In simpler terms, standing on planet i, 
+you can move to any planet from i+1 to i+planets[i], as long as you don't exceed the last planet.
+
+Your goal is to reach the final planet (planet n-1) in the fewest number of moves possible.
+
+It is guaranteed that a path to the final planet always exists.
+
+Return the minimum number of moves needed to reach planet n-1.
+
+Sample Input-1:
+---------------
+2 3 1 0 4
+
+Sample Output-1:
+---------------
+2
+
+Explanation:
+- Move from planet 0 to planet 1.
+- Move from planet 1 to planet 4 (last planet).
+
+Sample Input-2:
+---------------
+2 2 2 2 2 2
+
+Sample Output-2:
+---------------
+3
+
+
+
+U3_DAA_Trees_AP48_Min_Moves
+
+Mr. Vasu is a network admin. To balance load, he wants each switch to end up with exactly one connection. The network forms a binary tree (each switch = a node; edges connect parent/child).
+-> Each node holds an integer val — the number of connections currently on that switch.
+-> In one move, you may transfer exactly one connection along a single edge between a node and its parent or child (i.e., across one parent–child link).
+-> Return the minimum number of moves required so that every node has exactly one connection.
+
+Input Format:
+--------------
+A single line of space-separated integers, representing node values in level-order (filled left-to-right; no nulls).
+
+Output Format:
+-------------
+A single integer: the minimum number of moves.
+
+Constraints:
+------------
+* Let n be the number of nodes (i.e., number of integers in input).
+* 1 ≤ n ≤ 100
+* 0 ≤ Node.val ≤ n
+* Sum of all Node.val = n (so it is always possible to end with 1 connection per node)
+
+Sample Input-1:
+---------------
+3 0 0
+
+Sample Output-1:
+----------------
+2
+
+Explanation: Move one connection from root to left (1 move) and one to right (1 move).
+
+Sample Input-2:
+---------------
+0 3 0
+
+Sample Output-2:
+----------------
+3
+
+Explanation: Move 2 connections from left child to root (2 moves), then 1 from root to right (1 move) → total 3.
+
+
+
+U4_DAA_DP_AP53_Paint_Fence
+You are organizing a grand parade where 'N' marching bands will move in a straight line. 
+Each band must wear uniforms of exactly one color chosen from 'K' available colors. 
+To keep the parade visually appealing and avoid monotony, you must follow this important guideline:
+
+- No more than 'two consecutive bands' can wear 'uniforms of the same color'.
+
+Given the total number of bands N and the number of uniform color choices K, 
+determine the total number of valid ways you can assign uniform colors to all 
+bands so that the above rule is not violated.
+
+Input Format:
+-------------
+Two integers N and K.
+
+Output Format:
+--------------
+Print an integer, Number of ways.
+
+Sample Input-1:  
+---------------
+3 2
+
+Sample Output-1:
+----------------
+6  
+
+Explanation:
+------------
+Bands	band-1	band-2	band-3
+----- 	----- 	----- 	-----
+1		c1 		c1		c2
+2		c1 		c2 		c1
+3		c1 		c2 		c2
+4		c2 		c1 		c1
+5		c2 		c1 		c2
+6		c2 		c2 		c1
+
+Sample Input-2:  
+--------------- 
+1 1
+
+Sample Output-2:
+---------------- 
+1
+
+
+Constraints:  
+- 1 <= n <= 50  
+- 1 <= k <= 10^5 
+- The result will always be within the range of a 32-bit signed integer.
+
+
+U4_DAA_DP_AP52_Max_Profit
+Given a list containing future price predictions of two different stocks for 
+the next n days,
+find the maximum profit earned by selling the stocks with a constraint that 
+the second stock can be sold,
+only if no transaction happened on the previous day for any of the stock.
+
+Assume that the given prices are relative to the buying price. 
+Each day, we can either sell a single share of the first stock or a single 
+share of the second stock or sell nothing.
+
+
+Input Format:
+-------------
+Line-1: an integer m
+Line-2: m number of integers for x
+Line-2: m number of integers for y
+
+Output Format:
+--------------
+Print an integer.
+
+
+Sample Input-1:
+---------------
+5
+5 3 4 6 3
+8 4 3 5 10
+
+Sample Output-1:
+----------------
+25
+
+Explanation:
+------------
+Day 1: Sell stock y at a price of 8
+Day 2: Sell stock x at a price of 3
+Day 3: Sell stock x at a price of 4
+Day 4: Do not sell anything
+Day 5: Sell stock y at a price of 10
+
+
+
+U4_DAA_DP_AP51_Decode_Ways
+You are a robot explorer navigating a vast digital maze stored as a string of 
+digits. Each digit or pair of digits on the path represents a movement 
+instruction, which translates to a specific direction using the following map:
+
+"1" → Move 'A'
+
+"2" → Move 'B'
+
+...
+
+"26" → Move 'Z'
+
+However, the maze has tricky encoding rules. Sometimes a single digit can be 
+read alone, and sometimes two digits together form a valid move — but not every 
+combination is valid. 
+For example, "05" is invalid, while "5" is fine. Your robot can only navigate 
+using valid instruction steps, and you must find how many unique navigation 
+sequences the robot can follow to reach the end of the maze.
+
+Given the string s of digits, determine the total number of distinct ways the 
+robot can interpret and follow the path from start to end without making an 
+invalid move.
+
+If no valid navigation is possible, return 0.
+
+Input Format:
+-------------
+A string s.
+
+Output Format:
+--------------
+Print an integer result.
+
+
+Sample Input-1:
+---------------
+123
+
+Sample Output-1:
+----------------
+3
+
+Explanation:
+------------
+123 can be converted as: ABC, LC, AW
+
+
+Sample Input-2:
+---------------
+326
+
+Sample Output-2:
+----------------
+2
+
+Explanation:
+------------
+326 can be converted as: CBF, CZ
+
+
+
+U4_DAA_DP_SP46_Zero_One_Knapsack
+Mr. Dharma went to D-mart, and picked a basket with a capacity C.
+There are N products in Dharma's wishlist.
+You will be given desired cost and quantity of each Product.
+Out of the wishlist Mr Dharma has, he wants to purchase the products in the following way:
+	- The sum of quantities taken into the basket is less than or equal to C.
+	- The sum of cost of the products in the basket is maximum among all 
+	the possible combinations of products.
+
+Your task is to help, Mr. Dharma to purachase the products with maximum cost, 
+with the given basket capacity. 
+
+Input Format:
+-------------
+Line-1: Two space separated integers, N and C.
+Next N lines: Two space separated integers, Ci and Qi.
+        			cost and quantity of i-th product.
+
+Output Format:
+--------------
+Print an integer, Maximum cost to pay to D-Mart.
+
+
+Sample Input-1:
+---------------
+4 7
+30 1
+10 3
+12 2
+20 3
+
+Sample Output-1:
+----------------
+62
+
+Explanation:
+------------
+Quantity = 1 + 2 + 3 = 6
+Cost = 30 + 12 + 20 = 62
+
+
+Sample Input-2:
+---------------
+4 21
+18 6
+20 3
+14 5
+18 9
+
+Sample Output-2:
+----------------
+56
+
+Explanation:
+------------
+Quantity = 6 + 3 + 9 = 18
+Cost = 18 + 20 + 18 = 56
+
+
+
+U4_DAA_DP_SP45_All_Pairs_Shortest_Path
+Mr Abdul planned to visit all the tourist paths in a city.
+There are P number of tourist places connected using some routes 
+in a city, the routes are one-directional.
+
+Your task is to help Mr Abdul, to find the shortest routes between every pair 
+of tourist-places in the city.
+
+Input Format:
+------------------
+Line-1: An integer P, number of places.
+Next P lines: P space separated integers, the routes[][].
+
+Value 99 represents infinity (Large value)
+
+Output Format:
+--------------------
+Print the shortest distance routes[][].
+
+Sample Input-1:
+--------------------
+4
+0 5 99 10
+99 0 3 99
+99 99 0 1
+99 99 99 0
+
+Sample Output-1:
+----------------------
+0 5 8 9
+INF 0 3 4
+INF INF 0 1
+INF INF INF 0
+
+
+Sample Input-2:
+--------------------
+5
+0 4 5 6 99
+99 0 5 99 10
+1 99 0 3 99
+2 99 99 0 1
+1 99 99 99 0
+
+Sample Output-2:
+----------------------
+0 4 5 6 7
+6 0 5 8 9
+1 5 0 3 4
+2 6 7 0 1
+1 5 6 7 0
+
+
+
+U4_DAA_DP_SP44_OBST
+You are given N nodes of a Binary search tree.
+To search a node in the binary search tree, it will cost some freq.
+You are given the N nodes as keys[] in sorted order, and the search costs of N nodes
+ as freq[], where freq[i] is the cost to search keys[i] element in the BST.
+
+The cost to search a BST node is the level of that node multiplied by its freq. The level of the root is 1.
+
+Your task is to findout the minimum cost of a BST is defines as the total cost of all the BST nodes.
+You can form the BST with any element as the root node.
+
+Input Format:
+------------------
+Line-1: An integer N, number of nodes.
+Line-2: N space separate integers, node vals[].
+Line-3: N space separate integers, node cost[].
+
+Output Format:
+-------------------
+Print an integer, minimum search cost of BST.
+
+
+Sample Input-1:
+--------------------
+3
+10 20 30
+23 32 14
+
+Sample Output-1:
+----------------------
+106
+
+Explanation:
+----------------
+The BST is: 
+		20
+		/\
+	  10  30
+
+Sample Input-2:
+--------------------
+4
+18 10 12 20
+26 34 8 50
+
+Sample Output-2:
+----------------------
+210
+
+Explanation:
+----------------
+The BST is: 
+		10
+		/\
+	   8  20
+		  /
+	    12
+
+

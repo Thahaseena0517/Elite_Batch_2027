@@ -1,0 +1,575 @@
+Recursion- Toofan
+
+U1_DAA_Recursion_SP6_Strobogrammatic_Number
+U1_DAA_Recursion_AP12_Student_Representative
+U1_DAA_Recursion_SP5_GCD
+U1_DAA_Recursion_AP11_Kth_Index_Pairs
+U1_DAA_Recursion_AP10_Reverse_Groups
+U1_DAA_Recursion_AP9_Non_Overlapping_Substrings
+U1_DAA_Recursion_SP4_Happy_Number
+U1_DAA_Recursion_SP3_Reverse_String
+U1_DAA_Recursion_SP2_Climbing_Stairs
+U1_DAA_Recursion_SP1_Fibonacci_series
+
+
+
+U1_DAA_Recursion_SP6_Strobogrammatic_Number
+A strobogrammatic number is a number that looks the same when rotated 180 degrees (looked at upside down). 
+A strobogrammatic number must consist of only the digits 0, 1, 6, 8, and 9. 
+Each of these digits either remains the same or transforms into another valid strobogrammatic digit when rotated:
+	0 rotates to 0
+	1 rotates to 1
+	6 rotates to 9
+	8 rotates to 8
+	9 rotates to 6
+
+Given an integer n, return all strobogrammatic numbers that are of length n.
+
+Input Format:
+-------------
+Line-1: A single integer n, representing the length of the strobogrammatic numbers to generate.
+
+Output Format:
+--------------
+line-1: Return a list of all strobogrammatic numbers of length n. The list can be in any order.
+
+Constraints:
+------------
+1 ≤ n ≤ 14
+
+
+Sample Input-1:
+---------------
+2
+
+Sample Output-1: 
+----------------
+[11, 69, 88, 96]
+
+Explanation:
+-------------
+All valid strobogrammatic numbers of length 2 are:
+11: Rotates to 11
+69: Rotates to 96
+88: Rotates to 88
+96: Rotates to 69
+
+
+Sample Input-2:
+---------------
+1
+
+Sample Output-2: 
+----------------
+[0, 1, 8]
+
+Explanation:
+------------
+The strobogrammatic numbers of length 1 are:
+0: Rotates to 0
+1: Rotates to 1
+8: Rotates to 8
+
+NOTE: Print the results in sorted order to pass the testcases
+
+
+
+U1_DAA_Recursion_AP12_Student_Representative
+During the annual school fest, a unique selection process is used to choose a student representative. 
+All students stand in a circle and are assigned consecutive roll numbers from 1 to n.
+
+Starting from the student with roll number 1, every k-th student in the circle is asked to step out 
+of the selection process. 
+The counting continues around the circle (wrapping around to the beginning as needed), 
+and each time a student leaves, the next count resumes from the immediate next student in the circle. 
+This elimination continues until only one student remains.
+
+Your task is to determine the roll number of the student who will be the last standing after 
+all rounds of elimination.
+
+Input Format:
+-------------
+Line 1: An integer n — the total number of students (with roll numbers from 1 to n).
+Line 2: An integer k — every k-th student is eliminated in each round.
+
+Output Format:
+--------------
+Line 1: A single integer indicating the roll number of the last remaining student.
+
+Constraints:
+------------
+-> 1 ≤ n ≤ 500
+-> 1 ≤ k ≤ n
+
+Sample Input-1:
+---------------
+5
+2
+
+Sample Output-1:
+----------------
+3
+
+Explanation:
+-------------
+Students are standing in a circle with roll numbers 1 to 5. 
+Every 2nd student is asked to leave the circle. 
+The order of leaving is: 2, 4, 1, 5. Student 3 is the last remaining.
+
+Sample Input-2:
+---------------
+6
+5
+
+Sample Output-2:
+----------------
+1
+
+Explanation:
+------------
+Students have roll numbers from 1 to 6. 
+Every 5th student is eliminated in a cycle: 5, 4, 6, 2, 3. 
+The last remaining is student 1.
+
+Note:
+-----
+You should design an efficient recursive or iterative solution to handle the largest input values.
+
+
+
+
+U1_DAA_Recursion_SP5_GCD
+Given an integer array nums, return the greatest common divisor (GCD) of the smallest number and the largest number in the array.
+
+The Greatest Common Divisor (GCD) of two numbers is the largest positive integer that divides both numbers without leaving a remainder.
+
+Constraints:
+-------------
+2 ≤ nums.length ≤ 1000
+1 ≤ nums[i] ≤ 1000
+
+Input Format:
+-------------
+Line-1: An integer, represents size of array
+Line-2: A single integer array nums of length between 2 and 1000, where each element is a positive integer ans space separated.
+
+Output Format:
+--------------
+Line-2: Return the GCD of the smallest and largest numbers in the array.
+
+Sample Input-1:
+--------------- 
+5
+2 5 6 9 10
+
+Sample Output-1: 
+-----------------
+2
+
+Explanation:
+------------
+The smallest number is 2 and the largest number is 10.
+The GCD of 2 and 10 is 2.
+
+
+Sample Input-2: 
+---------------
+5
+7 5 6 8 3
+
+Sample Output-2: 
+----------------
+1
+
+Explanation:
+------------
+The smallest number is 3 and the largest number is 8.
+The GCD of 3 and 8 is 1.
+
+
+
+U1_DAA_Recursion_AP11_Kth_Index_Pairs
+
+We build a table of n rows (1-indexed). The table is generated based on the following rules:
+	The first row (for n = 1) contains a single symbol 0.
+	For each subsequent row n, every 0 in the previous row is replaced with 01, 
+	and every 1 is replaced with 10.
+
+The problem is to return the k-th symbol (1-indexed) in the n-th row of the table.
+
+Input Format:
+-------------
+Line-1: An integer, represents n is the row number
+Line-2: An integer, represents k is the position in the row
+
+Output Format:
+--------------
+Line-1: Return either 0 or 1, representing the k-th symbol in the n-th row.
+
+Sample Input-1:
+---------------
+1 //n
+1 //k
+
+Sample Output-1:
+----------------
+0
+
+Sample Input-2:
+---------------
+2 //n
+1 //k
+
+Sample Output-2:
+----------------
+0
+
+Explanation: 
+row 1: 0
+row 2: 01
+
+Sample Input-3:
+---------------
+2 //n
+2 //k
+
+Sample Output-3:
+----------------
+1
+
+Explanation: 
+row 1: 0
+row 2: 01
+
+
+Constraints:
+------------
+1 ≤ n ≤ 30
+1 ≤ k ≤ 2^(n-1)
+
+Explanation on approach:
+The generation of the rows follows a pattern based on the previous row:
+	For n = 1, the row is 0.
+	For n = 2, replace 0 with 01: the row becomes 01.
+	For n = 3, replace each 0 with 01 and each 1 with 10: the row becomes 0110.
+	For n = 4, the row becomes 01101001.
+
+To solve this problem recursively:
+If k is less than or equal to half of the length of the previous row, the value is the same as in the previous row.
+Otherwise, we apply a "NOT" operation to the value in the second half of the previous row.
+
+
+U1_DAA_Recursion_AP10_Reverse_Groups
+KMIT exam department is preparing seating arrangements for upcoming exams. 
+They want to randomize the seating plan by reversing every group of m consecutive students in a specified range of the list. 
+You have been tasked with developing a program that generates the seating arrangement by reversing groups of m students in a subarray of student IDs, where the IDs range from 1 to n.
+
+Your program should take the following inputs:
+n: The total number of students (represented by numbers from 1 to n).
+m: The size of the groups to be reversed.
+i, j: The start and end indices of the subarray within which the reversal of groups should take place.
+
+Constraints:
+-------------
+If m is larger than the size of the specified subarray (i to j), the list should remain unchanged.
+If i >= j, the list should remain unchanged.
+Time Complexity:
+O(n): The list is traversed to reverse each group, resulting in a linear time complexity proportional to the number of elements n.
+Space Complexity:
+O(1): The program operates in place, modifying the list without using additional space for storage.
+
+Input Format:
+-------------
+Line-1: An Integer n, The number of students (size of the main list, from 1 to n).
+Line-2: An Integer m, The size of the groups of students to reverse.
+Line-3: An Integer i, The starting index of the subarray in which the reversal should start.
+Line-4: An Integer j, The ending index of the subarray in which the reversal should end.
+
+Output Format:
+---------------
+Line-1: Print the modified list after reversing every m consecutive students in the specified subarray.
+
+
+Sample Input-1:
+----------------
+10 //n
+3 //m
+1 //i
+9 //j
+
+Sample Output-1:
+-----------------
+[1, 4, 3, 2, 7, 6, 5, 10, 9, 8]
+
+Explanation: The subarray from index 1 to 9 has 9 elements. The group size m is 3, so every 3 consecutive elements are reversed:
+Subarray: [2, 3, 4, 5, 6, 7, 8, 9, 10]
+Reverse [2, 3, 4] -> [4, 3, 2]
+Reverse [5, 6, 7] -> [7, 6, 5]
+Reverse [8, 9, 10] -> [10, 9, 8]
+Final output: [1, 4, 3, 2, 7, 6, 5, 10, 9, 8]
+
+Sample Input-2:
+----------------
+10 //n
+3 //m
+7 //i
+2 //j
+
+Sample Output-2:
+----------------
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+Explanation: The start index i (7) is greater than the end index j (2).
+According to the problem constraints: If i >= j, the list should remain unchanged.
+
+
+U1_DAA_Recursion_AP9_Non_Overlapping_Substrings
+
+Imagine you are working on a string manipulation project, and you need to find all possible ways to split a given string into non-overlapping substrings. 
+These substrings should be enclosed in curly braces {}, and you want to list all possible combinations of how the string can be divided.
+
+Write a program that takes a string as input and returns all possible ways to group non-overlapping substrings within curly braces.
+
+Input Format:
+---------------
+Line-1: A single string s consisting of lowercase or uppercase letters, numbers, or punctuation.
+
+Output Format:
+---------------
+Line-1 to n: Print all possible combinations of non-overlapping substrings, each combination enclosed in curly braces {}.
+
+Sample Input-1: 
+---------------
+abcd
+
+Sample Output-1:
+----------------
+{abcd}
+{abc}{d}
+{ab}{cd}
+{ab}{c}{d}
+{a}{bcd}
+{a}{bc}{d}
+{a}{b}{cd}
+{a}{b}{c}{d}
+
+Sample Input-2: 
+----------------
+kmit
+
+Sample Output-2:
+-----------------
+{kmit}
+{kmi}{t}
+{km}{it}
+{km}{i}{t}
+{k}{mit}
+{k}{mi}{t}
+{k}{m}{it}
+{k}{m}{i}{t}
+
+
+
+
+U1_DAA_Recursion_SP4_Happy_Number
+Write an Java program to determine if a number n is a happy number.
+
+A happy number is a number defined by the following process:
+
+Starting with any positive integer, replace the number by the sum of the squares of its digits.
+Repeat the process until the number equals 1 (where it will remain), or it loops endlessly in a cycle that does not include 1.
+If the number eventually reaches 1, then the number is happy. Otherwise, it is not.
+
+Constraints:
+-------------
+1 ≤ n ≤ 2³¹ - 1
+You must handle the case of both happy and non-happy numbers.
+
+Input Format:
+-------------
+Line-1: A single integer n, representing the number to be checked.
+
+Output Format:
+---------------
+Line-1: Return true if the input number is a happy number, otherwise return false.
+
+
+Sample Input-1: 
+----------------
+19
+
+Sample Output-1: 
+-----------------
+true
+
+Explanation:
+Process to determine if 19 is a happy number:
+1² + 9² = 1 + 81 = 82
+8² + 2² = 64 + 4 = 68
+6² + 8² = 36 + 64 = 100
+1² + 0² + 0² = 1 (since the number reached 1, 19 is a happy number)
+
+
+Sample Input-2: 
+----------------
+2
+
+Sample Output-2: 
+-----------------
+false
+
+Explanation:
+The process does not reach 1 and starts repeating numbers. Hence, 2 is not a happy number.
+
+
+U1_DAA_Recursion_SP3_Reverse_String
+Given a string s, write a recursive function to reverse the string. 
+You are not allowed to use any built-in string manipulation functions. 
+
+Constraints:
+------------
+The input string s consists of printable ASCII characters (including spaces, punctuation, etc.).
+The length of the string s is between 1 and 1000.
+You must reverse the string recursively.
+
+Input Format:
+--------------
+Line-1: A single string s, containing characters that need to be reversed.
+
+Output Format:
+--------------
+Line-1: A single string, representing the reversed input string.
+
+
+Sample Input-1: 
+---------------
+hello
+
+Sample Output-1:
+-----------------
+olleh
+
+Sample Input-2:
+----------------
+12345
+
+Sample Output-2: 
+----------------
+54321
+
+
+
+U1_DAA_Recursion_SP2_Climbing_Stairs
+You are climbing a staircase. It takes n steps to reach the top. 
+Each time you can either climb 1 or 2 steps. 
+In how many distinct ways can you climb to the top?
+
+Constraints:
+------------
+1 ≤ n ≤ 45
+Each time you can take either 1 step or 2 steps.
+You need to compute the total number of distinct ways to climb the staircase.
+
+Input Format:
+--------------
+Line-1: A single integer n, representing the number of steps required to reach the top.
+
+Output Format:
+---------------
+Line-1: A single integer representing the number of distinct ways to climb to the top.
+
+Sample Input-1: 
+----------------
+2
+
+Sample Output-1: 
+----------------
+2
+
+Explanation: There are two ways to climb to the top:
+1 step + 1 step
+2 steps
+
+Sample Input-2: 
+---------------
+3
+
+Sample Output-2: 
+----------------
+3
+
+Explanation: There are three ways to climb to the top:
+1 step + 1 step + 1 step
+1 step + 2 steps
+2 steps + 1 step
+
+
+
+U1_DAA_Recursion_SP1_Fibonacci_series
+
+Given a non-negative integer n, generate the Fibonacci series up to the nth number using a recursive approach. 
+The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.
+
+The Fibonacci sequence is defined as:
+F(0) = 0
+F(1) = 1
+F(n) = F(n-1) + F(n-2) for n ≥ 2
+
+Constraints:
+-------------
+You are required to compute the Fibonacci series recursively as demonstrated in the Sample input and output.
+The recursive approach may cause time complexity issues for large values of n due to overlapping subproblems.
+0 ≤ n ≤ 30 is a reasonable upper bound for testing the recursive approach due to its exponential time complexity.
+
+Input Format:
+--------------
+Line-1: A single integer n, representing the number of Fibonacci numbers to generate.
+
+Output Format:
+---------------
+Line-1: A sequence of n Fibonacci numbers.
+
+Sample Input-1:
+---------------
+5
+
+Sample Output-1:
+-----------------
+0 1 1 2 3
+
+Sample Input-2:
+---------------
+10
+
+Sample Output-2: 
+----------------
+0 1 1 2 3 5 8 13 21 34
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,263 @@
+1. What is the time complexity of accessing an element in an array by its index?
+
+int x = arr[i];
+
+A) O(1)
+B) O(n)
+C) O(log n)
+D) O(n²)
+Answer: A
+Explanation: Accessing an element in an array by index takes constant time, O(1).
+
+2. What is the time complexity of the following code?
+
+for (int i = 1; i <= n; i *= 2) {
+    for (int j = 1; j <= i; j++) {
+        System.out.println(j);
+    }
+}
+A) O(n)
+B) O(n log n)
+C) O(n²)
+D) O(log n)
+Answer: B
+Explanation: The outer loop runs in O(log n), but the inner loop runs up to i(i.e n times). The total number of iterations is O(n log n).
+
+
+3. What is the time complexity of the following code?
+
+int count = 0;
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+        if (i == j) {
+            count++;
+        }
+    }
+}
+A) O(n)
+B) O(n²)
+C) O(n log n)
+D) O(n³)
+Answer: B
+Explanation: Both loops iterate n times, so the total time complexity is O(n²).
+
+4. What is the time complexity of the following code?
+
+for (int i = 0; i < n; i++) {
+    for (int j = i; j < n; j++) {
+        System.out.println(i + ", " + j);
+    }
+}
+A) O(n)
+B) O(n²)
+C) O(n log n)
+D) O(n!)
+Answer: B
+Explanation: The outer loop runs n times, and for each iteration of the outer loop, the inner loop runs progressively fewer times (n, n-1, n-2, ..., 1). The total number of iterations is proportional to n².
+
+5. What is the time complexity of the following code?
+
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n * n; j++) {
+        System.out.println(i + ", " + j);
+    }
+}
+A) O(n)
+B) O(n²)
+C) O(n³)
+D) O(log n)
+Answer: C
+Explanation: The outer loop runs n times, and the inner loop runs n² times, resulting in a total time complexity of O(n³).
+
+6. What is the time complexity of the following code snippet?
+
+for (int i = 0; i < n; i++) {
+    for (int j = i; j > 0; j--) {
+        System.out.println(i + ", " + j);
+    }
+}
+A) O(n)
+B) O(n²)
+C) O(n log n)
+D) O(n³)
+Answer: B
+Explanation: The outer loop runs n times, and the inner loop runs progressively more times (1, 2, 3, ..., n). The total time complexity is O(n²).
+
+7. What is the time complexity of the following loop?
+
+for (int i = 1; i < n; i *= 2) {
+    System.out.println(i);
+}
+A) O(n)
+B) O(log n)
+C) O(n log n)
+D) O(n²)
+Answer: B
+Explanation: The loop runs by doubling i each time, so it runs O(log n) times.
+
+8. What is the time complexity of the following recursive function?
+
+int factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n - 1);
+}
+A) O(n)
+B) O(n²)
+C) O(2ⁿ)
+D) O(log n)
+Answer: A
+Explanation: The function makes n recursive calls, so the time complexity is O(n).
+
+9. What is the time complexity of the following recursive function?
+
+int fibonacci(int n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+A) O(n)
+B) O(n²)
+C) O(2ⁿ)
+D) O(n log n)
+Answer: C
+Explanation: The function makes two recursive calls for each invocation, leading to an exponential time complexity of O(2ⁿ).
+
+10. What is the time complexity of the following code?
+
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+            System.out.println(i + ", " + j + ", " + k);
+        }
+    }
+}
+A) O(n²)
+B) O(n³)
+C) O(log n)
+D) O(n!)
+Answer: B
+Explanation: Three nested loops, each running n times, results in a time complexity of O(n³).
+
+11. What is the time complexity of the following code?
+
+for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n; j *= 2) {
+        System.out.println(i + ", " + j);
+    }
+}
+A) O(n)
+B) O(n log n)
+C) O(n²)
+D) O(log n)
+Answer: B
+Explanation: The outer loop runs n times, and the inner loop runs O(log n) times, resulting in O(n log n).
+
+12. What is the time complexity of finding the maximum element in an unsorted array?
+
+int max = arr[0];
+for (int i = 1; i < n; i++) {
+    if (arr[i] > max) {
+        max = arr[i];
+    }
+}
+A) O(n)
+B) O(n log n)
+C) O(n²)
+D) O(1)
+Answer: A
+Explanation: Finding the maximum element in an unsorted array requires scanning through all the elements, so the time complexity is O(n).
+
+13. Find the time complexity of the program below
+function(int n){
+    if(n == 1) 
+	return;
+    for(int i = 1 ; i<= n;i++){
+        for(int j = 1;j <= n;j++){
+	                printf("*");
+			break;
+		}
+	}
+}
+A). O(n^2)
+B). O(nlogn)
+C). O(n)
+D). O(n^logn)
+Answer is C.
+Explanation :
+With the break statement in the inner loop, the inner loop will execute only once for each iteration of the outer loop. Therefore, the overall time complexity of the program is O(n).
+
+14. Find the Time complexity of below function.
+  void function(int n){
+      if(n < = 1) return ;
+      if(n > 1) {
+                   printf("*");
+		   function(n/2);
+		   function(n/2);
+		  }
+}
+
+A). O(n)
+B). O(n^2)
+C). O(nlogn)
+D).O(n^logn)
+
+Answer is A
+Explanation :
+We can express  T(n)=aT(n/b)+f(n), where "a" is how many times function calls itself and b is factor by which the problem size is reduced and f(n) is time complexity of non recursive part of function.
+hence T(n)=2T(n/2)+1 
+as per this theorem T(n) = O(n^log_b(a)).
+i.e T(n)=O(n^log2(2))which is nearly equal to O(n).
+
+15. What is the time complexity of given program
+void function(int n){
+     int i,j,k,count=0;
+     for(i=n/2;i<n;i++)
+        for(j=1;j+n/2<=n;j=j+1)
+	  for(k=1;k<=n;k=k*2)
+	       count++;
+}
+A). O(n^2)
+B). O(n^2logn)
+C). O(nlogn)
+D).O(logn)
+Answer is B
+Explanation:
+outer loop executes n/2 times
+middle loop executes n/2 times
+and inner loop executes logn times
+
+16. When analyzing space complexity, what should be included in the calculation?
+A. Only the space used by variables declared in the main function
+B. Only the space used by data structures, such as arrays and linked lists
+C. All memory used by the program, including variables, data structures, and the call stack
+D. Only the space used by global variables
+
+Answer is C 
+Explanation :
+When analyzing space complexity, we need to consider all of the memory that is used by the program. This includes the space used by variables, data structures, and the call stack.
+
+Variables: Variables are used to store data, and they can be declared in any function.
+Data structures: Data structures, such as arrays and linked lists, are used to store and organize data.
+Call stack: The call stack is used to keep track of the functions that are currently being called.
+	    
+17. What is the space complexity of following code
+function(int n){
+	int a[10];
+	for(int i=0;i<10;i++)
+		a[i]= i;
+}
+A. O(1)
+B. O(n)
+C. O(log n)
+D. O(nlogn)
+Answer is A
+Explanation
+The space complexity of an algorithm is a measure of the amount of memory that the algorithm uses. In this case, the algorithm uses a fixed-size array of 10 integers. Therefore, the space complexity of the algorithm is O(1).
+
+
+18. An image processing applciation begins with two nXn matrices A and B. The first phase of preprocessing the inputs takes O(n^2) steps for each of A and B. The second step involves a convolution of A and B to yield a new matrix C in time O(n^3). This is followed by an edge detection phase that takes times O(n^2) for matrix C. What is the most accurate and concise description of the complexity  of the overall algorithm?
+A). O(n^2)
+B).O(n^3)
+C).O(n^2+n^3)
+D).O(n^5)
+Answer B.
+Explanation : when there are multiple phases in sequence the largest of the phases dominates the overall complexity, here the second phase is O(n^3), and the first and third phases are O(n^2).

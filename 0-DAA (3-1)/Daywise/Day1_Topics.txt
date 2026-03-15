@@ -1,0 +1,12 @@
+1.When ever a question is asked like for suppose to make a tea or anything . Know the requirements.
+
+2.What is an Algorithm?
+A set of finite rules or instructions to be followed for solving a problem.
+INPUT--->ALGORITHM--->OUTPUT
+Algorithms can be simple and complex depending on what you want to achieve. Algorithms help to do a task in programming to get the expected output.
+EG:It can be understood by taking the example of cooking a new recipe. To cook a new recipe, one reads the instructions and steps and executes them one by one, in the given sequence. The result thus obtained is the new dish is cooked perfectly.In an Algorithm the problem is broken down into smaller pieces or steps hence, it is easier for the programmer to convert it into an actual program
+
+3.Few problems like freq count etc
+4.Types of maps: Linked map, tree map,hash map
+5.Boyee Moye Algorithm
+6.HW is the dog and god. with counter ig

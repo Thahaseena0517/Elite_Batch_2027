@@ -1,0 +1,709 @@
+
+U3_DAA_BFS_AP34_BFS
+U3_DAA_BFS_SP21_Find_All_Lonely_Nodes
+U3_DAA_BFS_SP22_Max_Area_of_Island
+U3_DAA_BFS_DFS_AP37_DFS
+U3_DAA_BFS_DFS_SP24_The_Maze
+U3_DAA_BFS_DFS_SP25_Boundary_of_Binary_Tree
+
+
+U3_DAA_BFS_AP34_BFS
+
+You are given an undirected graph represented by vertices and edges. 
+Your task is to implement Breadth-First Search (BFS) traversal from a given starting vertex. 
+The graph is represented using an adjacency list, and you need to traverse the graph starting from a specified vertex.
+
+Input Format:
+--------------
+Line-1: An integer V, the number of vertices.
+Line-2: An integer E, the number of edges.
+Line-3 to E: The next E lines contain two integers source and destination, representing an edge between the two vertices in the graph.
+Line-E+1: The starting vertex S from which BFS traversal should begin.
+
+Output Format:
+---------------
+Line-1: Print the vertices visited in BFS order starting from the given vertex S.
+
+Constraints:
+------------
+*1 ≤ V ≤ 100
+*0 ≤ E ≤ V * (V - 1)
+*0 ≤ source, destination, S < V
+
+Sample Input-1:
+---------------
+5
+8
+0 1
+0 4
+1 0
+1 2
+1 3
+1 4
+2 3
+3 4
+0
+
+Sample Output-1:
+-----------------
+0 1 4 2 3 
+
+Sample Input-2:
+---------------
+4
+4
+0 1
+0 2
+1 3
+2 3
+2
+
+Sample Output-2:
+----------------
+2 0 3 1 
+import java.util.*;
+
+class Graph {
+    private int numVertices;
+    private List<Integer>[] adjList;
+
+    public Graph(int numVertices) {
+        this.numVertices = numVertices;
+        adjList = new LinkedList[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            adjList[i] = new LinkedList<>();
+        }
+    }
+    // Method to add an edge to the graph
+    public void addEdge(int source, int destination) {
+        adjList[source].add(destination);  // For directed graph
+        adjList[destination].add(source);  // For undirected graph
+    }
+
+    // BFS traversal method
+    public void BFS(int startVertex) {
+        boolean[] visited=new boolean[numVertices];
+        Queue<Integer> queue=new LinkedList<>();
+        visited[startVertex]=true;
+        queue.add(startVertex);
+        
+        while(!queue.isEmpty()){
+            int curr=queue.poll();
+            System.out.print(curr+" ");
+            for(int neighbour:adjList[curr]){
+                if(!visited[neighbour]){
+                    visited[neighbour]=true;
+                    queue.add(neighbour);
+                }
+            }
+        }
+        
+        //WRITE YOUR CODE HERE
+    }
+}
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read the number of vertices and edges
+        int V = sc.nextInt();
+        int E = sc.nextInt();
+        
+        Graph graph = new Graph(V);
+
+        // Read the edges
+        for (int i = 0; i < E; i++) {
+            int source = sc.nextInt();
+            int destination = sc.nextInt();
+            graph.addEdge(source, destination);
+        }
+
+        // Read the starting vertex for BFS
+        int startVertex = sc.nextInt();
+        
+        //System.out.println("Breadth-First Traversal (starting from vertex " + startVertex + "):");
+        graph.BFS(startVertex);
+    }
+}
+
+
+U3_DAA_BFS_SP21_Find_All_Lonely_Nodes
+In a joint family, every person assigned with an ID, an integer value.
+and the entire family is arranged in the from of tree.
+
+You will be given the family tree,
+your task is to find and print the person ID, who is only child to his/her parent.
+i.e, the person with no siblings. Print all such person ID's in ascending order.
+
+NOTE: 
+	- If only one person is there in the family, please consider him as a parent.
+	- In the given tree, please consider '-1' as null.
+
+Input Format:
+-------------
+Line-1: Space separated integers, person ID's in the family.
+
+Output Format:
+--------------
+Line-1: Print the list of person IDs in ascending order.
+
+
+Sample Input-1:
+---------------
+2 3 4 -1 5
+
+Sample Output-1:
+----------------
+[5]
+
+Sample Input-2:
+---------------
+11 99 88 77 -1 -1 66 55 -1 -1 -1 -1 -1 -1 44
+
+Sample Output-2:
+----------------
+[44, 55, 66, 77]
+import java.util.*;
+
+class BinaryTreeNode {
+    public int data;
+    public BinaryTreeNode left, right;
+
+    public BinaryTreeNode(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+
+class TreeOperations {
+    public ArrayList<Integer> getPersonIDs(BinaryTreeNode root) {
+        ArrayList<Integer> nodes = new ArrayList<>();
+        findLonelyNodes(root, nodes);
+        return nodes;
+    }
+
+    private void findLonelyNodes(BinaryTreeNode root, ArrayList<Integer> nodes) {
+        //WRITE YOUR CODE HERE
+        Queue<BinaryTreeNode> queue=new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            BinaryTreeNode n1=queue.poll();
+            int value=n1.data;
+                if(n1.left==null && n1.right!=null){
+                    nodes.add(n1.right.data);
+                    queue.add(n1.right);
+                }
+                else if(n1.left!=null && n1.right==null){
+                     nodes.add(n1.left.data);
+                     queue.add(n1.left);
+                }
+                else if(n1.left!=null && n1.right!=null){
+                     queue.add(n1.left);
+                     queue.add(n1.right);
+                }
+        }
+    }
+    
+}
+
+public class Solution {
+    static BinaryTreeNode root;
+
+    // Modified to return the updated root
+    BinaryTreeNode insertLevelOrder(String[] arr, int i) {
+        // Base case for recursion
+        if (i >= arr.length || arr[i].equals("-1")) {
+            return null;
+        }
+
+        BinaryTreeNode root = new BinaryTreeNode(Integer.parseInt(arr[i]));
+
+        // insert left child
+        root.left = insertLevelOrder(arr, 2 * i + 1);
+
+        // insert right child
+        root.right = insertLevelOrder(arr, 2 * i + 2);
+
+        return root;
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        Solution ln = new Solution();
+        TreeOperations sol = new TreeOperations();
+
+        // Reading input
+        String str[] = sc.nextLine().split(" ");
+        root = ln.insertLevelOrder(str, 0);
+
+        // Get lonely nodes
+        ArrayList<Integer> result = sol.getPersonIDs(root);
+        Collections.sort(result);  // Sort the result to print in ascending order
+        System.out.println(result);
+    }
+}
+
+U3_DAA_BFS_SP22_Max_Area_of_Island
+Jadav Payeng, "The Forest Man of India", 
+started planting the seeds in a M*N grid land.
+Each cell in the grid land is planted with a seed.
+After few days, some seeds grow into saplings indicates with '1',
+and the rest are dead seeds indicates with '0'.
+
+One or more saplings are connected either horizontally, vertically or diagonally with each other, form a sapling-group. 
+There may be zero more sapling-groups in the grid land.
+
+Jadav Payeng wants to know the biggest sapling-group in that grid land.
+
+You are given the M * N grid, filled with 0's and 1's.
+You are task is to help Jadav Payeng to find the number of saplings in 
+the largest sapling-group.
+
+Input Format:
+-------------
+Line-1: Two integers M and N, the number of rows and columns in the grid-land.
+Next M lines: contains N space-separated integers .
+
+Output Format:
+--------------
+Print an integer, the number of saplings in the 
+largest sapling-group in the given grid-land.
+
+Sample Input-1:
+---------------
+5 4
+0 0 1 1
+0 0 1 0
+0 1 1 0
+0 1 0 0
+1 1 0 0
+
+Sample Output-1:
+----------------
+8
+
+
+Sample Input-2:
+---------------
+5 5
+0 1 1 1 1
+0 0 0 0 1
+1 1 0 0 0
+1 1 0 1 1
+0 0 0 1 0
+
+Sample Output-2:
+----------------
+5
+import java.util.*;
+
+class MaxArea_BFS 
+{
+    public static int solve(int[][] grid) {
+        //WRITE YOUR CODE HERE 
+        if(grid==null || grid.length==0){
+            return 0;
+        }
+        int res=0;
+        int curr=0;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1){
+                    grid[i][j]=0;
+                    curr=bfs(grid,i,j);
+                    res=math.Max(res,curr);
+                }
+                
+            }
+        }
+        return res;
+    }
+    private static int bfs(int[][] grid,int k,int l){
+        int res=0;
+        Queue<int[]> queue=new LinkedList<>();
+        queue.offer(k,l);
+        int[] curr=queue.poll();
+        final int neighs=new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
+        // {-1,1},{-1,-1},{1,1},{1,-1}
+        for(int[] neigh:neighs){
+            int i=curr[0]+neigh[0];
+            int j=curr[1]+neigh[1];
+            if((i>=0 && i<grid.length) || (j>=0 && j<grid[0].length)){
+                if(grid[i][j]==1){
+                    grid[i][j]=0;
+                    queue.offer(i,j);
+                }
+            }
+        }
+    }
+}
+class Solution{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int m = in.nextInt();
+        int n = in.nextInt();
+        int[][] board = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = in.nextInt();
+            }
+        }
+        System.out.println(new MaxArea_BFS().solve(board));
+    }
+}
+
+
+U3_DAA_BFS_DFS_AP37_DFS
+You are given a directed graph represented by vertices and edges. 
+Your task is to implement Depth-First Search (DFS) traversal from a given starting vertex. 
+The graph is represented using an adjacency list, and you need to traverse the graph starting from a specified vertex using an iterative approach (using a stack).
+
+Input Format:
+-------------
+Line-1: An integer V, the number of vertices in the graph.
+Line-2: An integer E, the number of edges in the graph.
+Line3 to E: The next E lines each contain two integers source and destination, representing an edge from the source vertex to the destination vertex.
+Line-E+1: The starting vertex S from which DFS traversal should begin.
+
+Output Format:
+--------------
+Line-1" Print the vertices visited in DFS order starting from the given vertex S.
+
+Constraints:
+------------
+*1 ≤ V ≤ 100
+*0 ≤ E ≤ V * (V - 1)
+*0 ≤ source, destination, S < V
+
+Sample Input-1:
+----------------
+5
+8
+0 1
+0 4
+1 0
+1 2
+1 3
+1 4
+2 3
+3 4
+0
+
+Sample Output-1:
+----------------
+0 1 2 3 4 
+import java.util.*;
+
+class Graph {
+    int V; // Number of vertices
+    List<Integer>[] adj;
+
+    // Constructor
+    public Graph(int v) {
+        V = v;
+        adj = new LinkedList[v];
+        for (int i = 0; i < v; i++) {
+            adj[i] = new LinkedList<>();
+        }
+    }
+
+    // Function to add an edge into the graph
+    public void addEdge(int v, int w) {
+        adj[v].add(w);  
+    }
+
+    public void DFS(int start) {
+        boolean[] visited=new boolean[V];
+        Stack<Integer> stack=new Stack<>();
+        stack.push(start);
+        while (!stack.isEmpty()) {
+            int node=stack.pop();
+            if (!visited[node]) {
+                visited[node]=true;
+                System.out.print(node + " ");
+            }
+            List<Integer> neig=adj[node];
+            for (int i=neig.size()-1;i>=0;i--){
+                int n=neig.get(i);
+                if (!visited[n]) {
+                    stack.push(n);
+                }
+            }
+        }
+    }
+}
+
+class Solution {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read number of vertices and edges
+        int V = sc.nextInt();
+        int E = sc.nextInt();
+
+        Graph graph = new Graph(V);
+
+        // Read edges
+        for (int i = 0; i < E; i++) {
+            int source = sc.nextInt();
+            int destination = sc.nextInt();
+            graph.addEdge(source, destination);
+        }
+
+        // Read starting vertex
+        int startVertex = sc.nextInt();
+
+        // Perform DFS
+        graph.DFS(startVertex);
+    }
+}
+
+U3_DAA_BFS_DFS_SP24_The_Maze
+You are entering into a maze N*N grid consist of(0's and 1's)
+Initially you will start from (0,0) position in the maze, 
+Your target is to reach the end position (N-1, N-1).
+
+Among the four directions available(top, down, left, right),
+you can move in two directions only, right and down.
+
+In the maze, '0' indicates dead end and '1' indicates open way. 
+You can travel through only open way.
+
+For Example:-
+Given Maze of size N=4 , starting position is (0, 0),
+1 0 0 0
+1 1 0 1
+0 1 0 0
+1 1 1 1
+
+You can reach the (3, 3) position in the following way.
+1 0 0 0
+1 1 0 0
+0 1 0 0
+0 1 1 1
+
+Return true, if you can reach the end position(N-1, N-1).
+otherwise return false.
+
+Input Format:
+-------------
+Line-1 -> An integer N, size of square board.
+Next N lines -> N space separated integers 
+
+Output Format:
+--------------
+Print a boolean value.
+
+Sample Input-1:
+---------------
+3
+1 1 1
+1 0 1
+0 1 1
+
+
+Sample Output-2:
+----------------
+true
+
+Sample Input-2:
+---------------
+4
+1 0 0 0
+1 1 0 1
+0 1 0 0
+1 1 0 1
+
+Sample Output-1:
+----------------
+false
+import java.util.Scanner;
+
+class Maze 
+{ 
+	private int size; 
+	Maze(int N){
+		this.size = N;
+	}
+	boolean isSafe(int maze[][],int row,int col){
+	    if(row>=0 && row<size && col>=0 && col<size && maze[row][col]==1){
+	        return true;
+	    }
+	    return false;
+	}
+	
+	boolean solveMaze(int maze[][]) { 
+		//WRITE YOUR CODE HERE
+		if(maze[0][0]==0 || maze[size-1][size-1]==0){
+		    return false;
+		}
+		return dfs(maze,0,0);
+	} 
+	boolean dfs(int maze[][],int row,int col){
+	   // System.out.println(maze[row][col]+" ");
+	    
+	    if(isSafe(maze,row,col)){
+	        if(maze[row+1][col]==1){
+	            return dfs(maze,row+1,col);
+	        }
+	         if(maze[row][col+1]==1){
+	            return dfs(maze,row,col+1);
+	        }
+	       
+	    }
+	     return false;
+	}
+	
+
+}
+public class Solution{
+	public static void main(String args[]) 
+	{ 
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		Maze m = new Maze(n); 
+		int maze[][] = new int[n][n];
+		for(int i=0;i<n;i++)
+			for(int j=0;j<n;j++)
+				maze[i][j]=sc.nextInt();
+		System.out.println(m.solveMaze(maze)); 
+	} 
+} 
+
+
+U3_DAA_BFS_DFS_SP25_Boundary_of_Binary_Tree
+You are tasked with building a protective boundary around a series of military camps 
+situated along the border, represented as a binary tree structure. 
+Each node in this binary tree represents a military camp identified by a unique ID. 
+The main base camp is the root of this binary tree, with connections to other camps.
+
+The goal is to help the Indian Army establish a secure boundary (S.H.I.E.L.D) 
+around these camps. 
+This boundary should be defined by the camps located at the edge of the binary tree, 
+traced in an anti-clockwise direction, starting from the root.
+
+The boundary should include:
+	-Left Boundary: The camps forming the left edge of the tree, excluding leaf camps.
+	-Leaf Nodes: All camps that are leaf nodes, traversed from left to right.
+	-Right Boundary: The camps forming the right edge of the tree, excluding the 
+	root and leaf camps, added in reverse order.
+
+You need to implement a method that outputs the IDs of the military camps 
+located on this boundary.
+
+Input Format:
+-------------
+Line-1: Space-separated integers representing the IDs of the military camps in 
+level order (top to bottom, left to right). Use -1 to denote a null or missing node.
+
+Output Format:
+--------------
+Line-1: A list of integers representing the military camp IDs that form the boundary, 
+in anti-clockwise order.
+
+Constraints:
+------------
+ * The tree may have between 1 and 10,000 nodes.
+ * Camp IDs are unique integers.
+ * -1 indicates a missing (null) node.
+
+
+Input Format:
+-------------
+space separated integers, military-camp IDs.
+
+Output Format:
+--------------
+Print all the military-camp IDs, which are at the edge of S.H.I.E.L.D.
+
+Sample Input-1:
+---------------
+5 2 4 7 9 8 1
+
+Sample Output-1:
+----------------
+[5, 2, 7, 9, 8, 1, 4]
+
+
+Sample Input-2:
+---------------
+11 2 13 4 25 6 -1 -1 -1 7 18 9 10
+
+Sample Output-2:
+----------------
+[11, 2, 4, 7, 18, 9, 10, 6, 13]
+
+import java.util.*;
+
+class BinaryTreeNode
+{
+	public int data; 
+	public BinaryTreeNode left, right; 
+	public BinaryTreeNode(int data)
+	{
+		this.data = data; 
+		left = null; 
+		right = null; 
+	}
+}
+
+class Solution
+{
+	List<Integer> nodes = new ArrayList<>();
+	public List<Integer> boundaryOfBinaryTree(BinaryTreeNode root) 
+	{
+        //WRITE YOUR CODE HERE AND RETURN LIST OF NODES
+    }
+
+}
+
+public class BoundaryOfBinaryTree
+{
+	static BinaryTreeNode root;
+	void insert(BinaryTreeNode temp, int key)
+    { 
+        if (temp == null) {
+            temp = new BinaryTreeNode(key);
+            return;
+        }
+        Queue<BinaryTreeNode> q = new LinkedList<BinaryTreeNode>();
+        q.add(temp);
+ 
+        // Do level order traversal until we find an empty place.
+        while (!q.isEmpty()) {
+            temp = q.remove();
+ 
+            if (temp.left == null) {
+                temp.left = new BinaryTreeNode(key);
+                break;
+            }
+            else
+                q.add(temp.left);
+ 
+            if (temp.right == null) {
+                temp.right = new BinaryTreeNode(key);
+                break;
+            }
+            else
+                q.add(temp.right);
+        }
+    }
+
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		BoundaryOfBinaryTree bbt=new BoundaryOfBinaryTree();
+		Solution sol= new Solution();
+		
+		String str[]=sc.nextLine().split(" ");
+
+		root=new BinaryTreeNode(Integer.parseInt(str[0]));
+
+		for(int i=1; i<str.length; i++)
+			bbt.insert(root,Integer.parseInt(str[i]));
+
+		System.out.println(sol.boundaryOfBinaryTree(root));
+	}
+}

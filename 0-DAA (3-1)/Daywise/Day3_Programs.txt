@@ -1,0 +1,334 @@
+Day3_Programs
+                                       8)U1_DAA_Recursion_SP1_Fibonacci_series
+Given a non-negative integer n, generate the Fibonacci series up to the nth number using a recursive approach. 
+The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.
+
+The Fibonacci sequence is defined as:
+F(0) = 0
+F(1) = 1
+F(n) = F(n-1) + F(n-2) for n ≥ 2
+
+Constraints:
+-------------
+You are required to compute the Fibonacci series recursively as demonstrated in the Sample input and output.
+The recursive approach may cause time complexity issues for large values of n due to overlapping subproblems.
+0 ≤ n ≤ 30 is a reasonable upper bound for testing the recursive approach due to its exponential time complexity.
+
+Input Format:
+--------------
+Line-1: A single integer n, representing the number of Fibonacci numbers to generate.
+
+Output Format:
+---------------
+Line-1: A sequence of n Fibonacci numbers.
+
+Sample Input-1:
+---------------
+5
+
+Sample Output-1:
+-----------------
+0 1 1 2 3
+
+Sample Input-2:
+---------------
+10
+
+Sample Output-2: 
+----------------
+0 1 1 2 3 5 8 13 21 34
+
+import java.util.*;
+class Solution{
+    static int fibo(int n){
+        if(n<=1){
+            return n;
+        }
+        return fibo(n-1)+fibo(n-2);
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        for(int i=0;i<n;i++){
+            System.out.println(fibo(i));
+        }
+    }
+}
+
+                                      9)U1_DAA_Recursion_SP2_Climbing_Stairs
+You are climbing a staircase. It takes n steps to reach the top. 
+Each time you can either climb 1 or 2 steps. 
+In how many distinct ways can you climb to the top?
+
+Constraints:
+------------
+1 ≤ n ≤ 45
+Each time you can take either 1 step or 2 steps.
+You need to compute the total number of distinct ways to climb the staircase.
+
+Input Format:
+--------------
+Line-1: A single integer n, representing the number of steps required to reach the top.
+
+Output Format:
+---------------
+Line-1: A single integer representing the number of distinct ways to climb to the top.
+
+Sample Input-1: 
+----------------
+2
+
+Sample Output-1: 
+----------------
+2
+
+Explanation: There are two ways to climb to the top:
+1 step + 1 step
+2 steps
+
+Sample Input-2: 
+---------------
+3
+
+Sample Output-2: 
+----------------
+3
+
+Explanation: There are three ways to climb to the top:
+1 step + 1 step + 1 step
+1 step + 2 steps
+2 steps + 1 step
+import java.util.*;
+class Solution{
+    static int fibo(int n){
+        if(n<=1){
+            return n;
+        }
+        return fibo(n-1)+fibo(n-2);
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int a=fibo(n);
+        int b=fibo(n-1);
+        System.out.println(a+b);
+        
+    }
+}
+
+                                              10)U1_DAA_Recursion_SP3_Reverse_String
+Given a string s, write a recursive function to reverse the string. 
+You are not allowed to use any built-in string manipulation functions. 
+
+Constraints:
+------------
+The input string s consists of printable ASCII characters (including spaces, punctuation, etc.).
+The length of the string s is between 1 and 1000.
+You must reverse the string recursively.
+
+Input Format:
+--------------
+Line-1: A single string s, containing characters that need to be reversed.
+
+Output Format:
+--------------
+Line-1: A single string, representing the reversed input string.
+
+
+Sample Input-1: 
+---------------
+hello
+
+Sample Output-1:
+-----------------
+olleh
+
+Sample Input-2:
+----------------
+12345
+
+Sample Output-2: 
+----------------
+54321
+import java.util.*;
+class Solution{
+    static void rev(String s){
+    int n=s.length();
+    if(n<=0){
+        return;
+    }
+    System.out.print(s.charAt(n-1));
+    rev(s.substring(0,n-1));
+}
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.nextLine();
+        rev(s);
+    }
+}
+
+                                            11)U1_DAA_Recursion_AP9_Generalized_Climbing_Stairs
+A person is standing at the ground level (stair 0) and wants to reach the nth stair. 
+The person can climb 1 to m stairs in a single step. 
+Your task is to calculate how many distinct ways the person can reach exactly the nth stair.
+
+The person cannot go below stair 0. All steps must be forward only.
+
+Constraints:
+------------
+n must be greater 0(zero)
+
+Input Format:
+--------------
+Line-1: A single integer n, representing the Target stair.
+Line-2: A single integer n, representing the Max jump size.
+
+Output Format:
+---------------
+Line-1: A single integer representing the number of distinct ways to climb to the top.
+
+Sample Input-1: 
+----------------
+5
+4
+
+Sample Output-1: 
+----------------
+15
+
+
+Sample Input-2: 
+---------------
+3
+3
+
+Sample Output-2: 
+----------------
+4
+import java.util.*;
+
+class Solution {
+    static int count(int n,int m) {
+        if(n==0) 
+        { return 1;}
+        if(n<0) 
+        { return 0; }
+        int sum=0;
+        for(int i=1;i<=m;i++){
+            sum+=count(n-i,m);
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt(); 
+        int m=sc.nextInt(); 
+        System.out.println(count(n, m));
+    }
+}
+
+
+
+
+                                          12)U1_DAA_Recursion_AP11_Reverse_Groups
+KMIT exam department is preparing seating arrangements for upcoming exams. 
+They want to randomize the seating plan by reversing every group of m consecutive students in a specified range of the list. 
+You have been tasked with developing a program that generates the seating arrangement by reversing groups of m students in a subarray of student IDs, where the IDs range from 1 to n.
+
+Your program should take the following inputs:
+n: The total number of students (represented by numbers from 1 to n).
+m: The size of the groups to be reversed.
+i, j: The start and end indices of the subarray within which the reversal of groups should take place.
+
+Constraints:
+-------------
+If m is larger than the size of the specified subarray (i to j), the list should remain unchanged.
+If i >= j, the list should remain unchanged.
+Time Complexity:
+O(n): The list is traversed to reverse each group, resulting in a linear time complexity proportional to the number of elements n.
+Space Complexity:
+O(1): The program operates in place, modifying the list without using additional space for storage.
+
+Input Format:
+-------------
+Line-1: An Integer n, The number of students (size of the main list, from 1 to n).
+Line-2: An Integer m, The size of the groups of students to reverse.
+Line-3: An Integer i, The starting index of the subarray in which the reversal should start.
+Line-4: An Integer j, The ending index of the subarray in which the reversal should end.
+
+Output Format:
+---------------
+Line-1: Print the modified list after reversing every m consecutive students in the specified subarray.
+
+
+Sample Input-1:
+----------------
+10 //n
+3 //m
+1 //i
+9 //j
+
+Sample Output-1:
+-----------------
+[1, 4, 3, 2, 7, 6, 5, 10, 9, 8]
+
+Explanation: The subarray from index 1 to 9 has 9 elements. The group size m is 3, so every 3 consecutive elements are reversed:
+Subarray: [2, 3, 4, 5, 6, 7, 8, 9, 10]
+Reverse [2, 3, 4] -> [4, 3, 2]
+Reverse [5, 6, 7] -> [7, 6, 5]
+Reverse [8, 9, 10] -> [10, 9, 8]
+Final output: [1, 4, 3, 2, 7, 6, 5, 10, 9, 8]
+
+Sample Input-2:
+----------------
+10 //n
+3 //m
+7 //i
+2 //j
+
+Sample Output-2:
+----------------
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+Explanation: The start index i (7) is greater than the end index j (2).
+According to the problem constraints: If i >= j, the list should remain unchanged.
+
+import java.util.*;
+
+class Solution{
+    static void reverse(int[] arr,int m,int i,int j){
+        if(i>j || j-i+1<m){
+            return; 
+        }
+        int left=i;
+        int right=i+m-1;
+        while(left<right){
+            int temp=arr[left];
+            arr[left]=arr[right];
+            arr[right]=temp;
+            left++;
+            right--;
+        }
+        reverse(arr,m,i+m,j);
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt(); 
+        int m=sc.nextInt(); 
+        int i=sc.nextInt(); 
+        int j=sc.nextInt(); 
+        int[] arr=new int[n];
+        for(int ind=0;ind<n;ind++){
+            arr[ind]=ind+1;
+        }
+        if(i<j && m<=(j-i+1)){
+            reverse(arr,m,i,j);
+        }
+        for(int ind=0;ind<n;ind++){
+            System.out.print(arr[ind]+" ");
+        }
+    }
+}
+

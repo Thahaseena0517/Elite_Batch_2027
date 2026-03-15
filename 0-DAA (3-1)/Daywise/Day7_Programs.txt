@@ -1,0 +1,279 @@
+U1_DAA_DAC_SP8_Merge_Sort
+You are given an unsorted array of integers. Your task is to implement the MergeSort algorithm to sort the array in ascending order.
+
+MergeSort is a divide-and-conquer algorithm that:
+	Divides the array into two halves.
+	Recursively sorts the two halves.
+	Merges the two sorted halves to produce the final sorted array.
+	Your task is to write a function that sorts the given array using MergeSort.
+
+Input Format:
+--------------
+Line-1: An integer n (the size of the array).
+Line-2: n space-separated integers representing the elements of the array.
+
+Output Format:
+---------------
+Line-1: Output the sorted array in a single line, with each element separated by a space.
+
+Constraints:
+------------
+1 ≤ n ≤ 10^5
+-10^9 ≤ arr[i] ≤ 10^9
+
+
+Sample Input-1:
+---------------
+6
+12 11 13 5 6 7
+
+Sample Output-1:
+----------------
+5 6 7 11 12 13
+
+
+Sample Input-2:
+---------------
+5
+10 1 2 8 5
+
+Sample Output-2:
+----------------
+1 2 5 8 10
+import java.util.*;
+
+class MergeSort {
+
+    // Function to perform MergeSort on arr[l…r]
+    public void mergeSort(int[] arr, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int m = (l + r) / 2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+
+    public static void merge(int[] arr, int l, int m, int r) {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        for (int i=0;i< n1; i++)
+            L[i] = arr[l + i];
+        for (int j = 0; j < n2; j++)
+            R[j]=arr[m+1+j];
+
+        int i=0,j=0,k=l;
+
+        while(i<n1 && j<n2) {
+            if (L[i]<=R[j]) {
+                arr[k]=L[i];
+                i++;
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        MergeSort sorter = new MergeSort();
+        sorter.mergeSort(arr, 0, n - 1);
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+U1_DAA_DAC_SP9_Majority_Element
+Given an array nums of size n, return the majority element. 
+The majority element is the element that appears more than ⌊n / 2⌋ times.
+
+You may assume that the majority element always exists in the array.
+
+Input Format:
+--------------
+Line-1: An integer n (the size of the array).
+Line-2: n space-separated integers representing the elements of the array.
+
+Output Format:
+--------------
+Line-1: Output a single integer, the majority element.
+
+Constraints:
+-------------
+1 ≤ n ≤ 5 * 10^4
+-10^9 ≤ nums[i] ≤ 10^9
+
+
+Sample Input-1:
+---------------
+3
+3 2 3
+
+Sample Output-1:
+3
+
+Explanation:
+The number 3 appears more than n/2 times, so it is the majority element.
+
+Sample Input-2:
+---------------
+7
+2 2 1 1 1 2 2
+
+Sample Output-2:
+----------------
+2
+
+Explanation:
+The number 2 appears 4 times, which is more than n/2 = 3.5, so it is the majority element.
+
+import java.util.*;
+class Solution {
+	static float power(float x, int y)
+	{
+		//WRITE YOUR CODE HERE
+        if(y==0){
+            return 1;
+        }
+        if (y<0){
+            x=1/x;
+            y=-y;
+        }
+        float p=power(x,y/2);
+        if(y%2==0) {
+            return p*p;
+        } else {
+            return p*p*x;
+        }
+	}
+	
+	public static void main(String[] args)
+	{
+		Scanner sc=new Scanner(System.in);
+		float K = sc.nextFloat();
+		int N = sc.nextInt();
+		System.out.printf("%f", power(K, N));
+	}
+}
+
+
+
+import java.util.*;
+
+class MajorityElement {
+    public int majorityElement(int[] nums) {
+        return majorityElementRec(nums, 0, nums.length - 1);
+    }
+
+    private int majorityElementRec(int[] nums, int left, int right) {
+        if (left == right) {
+            return nums[left];
+        }
+        int mid = (left + right) / 2;
+        int leftMajor = majorityElementRec(nums, left, mid);
+        int rightMajor = majorityElementRec(nums, mid + 1, right);
+        if (leftMajor == rightMajor) {
+            return leftMajor;
+        }
+        int leftCount = countInRange(nums, leftMajor, left, right);
+        int rightCount = countInRange(nums, rightMajor, left, right);
+
+        return leftCount > rightCount ? leftMajor : rightMajor;
+    }
+
+    private int countInRange(int[] nums, int num, int left, int right) {
+        int count = 0;
+        for (int i = left; i <= right; i++) {
+            if (nums[i] == num) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+    
+
+
+public class Solution{   
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        
+        MajorityElement solution = new MajorityElement();
+        System.out.println(solution.majorityElement(nums));
+    }
+}
+
+
+U1_DAA_DAC_SP10_Power_Calculation
+A school kid named John Doe, wants to find the value of N^P
+Pth power of a number N.
+
+You will be given two integers N and P.
+Your task is to help John DOe to find the value of N^P.
+
+NOTE:
+---------
+Value of N and P can be both positive and negative
+
+
+Input Format:
+-------------
+Line-1: Two integers N and P, where N is the number and P is the power
+
+Output Format:
+--------------
+Line-1: Print a float number, N power P
+
+
+Sample Input-1:
+---------------
+3 2
+
+Sample Output-1:
+----------------
+9.000000
+
+
+Sample Input-2:
+---------------
+2 -3
+
+Sample Output-2:
+----------------
+0.125000

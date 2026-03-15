@@ -1,0 +1,1058 @@
+Greedy_Method- Toofan
+
+U2_DAA_Greedy_Method_AP33_Planting_Flowers
+U2_DAA_Greedy_Method_AP32_Biggest_Display_Number
+U2_DAA_Greedy_Method_AP31_Cookies_Allotement
+U2_DAA_Greedy_Method_AP30_Longest_Palindrome
+U2_DAA_Greedy_Method_SP20_Krushkals_MST
+U2_DAA_Greedy_Method_SP19_Prims_MST
+U2_DAA_Greedy_Method_AP29_Shot_Balloon
+U2_DAA_Greedy_Method_SP18_Minimum_Product_of_a_Subset_from_Array
+U2_DAA_Greedy_Method_SP17_Stock_Buy_Sell
+U2_DAA_Greedy_Method_AP28_Max_Water
+U2_DAA_Greedy_Method_AP27_Maximum_Value
+U2_DAA_Greedy_Method_SP17_Knapsack_Problem
+U2_DAA_Greedy_Method_SP16_Single_Source_Shortest_Path
+U2_DAA_Greedy_Method_AP26_Remove_Vertex
+U2_DAA_Greedy_Method_AP25_Adjacency_Matrix
+U2_DAA_Greedy_Method_AP24_Adjacency_List
+
+
+U2_DAA_Greedy_Method_AP33_Planting_Flowers
+A park has a row of flower plots represented as an array. 
+Some plots already have flowers (1), and others are empty (0). 
+Due to maintenance rules, no two flowers can be planted in adjacent plots. 
+
+You’re asked to check if it’s possible to plant n new flowers without breaking this rule.
+
+Given a binary array flowerbed and an integer n, determine whether n new flowers 
+can be planted in flowerbed such that no two planted flowers are adjacent. 
+Return "true" if possible, otherwise "false".
+
+Input Format:
+-------------
+Line-1: An integer m — the number of plots.
+Line-2: m space-separated integers (each 0 or 1) representing flowerbed.
+Line-3: an integer n — the number of new flowers to plant.
+
+Output Format:
+--------------
+Line-1: Either true or false (lowercase).
+
+Constraints:
+-------------
+1 ≤ m ≤ 2 × 10^4
+flowerbed[i] ∈ {0, 1}
+0 ≤ n ≤ 2 × 10^4
+Adjacent 1s will not appear in the initial flowerbed (it’s a valid starting state).
+
+Sample Input-1:
+---------------
+5
+1 0 0 0 1
+1
+
+Sample Output-1:
+----------------
+true
+
+Explanation: 
+------------
+Plant at index 2 → [1,0,1,0,1].
+
+Sample Input-2:
+---------------
+5
+1 0 0 0 1
+2
+
+Sample Output-2:
+----------------
+false
+
+Explanation: 
+------------
+Only one valid spot exists (index 2).
+
+Sample Input-3:
+---------------
+1
+0
+1
+
+Sample Output-3:
+----------------
+true
+
+Explanation: 
+------------
+Single empty plot; planting is allowed.
+
+Sample Input-4:
+---------------
+6
+0 0 0 0 0 0
+3
+
+Sample Output-4:
+----------------
+true
+
+Explanation: 
+------------
+One valid placement pattern is indices 0, 2, 4.
+
+
+
+
+U2_DAA_Greedy_Method_AP32_Biggest_Display_Number
+You’re helping an e-commerce team design the largest possible storefront number 
+for a daily promotion. You’re given a list of non-negative product IDs (integers). 
+
+You may reorder these IDs in any way and concatenate them (as strings) to form 
+one big number. 
+
+Your goal is to arrange them so that the resulting concatenation is numerically 
+the largest.
+
+Input Format:
+--------------
+Line-1: An integer n — the number of IDs.
+Line-2: n space-separated non-negative integers a1 a2 ... an.
+
+Output Format:
+--------------
+A single line containing the largest possible number as a string 
+(no leading spaces, no extra characters).
+
+Constraints:
+------------
+1 ≤ n ≤ 10^4
+0 ≤ ai ≤ 10^9
+At least one element is present.
+The output can be very large; print as a string (do not convert to numeric types that may overflow).
+
+
+Sample Input-1:
+---------------
+2
+10 2
+
+Sample Output-1:
+----------------
+210
+
+Explanation: 
+------------
+"2" + "10" = "210" is larger than "10" + "2" = "102".
+
+
+Sample Output-2:
+----------------
+5
+3 30 34 5 9
+
+Sample Output-2:
+----------------
+9534330
+
+Explanation: 
+------------
+Ordering by concatenation preference yields 9, 5, 34, 3, 30 → "9534330".
+
+
+
+
+U2_DAA_Greedy_Method_AP31_Cookies_Allotement
+
+A group of children in a school cafeteria are waiting for cookies.
+Each child has a greed factor, which represents the minimum size of a cookie 
+that can satisfy them.
+The cafeteria has a batch of cookies, each with a certain size.
+A child can only be given one cookie, and a cookie cannot be split or shared 
+between children.
+
+Your task is to determine the maximum number of children that can be satisfied 
+with the available cookies.
+
+Input Format:
+-------------
+Line-1: An integer n, the number of children.
+Line-2: n space-separated integers representing the greed factors of the children.
+Line-3: An integer m, the number of cookies.
+Line-4: m space-separated integers representing the sizes of the cookies.
+
+Output Format:
+--------------
+Line-1: An integer, the maximum number of children that can be satisfied.
+
+Constraints
+------------
+1 ≤ n, m ≤ 3 * 10^4
+1 ≤ greed factor, cookie size ≤ 10^4
+
+Sample Input-1:
+---------------
+2
+1 2
+3
+1 2 3
+
+
+Sample Output-1:
+----------------
+2
+
+Explanation:
+------------
+The child with greed factor 1 gets a cookie of size 1.
+The child with greed factor 2 gets a cookie of size 2 or 3.
+Both children are satisfied.
+
+Sample Input-2:
+---------------
+2
+1 2
+1
+1
+
+
+Sample Output-2:
+----------------
+1
+
+Explanation:
+------------
+Only one cookie is available, so at most one child can be satisfied.
+
+
+U2_DAA_Greedy_Method_AP30_Longest_Palindrome
+Given a string s which consists of lowercase or uppercase letters, 
+return the length of the longest palindrome that can be built with those letters.
+
+Letters are case sensitive, for example, "Aa" is not considered a palindrome.
+
+Sample Input-1:
+---------------
+abccccdd
+
+Sample Output-1:
+----------------
+7
+
+Explanation: 
+-------------
+One longest palindrome that can be built is "dccaccd", whose length is 7.
+
+Sample Input-2:
+---------------
+a
+
+Sample Output-2:
+----------------
+1
+
+Explanation: 
+-------------
+The longest palindrome that can be built is "a", whose length is 1.
+
+Sample Input-2:
+---------------
+AaBb
+
+Sample Output-2:
+----------------
+1
+
+
+
+U2_DAA_Greedy_Method_SP20_Krushkals_MST
+You are given a connected, undirected, and weighted graph with V vertices and E edges. 
+Your task is to implement Kruskal's Algorithm to find the Minimum Spanning Tree (MST) of the given graph. 
+The graph is represented using an edge list, where each edge connects two vertices with a specific weight.
+
+Kruskal’s Algorithm is a greedy algorithm that sorts all the edges in non-decreasing 
+order of their weight and picks the smallest edge, as long as it doesn’t form a cycle 
+with the already included edges in the MST. The algorithm stops when exactly V-1 edges 
+have been added to the MST.
+
+Input Format:
+--------------
+Line-1: Two integers V and E, where V is the number of vertices and E is the number of edges.
+Line-2 to E: Three integers each: u, v, and w, where u is the source vertex, v is the destination vertex, 
+                and w is the weight of the edge connecting u and v.
+
+Output Format:
+---------------
+Line-1: An integer, the Minimum Cost of the spanning tree.
+
+Constraints:
+------------
+*2 ≤ V ≤ 100
+*1 ≤ E ≤ V(V-1)/2
+*The graph is connected and undirected.
+*Weights of the edges are positive integers.
+
+Sample Input-1:
+---------------
+4 5
+0 1 10
+0 2 6
+0 3 5
+1 3 15
+2 3 4
+
+Sample Output-1:
+----------------
+19
+
+Sample Input-2:
+---------------
+3 3
+0 1 1
+1 2 2
+0 2 3
+
+Sample Output-2:
+----------------
+3
+
+
+
+
+U2_DAA_Greedy_Method_SP19_Prims_MST
+
+You are given an undirected, connected graph with N vertices and M edges, represented as an adjacency matrix. 
+Your task is to construct the Minimum Spanning Tree (MST) of this graph using Prim's algorithm. 
+The MST is a subgraph that connects all the vertices together, without any cycles, and with the minimum possible total edge weight.
+
+The adjacency matrix of the graph is a 2D array, where graph[i][j] represents the weight of the edge between vertex i and vertex j. 
+If there is no edge between vertex i and vertex j, the value will be 0.
+
+Your goal is to write a program that reads the adjacency matrix from input and outputs the edges in the MST along with their respective weights.
+
+Input Format:
+-------------
+Line-1: Line-1 contains an integer N, the number of vertices in the graph.
+Line-2 to N: Each line contain N integers representing the adjacency matrix of the graph.
+
+Output Format:
+--------------
+Print the edges of the MST and their corresponding weights in the format: Vertex1 - Vertex2 Weight.
+
+Sample Input-1:
+---------------
+5
+0 2 0 6 0
+2 0 3 8 5
+0 3 0 0 7
+6 8 0 0 9
+0 5 7 9 0
+
+Sample Output-1:
+----------------
+Edge 	Weight
+0 - 1	2
+1 - 2	3
+0 - 3	6
+1 - 4	5
+
+Explanation:
+The graph has 5 vertices, and the minimum spanning tree is constructed by connecting the vertices with the least total weight.
+The algorithm starts from the vertex with the smallest weight and continues to add edges with the least cost that connect the remaining unvisited vertices.
+
+Constraints:
+-------------
+*1 <= N <= 1000
+*0 <= weight of edge <= 10^4
+*The graph is connected and undirected.
+
+
+U2_DAA_Greedy_Method_AP29_Shot_Balloon
+There are some spherical balloons taped onto a flat wall that represents the XY-plane. 
+The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] 
+denotes a balloon whose horizontal diameter stretches between xstart and xend. 
+You do not know the exact y-coordinates of the balloons.
+
+Arrows can be shot up directly vertically (in the positive y-direction) from different 
+points along the x-axis. 
+A balloon with xstart and xend is burst by an arrow shot at x if xstart <= x <= xend. 
+There is no limit to the number of arrows that can be shot. 
+A shot arrow keeps traveling up infinitely, bursting any balloons in its path.
+
+Given the array points, return the minimum number of arrows that must be 
+shot to burst all balloons.
+
+Input Format:
+-------------
+Line-1: Two integers m and n, where m is the number of balloons and n is always 2, 
+        representing the range [x_start, x_end] for each balloon.
+Line-2 to m: The next m lines contain n integers each, 
+        representing the start and end points of each balloon.
+
+Output Format:
+--------------
+Line-1: Print a single integer representing the minimum number of arrows required 
+        to burst all the balloons.
+
+Constraints:
+-------------
+*1 <= m <= 10^5 (number of balloons)
+*0 <= x_start <= x_end <= 10^9 (range of balloon positions)
+*The input is guaranteed to be such that the number of arrows needed is always finite.
+
+Sample Input-1:
+---------------
+4 2
+10 16
+2 8
+1 6
+7 12
+
+Sample Output-1:
+----------------
+2
+
+Sample Input-2:
+---------------
+4 2
+1 2
+3 4
+5 6
+7 8
+
+Sample Output-2:
+----------------
+4
+
+Sample Input-3:
+---------------
+4 2
+1 2
+2 3
+3 4
+4 5
+
+Sample Output-3:
+----------------
+2
+
+Sample Input-4:
+---------------
+8 2
+1 2
+2 3
+3 4
+4 5
+5 6
+6 7
+7 8
+8 9
+
+Sample Output:
+--------------
+4
+
+Sample Input-5:
+---------------
+10 2
+1 2
+2 3
+3 4
+4 5
+5 6
+6 7
+7 8
+8 9
+9 10
+10 11
+
+Sample Output-5:
+----------------
+5
+
+
+
+U2_DAA_Greedy_Method_SP18_Minimum_Product_of_a_Subset_from_Array
+You are given an array of integers that can include both positive and negative numbers. 
+Your task is to find the minimum possible product of a non-empty subset of the given array.
+
+Rules:
+-The subset must contain at least one element.
+-The product is the result of multiplying all the numbers in the subset.
+-If the array contains only one element, that element is the result.
+-You can ignore zeros in the subset product calculation.
+
+Input Format:
+-------------
+Line-1: An integer N, the number of elements in the array.
+Line-2: N space-separated integers representing the elements of the array.
+
+Output Format:
+--------------
+Line-1: Print a single integer representing the minimum product possible from 
+a subset of the given array.
+
+Constraints:
+------------
+1 ≤ N ≤ 100
+-1000 ≤ array[i] ≤ 1000
+
+Sample Input-1:
+---------------
+5
+-1 -1 -2 4 3
+
+Sample Output-1:
+----------------
+-24
+
+Explanation: The minimum product can be achieved by choosing the 
+subset {-1, -1, -2, 4} which results in the product -24.
+
+Sample Input-2:
+---------------
+3
+-1 0 -2
+
+Sample Output-2
+----------------
+-2
+
+Explanation: Since zeroes can be ignored, the minimum product is -2, 
+achieved by the subset {-2}.
+
+Sample Input-3:
+---------------
+6
+2 3 4 5 -1 -2
+
+Sample Output-3:
+----------------
+-240
+Explanation: By choosing the subset {2, 3, 4, 5, -1, -2}, 
+the minimum product is -240.
+
+
+
+U2_DAA_Greedy_Method_SP17_Stock_Buy_Sell
+
+You are given an array prices where prices[i] represents the price of a given 
+stock on the i-th day.
+
+You want to maximize your profit by choosing a single day to buy one stock and 
+choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. 
+If you cannot achieve any profit, return 0.
+
+Input Format:
+-------------
+Line-1: A single line containing an integer array prices where prices[i] represents the stock price on day i.
+
+Output Format:
+--------------
+Line-1: Return an integer representing the maximum profit possible. If no profit is possible, return 0.
+
+Constraints:
+------------
+1 <= prices.length <= 10^5
+0 <= prices[i] <= 10^4
+
+Explanation:
+You can perform one transaction (buy one stock and sell one stock later). 
+You need to determine the maximum difference between a future price and a past price, 
+with the constraint that the sell date must be after the buy date.
+
+Note:
+You are allowed only one transaction (i.e., buy one and sell one).
+
+Sample Input-1:
+---------------
+7 1 5 3 6 4
+
+Sample Output-1:
+5
+
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6 - 1 = 5. 
+Note that buying on day 2 and selling on day 3 would also result in a profit of 4, 
+but 5 is the maximum.
+
+Sample Input-2:
+---------------
+7 6 4 3 1
+
+Sample Output-2:
+----------------
+0
+
+Explanation: In this case, no transaction is done, and the maximum profit is 0.
+
+
+Sample Input-3:
+---------------
+2 4 1
+
+Sample Output-3:
+----------------
+2
+
+Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4 - 2 = 2.
+
+
+
+U2_DAA_Greedy_Method_AP28_Max_Water
+You are given an array height that represents the height of a series of vertical 
+pillars standing on a flat surface. 
+The pillars are located at indices (i, 0) and extend vertically to the height height[i]. 
+The task is to find two pillars that can form a container with the x-axis (ground) 
+that can store the maximum amount of water between them.
+
+Your goal is to maximize the water held between any two pillars, taking 
+into consideration the height of the shorter pillar and the distance between them.
+
+Input Format:
+-------------
+Line-1: An integer n, representing the number of pillars.
+Line-2: n space-separated integers representing the heights of the pillars.
+
+Output Format:
+--------------
+Line-1: Print an integer representing the maximum amount of water that the 
+container formed by two pillars can store.
+
+Constraints:
+------------
+2 <= n <= 10^5
+0 <= height[i] <= 10^4
+
+Sample Input-1:
+---------------
+9
+1 8 6 2 5 4 8 3 7
+
+Sample Output-1:
+----------------
+49
+
+Explanation:
+The best choice is the pillar at index 1 (height 8) and the pillar at 
+index 8 (height 7). The distance between them is 7, 
+and the minimum height is 7, thus the water stored is 7 * 7 = 49.
+
+
+Sample Input-2:
+---------------
+2
+1 1
+
+Sample Output-2:
+----------------
+1
+
+Explanation:
+The only two pillars are at index 0 and index 1, both with height 1. 
+The distance between them is 1, so the water stored is 1 * 1 = 1.
+
+
+
+
+
+U2_DAA_Greedy_Method_AP27_Maximum_Value
+
+You are given an integer num. Your task is to maximize its value by swapping at most two digits once. 
+Write a program to return the maximum possible value after performing the swap.
+
+If no swap can increase the value, return the original number.
+
+Input Format:
+--------------
+Line-1: An integer num, where 0 <= num <= 10^8.
+
+Output Format:
+--------------
+Line-1: Return an integer representing the maximum value obtained after swapping two digits at most once.
+
+Sample Input-1:
+---------------
+2736
+
+Sample Output-1:
+----------------
+7236
+
+Explanation:
+------------
+Swap the digit 2 with 7, resulting in the number 7236, which is the maximum possible value.
+
+Sample Input-2:
+---------------
+9973
+
+Sample Output-2:
+----------------
+9973
+
+Explanation:
+------------
+No swap can make the number larger, so return the original number.
+
+
+
+U2_DAA_Greedy_Method_SP17_Knapsack_Problem
+
+You are given n items, each with a specific weight and value. 
+You are also given a knapsack that can hold a maximum weight W. 
+The goal is to maximize the total value in the knapsack by selecting items to add.
+
+NOTE: You can take fractions of items instead of having to take the whole item. You need to calculate the maximum possible value that can be achieved.
+
+Input Format:
+-------------
+Line-1: Two integers n and W representing the number of items and the maximum weight capacity of the knapsack, respectively.
+Line-2 to n: Each line contains two integers value and weight for each item.
+
+Output Format:
+--------------
+Line-1: Printing the maximum total value that can be obtained in the knapsack, rounded to two decimal places.
+
+Constraints:
+-------------
+1 <= n <= 10^5
+0 <= W <= 10^9
+1 <= value, weight <= 10^9
+
+Sample Input-1:
+---------------
+3 50
+60 10
+100 20
+120 30
+
+Sample Output-1:
+----------------
+240.00
+
+Explanation:
+------------
+The first item can be added in full (value = 60, weight = 10).
+The second item can be added in full (value = 100, weight = 20).
+The third item can be added partially, using only 20 out of 30 weight capacity, which gives a value of (120/30) * 20 = 80.
+Thus, the total value is 60 + 100 + 80 = 240.
+
+Sample Input-2:
+---------------
+2 50
+60 20
+100 50
+
+Sample Output-2:
+----------------
+160.00
+
+Explanation:
+------------
+The first item can be added in full (value = 60, weight = 20).
+From the second item, only 30 weight units can be used, so the value will be (100/50) * 30 = 60.
+Thus, the total value is 60 + 60 = 160.
+
+Sample Input-3:
+---------------
+1 10
+500 30
+
+Sample Output-3:
+----------------
+166.67
+
+Explanation:
+------------
+The item has a value of 500 and a weight of 30. Since the knapsack can only hold 10 units of weight, we take a fraction of the item.
+The value of 10 units from the first item is (500/30) * 10 = 166.67.
+Thus, the total value is 166.67
+
+
+
+U2_DAA_Greedy_Method_SP16_Single_Source_Shortest_Path
+
+Given a directed graph represented by an adjacency matrix, 
+where each entry graph[i][j] represents the weight of the edge from 
+vertex i to vertex j. 
+If graph[i][j] is 0, it means there is no direct edge between i and j.
+
+Your task is to determine the shortest paths from a given source vertex to 
+all other vertices using Dijkstra’s algorithm.
+
+Input Format:
+-------------
+Line-1: An integer N, representing the number of vertices in the graph.
+Next-N lines: Each line contains N space-separated integers representing the adjacency matrix graph.
+Last-line: An integer src, representing the source vertex.
+
+Output Format:
+--------------
+A line that says: "Vertex 		Distance from Source".
+Followed by N lines, each containing the vertex number and its shortest distance from the source.
+
+Constraints:
+------------
+*1 <= N <= 100
+*0 <= graph[i][j] <= 1000
+*0 <= src < N
+*All weights are non-negative integers.
+
+Sample Input-1:
+---------------
+5
+0 6 5 0 13
+6 0 12 9 5
+5 12 0 0 0
+0 9 0 0 7
+13 5 0 7 0
+2
+
+Sample Output-1:
+----------------
+Vertex           Distance from Source
+0                5
+1                11
+2                0
+3                20
+4                16
+
+Sample Input-2:
+---------------
+9
+0 4 0 0 0 0 0 8 0
+4 0 8 0 0 0 0 11 0
+0 8 0 7 0 4 0 0 2
+0 0 7 0 9 14 0 0 0
+0 0 0 9 0 10 0 0 0
+0 0 4 14 10 0 2 0 0
+0 0 0 0 0 2 0 1 6
+8 11 0 0 0 0 1 0 7
+0 0 2 0 0 0 6 7 0
+5
+
+Sample Output-2:
+----------------
+Vertex           Distance from Source
+0                11
+1                12
+2                4
+3                11
+4                10
+5                0
+6                2
+7                3
+8                6
+
+
+
+U2_DAA_Greedy_Method_AP26_Remove_Vertex
+You are given an undirected graph that represents a set of cities, where each 
+city is connected to other cities by direct routes. 
+The graph is represented using an adjacency list. 
+Your task is to remove a specific city (vertex), which will be provided as 
+input by the user, and its associated routes (edges) from the graph.
+
+Write a program that:
+	-Takes the list of cities and direct routes between them as input.
+	-Removes the city and its connections (if it exists) as specified by the user.
+	-Prints the adjacency list of the graph before and after removing the vertex.
+
+Input Format:
+-------------
+The first line contains an integer n (the number of cities).
+The next n lines contain the names of the cities.
+The following integer m represents the number of direct routes (edges) between cities.
+The next m lines contain pairs of strings (v1, v2) representing a direct route between two cities.
+The last line contains the name of the city to be removed.
+
+Output Format:
+--------------
+First, print the adjacency list of the graph before removing the city.
+Then, remove the city (if it exists) and print the adjacency list after removing the city.
+
+Constraints:
+------------
+*There are no duplicate cities in the list.
+*There are no duplicate edges in the graph.
+*1 ≤ n ≤ 100
+*1 ≤ m ≤ 500
+
+Sample Input-1:
+---------------
+5
+Dallas
+Tokyo
+Aspen
+LosAngeles
+HongKong
+6
+Dallas Tokyo
+Dallas Aspen
+HongKong Tokyo
+HongKong Dallas
+LosAngeles HongKong
+LosAngeles Aspen
+Aspen
+
+Sample Output-1:
+----------------
+Before removing vertex Aspen
+Graph {
+  adjacencyList: {
+    Dallas: [ Tokyo, Aspen, HongKong ],
+    Tokyo: [ Dallas, HongKong ],
+    Aspen: [ Dallas, LosAngeles ],
+    LosAngeles: [ HongKong, Aspen ],
+    HongKong: [ Tokyo, Dallas, LosAngeles ]
+  }
+}
+After removing vertex Aspen
+Graph {
+  adjacencyList: {
+    Dallas: [ Tokyo, HongKong ],
+    Tokyo: [ Dallas, HongKong ],
+    LosAngeles: [ HongKong ],
+    HongKong: [ Tokyo, Dallas, LosAngeles ]
+  }
+}
+
+
+
+U2_DAA_Greedy_Method_AP25_Adjacency_Matrix
+
+You are given V vertices representing a graph with V nodes. 
+The graph is undirected, and your task is to represent this graph using an adjacency matrix.
+
+Adjacency Matrix: An adjacency matrix is a 2D array of size V x V where:
+	matrix[i][j] = 1 indicates that there is an edge between vertex i and vertex j.
+	matrix[i][j] = 0 indicates that there is no direct edge between vertex i and vertex j.
+
+Add Edge: Implement a function to add edges between two vertices i and j. 
+Since the graph is undirected, an edge from i to j implies an edge from j to i.
+
+Display Matrix: Implement a function to display the adjacency matrix.
+
+Input Format:
+-------------
+Line-1: An integer V, the number of vertices.
+Line-2: An integer E, the number of edges.
+Next E lines: Two integers i and j for each line, representing an edge between vertices i and j.
+
+Output Format:
+---------------
+Print the adjacency matrix of the graph after adding all edges.
+
+Constraints:
+------------
+*1 <= V <= 20 (Maximum of 20 vertices)
+*0 <= i, j < V (Valid vertex indices)
+*0 <= E <= V*(V-1)/2 (Maximum number of edges for an undirected graph)
+
+Sample Input-1:
+---------------
+4
+4
+0 1
+0 2
+1 2
+2 3
+
+Sample Output-1:
+----------------
+0 1 1 0 
+1 0 1 0 
+1 1 0 1 
+0 0 1 0 
+
+Sample Input-2:
+---------------
+5
+5
+0 1
+0 4
+1 3
+1 2
+3 4
+
+Sample Output-2:
+----------------
+0 1 0 0 1 
+1 0 1 1 0 
+0 1 0 0 0 
+0 1 0 0 1 
+1 0 0 1 0 
+
+
+
+U2_DAA_Greedy_Method_AP24_Adjacency_List
+
+You are given a graph with V vertices and E edges. 
+Your task is to represent this graph using an adjacency list. 
+In this representation, each vertex has a list of adjacent vertices, showing which vertices it is connected to.
+
+The graph is undirected, meaning if there is an edge between vertex u and vertex v, then both u is connected to v and v is connected to u.
+
+Input Format:
+-------------
+Line-1: An integer V representing the number of vertices.
+Line-2: An integer E representing the number of edges.
+Next E Lines: The next E lines each contain two integers u and v representing an edge between vertices u and v.
+
+Output Format:
+--------------
+Print the adjacency list of the graph, where each vertex's adjacent vertices are space-separated.
+
+Constraints:
+------------
+*2 <= V <= 1000 (The number of vertices)
+*0 <= u, v < V (Valid vertices indices)
+*0 <= E <= V*(V-1)/2 (Maximum number of edges for an undirected graph)
+
+Sample Input-1:
+---------------
+5
+4
+0 1
+0 2
+1 3
+3 4
+
+Sample Output-1:
+----------------
+0: 1 2
+1: 0 3
+2: 0
+3: 1 4
+4: 3
+
+Explanation:
+------------
+Vertex 0 is connected to vertices 1 and 2.
+Vertex 1 is connected to vertices 0 and 3.
+Vertex 2 is connected to vertex 0.
+Vertex 3 is connected to vertices 1 and 4.
+Vertex 4 is connected to vertex 3.
+
+Sample Input-2:
+---------------
+3
+2
+0 1
+2 1
+
+Sample Output-2:
+---------------
+0: 1
+1: 0 2
+2: 1
+
+
+
+
+
+
+

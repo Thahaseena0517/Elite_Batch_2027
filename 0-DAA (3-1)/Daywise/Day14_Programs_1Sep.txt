@@ -1,0 +1,297 @@
+Day14_Programs_1Sep
+U2_DAA_Greedy_Method_AP30_Longest_Palindrome
+U2_DAA_Greedy_Method_SP19_Prims_MST
+U2_DAA_Greedy_Method_AP31_Cookies_Allotement
+
+
+U2_DAA_Greedy_Method_AP30_Longest_Palindrome
+Given a string s which consists of lowercase or uppercase letters, 
+return the length of the longest palindrome that can be built with those letters.
+
+Letters are case sensitive, for example, "Aa" is not considered a palindrome.
+
+Sample Input-1:
+---------------
+abccccdd
+
+Sample Output-1:
+----------------
+7
+
+Explanation: 
+-------------
+One longest palindrome that can be built is "dccaccd", whose length is 7.
+
+Sample Input-2:
+---------------
+a
+
+Sample Output-2:
+----------------
+1
+
+Explanation: 
+-------------
+The longest palindrome that can be built is "a", whose length is 1.
+
+Sample Input-2:
+---------------
+AaBb
+
+Sample Output-2:
+----------------
+1
+import java.util.*;
+
+class Solution {
+    
+    public int longestPalindrome(String s) {
+       //WRITE YOUR CODE HERE AND RETURN THE LONGEST PALINDROME LENGTH
+       
+       
+       
+       
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read the input string
+        String s = sc.nextLine();
+
+        // Call your solution class
+        Solution sol = new Solution();
+        int result = sol.longestPalindrome(s);
+
+        // Print the result
+        System.out.println(result);
+    }
+}
+
+U2_DAA_Greedy_Method_SP19_Prims_MST
+You are given an undirected, connected graph with N vertices and M edges, represented as an adjacency matrix. 
+Your task is to construct the Minimum Spanning Tree (MST) of this graph using Prim's algorithm. 
+The MST is a subgraph that connects all the vertices together, without any cycles, and with the minimum possible total edge weight.
+
+The adjacency matrix of the graph is a 2D array, where graph[i][j] represents the weight of the edge between vertex i and vertex j. 
+If there is no edge between vertex i and vertex j, the value will be 0.
+
+Your goal is to write a program that reads the adjacency matrix from input and outputs the edges in the MST along with their respective weights.
+
+Input Format:
+-------------
+Line-1: Line-1 contains an integer N, the number of vertices in the graph.
+Line-2 to N: Each line contain N integers representing the adjacency matrix of the graph.
+
+Output Format:
+--------------
+Print the edges of the MST and their corresponding weights in the format: Vertex1 - Vertex2 Weight.
+
+Sample Input-1:
+---------------
+5
+0 2 0 6 0
+2 0 3 8 5
+0 3 0 0 7
+6 8 0 0 9
+0 5 7 9 0
+
+Sample Output-1:
+----------------
+Edge 	Weight
+0 - 1	2
+1 - 2	3
+0 - 3	6
+1 - 4	5
+
+Explanation:
+The graph has 5 vertices, and the minimum spanning tree is constructed by connecting the vertices with the least total weight.
+The algorithm starts from the vertex with the smallest weight and continues to add edges with the least cost that connect the remaining unvisited vertices.
+
+Constraints:
+-------------
+*1 <= N <= 1000
+*0 <= weight of edge <= 10^4
+*The graph is connected and undirected.
+import java.util.Scanner;
+
+class Solution {
+
+    // Number of vertices in the graph
+    private static int V;
+
+    // A utility function to find the vertex with the minimum key value,
+    // from the set of vertices not yet included in the MST
+    int minKey(int key[], Boolean mstSet[]) {
+        int min = Integer.MAX_VALUE, min_index = -1;
+
+        for (int v = 0; v < V; v++) {
+            if (mstSet[v] == false && key[v] < min) {
+                min = key[v];
+                min_index = v;
+            }
+        }
+        return min_index;
+    }
+
+    // A utility function to print the constructed MST stored in parent[]
+    void printMST(int parent[], int graph[][]) {
+        System.out.println("Edge \tWeight");
+        for (int i = 1; i < V; i++) {
+            System.out.println(parent[i] + " - " + i + "\t" + graph[i][parent[i]]);
+        }
+    }
+
+    // Function to construct and print the MST for a graph represented using an adjacency matrix
+    void primMST(int graph[][]) {
+        int parent[] = new int[V];  // Array to store constructed MST
+        int key[] = new int[V];     // Key values used to pick the minimum weight edge in the cut
+        Boolean mstSet[] = new Boolean[V];  // To represent set of vertices included in the MST
+
+        // Initialize all keys as INFINITE and mstSet[] as false
+        for (int i = 0; i < V; i++) {
+            key[i] = Integer.MAX_VALUE;
+            mstSet[i] = false;
+        }
+
+        // Always include the first vertex in the MST
+        key[0] = 0;       // Make the key 0 so that this vertex is picked first
+        parent[0] = -1;   // First node is always the root of the MST
+
+        // The MST will have V vertices
+        for (int count = 0; count < V - 1; count++) {
+            // Pick the minimum key vertex from the set of vertices not yet included in the MST
+            int u = minKey(key, mstSet);
+
+            // Add the picked vertex to the MST set
+            mstSet[u] = true;
+
+            // Update key value and parent index of the adjacent vertices of the picked vertex
+            for (int v = 0; v < V; v++) {
+                // graph[u][v] is non-zero only for adjacent vertices of u
+                // mstSet[v] is false for vertices not yet included in the MST
+                // Update the key only if graph[u][v] is smaller than key[v]
+                if (graph[u][v] != 0 && mstSet[v] == false && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+            }
+        }
+
+        // Print the constructed MST
+        printMST(parent, graph);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read the number of vertices
+        V = sc.nextInt();
+
+        // Initialize the adjacency matrix
+        int[][] graph = new int[V][V];
+
+        // Read the graph as an adjacency matrix
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                graph[i][j] = sc.nextInt();
+            }
+        }
+
+        Solution t = new Solution();
+        t.primMST(graph);
+    }
+}
+
+U2_DAA_Greedy_Method_AP31_Cookies_Allotement
+A group of children in a school cafeteria are waiting for cookies.
+Each child has a greed factor, which represents the minimum size of a cookie 
+that can satisfy them.
+The cafeteria has a batch of cookies, each with a certain size.
+A child can only be given one cookie, and a cookie cannot be split or shared 
+between children.
+
+Your task is to determine the maximum number of children that can be satisfied 
+with the available cookies.
+
+Input Format:
+-------------
+Line-1: An integer n, the number of children.
+Line-2: n space-separated integers representing the greed factors of the children.
+Line-3: An integer m, the number of cookies.
+Line-4: m space-separated integers representing the sizes of the cookies.
+
+Output Format:
+--------------
+Line-1: An integer, the maximum number of children that can be satisfied.
+
+Constraints
+------------
+1 ≤ n, m ≤ 3 * 10^4
+1 ≤ greed factor, cookie size ≤ 10^4
+
+Sample Input-1:
+---------------
+2
+1 2
+3
+1 2 3
+
+
+Sample Output-1:
+----------------
+2
+
+Explanation:
+------------
+The child with greed factor 1 gets a cookie of size 1.
+The child with greed factor 2 gets a cookie of size 2 or 3.
+Both children are satisfied.
+
+Sample Input-2:
+---------------
+2
+1 2
+1
+1
+
+
+Sample Output-2:
+----------------
+1
+
+Explanation:
+------------
+Only one cookie is available, so at most one child can be satisfied.
+import java.util.*;
+
+public class Solution {
+    
+    static int maxSatisfied(int[] greed, int[] cookies) {
+       //WRITE YOUR CODE HERE
+       
+       
+       
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read number of children
+        int n = sc.nextInt();
+        int[] greed = new int[n];
+        for (int i = 0; i < n; i++) {
+            greed[i] = sc.nextInt();
+        }
+
+        // Read number of cookies
+        int m = sc.nextInt();
+        int[] cookies = new int[m];
+        for (int i = 0; i < m; i++) {
+            cookies[i] = sc.nextInt();
+        }
+
+        int ans = maxSatisfied(greed, cookies);
+        System.out.println(ans);
+    }
+}

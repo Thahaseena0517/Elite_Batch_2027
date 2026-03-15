@@ -1,0 +1,646 @@
+Binary Search-Toofan
+
+U1_DAA_Binary_Search_AP23_Stair_Case
+U1_DAA_Binary_Search_AP22_Perfect_Square
+U1_DAA_Binary_Search_AP21_Search_in_a_SortedMatrix
+U1_DAA_Binary_Search_AP20_Split_Array_with_Minimized_LargestSum
+U1_DAA_Binary_Search_AP19_Pair_Difference
+U1_DAA_Binary_Search_SP15_Median_Of_Sorted_Arrays
+U1_DAA_Binary_Search_SP14_Koko_Eating_Bananas
+U1_DAA_Binary_Search_AP18_LCP_HashMap
+U1_DAA_Binary_Search_SP13_LCP
+
+
+
+U1_DAA_Binary_Search_AP23_Stair_Case
+You are tasked with calculating how many complete rows a mason can build while 
+constructing a staircase. 
+The staircase consists of k rows, where the i-th row contains exactly i bricks. 
+The mason has n bricks in total, and the last row of the staircase may be incomplete.
+
+Your goal is to determine the number of complete rows that can be fully built using the given n bricks. 
+Solve this problem in O(log n) time complexity.
+
+Input Format:
+--------------
+Line-1: A single integer n, representing the total number of bricks.
+
+Output Format:
+--------------
+Line-1: Return a single integer representing the number of complete rows that 
+can be fully constructed with the available bricks.
+
+Constraints:
+------------
+0 ≤ n ≤ 10^9
+
+Sample Input-1:
+----------------
+5
+
+Sample Output-1:
+----------------
+2
+
+Explanation:
+The staircase built with 5 bricks looks like this:
+Row 1: B1
+Row 2: B2 B3
+Row 3: B4 B5 (incomplete)
+Rows 1 and 2 are complete, but row 3 is incomplete. Therefore, the number of complete rows is 2.
+
+
+Sample Input-2:
+---------------
+10
+
+Sample Output-2:
+----------------
+4
+
+Explanation:
+The staircase built with 10 bricks looks like this:
+Row 1: B1
+Row 2: B2 B3
+Row 3: B4 B5 B6
+Row 4: B7 B8 B9 B10
+All rows are fully constructed, so the output is 4.
+
+
+Sample Input-3:
+---------------
+19
+
+Sample Output-3:
+-----------------
+5
+
+Explanation:
+The staircase built with 19 bricks looks like this:
+Row 1: B1
+Row 2: B2 B3
+Row 3: B4 B5 B6
+Row 4: B7 B8 B9 B10
+Row 5: B11 B12 B13 B14 B15 (incomplete)
+Rows 1 through 4 are complete, but row 5 is incomplete. The number of complete rows is 5.
+
+
+
+
+U1_DAA_Binary_Search_AP22_Perfect_Square
+You are given a positive integer n, and your task is to determine whether it is a perfect square. 
+A number is considered a perfect square if there exists an integer x such that x * x = n.
+
+You must solve this problem in O(log(n)) time complexity using the binary search algorithm. 
+
+NOTE:You are not allowed to use any built-in library functions to check if the 
+number is a perfect square.
+
+Input Format:
+-------------
+Line-1: A single integer n.
+
+Output Format:
+---------------
+Line-1: Print true if the number n is a perfect square, otherwise print false.
+
+
+Constraints:
+-------------
+The integer n will always be a positive integer (1 ≤ n ≤ 10^9).
+The solution must have a time complexity of O(log(n)).
+
+
+Sample Input-1:
+---------------
+25
+
+Sample Output-1:
+----------------
+true
+
+Explanation:
+5 * 5 = 25, so 25 is a perfect square.
+
+
+Sample Input-2:
+---------------
+9
+
+Sample Output-2:
+----------------
+true
+
+Explanation:
+3 * 3 = 9, so 9 is a perfect square.
+
+
+Sample Input-3:
+---------------
+8
+
+Sample Output-3:
+----------------
+false
+
+Explanation:
+There is no integer x such that x * x = 8.
+
+
+Sample Input-4:
+---------------
+125
+
+Sample Output-4:
+----------------
+false
+
+Explanation:
+There is no integer x such that x * x = 125.
+
+
+
+U1_DAA_Binary_Search_AP21_Search_in_a_SortedMatrix
+You are given an m x n matrix of integers where:
+	*Each row is sorted in non-decreasing order.
+	*The first integer of each row is greater than the last integer of the previous row.
+
+Given an integer target, your task is to determine if the target exists in the matrix.
+If it does, return the row and column indices where it is found. 
+If it does not exist in the matrix, return -1.
+
+You must implement the solution with a time complexity of O(log(m * n)) 
+using a binary search approach.
+
+Input Format:
+-------------
+Line-1: Two integers m and n, representing the number of rows and columns in the matrix.
+Line-2 to m: The next m lines each contain n integers, representing the matrix elements.
+Line m+1: The last line contains the integer k, the target value to search for in the matrix.
+
+Output Format:
+---------------
+If the target exists, print the row and column indices of the target in the matrix.
+If the target does not exist, print -1.
+
+Constraints:
+-------------
+1 ≤ m, n ≤ 1000
+-10^4 ≤ matrix[i][j], k ≤ 10^4
+
+Sample Input-1:
+---------------
+3 4
+1 3 5 7
+10 11 16 20
+23 30 34 60
+3
+
+Sample Output-1:
+----------------
+0 1
+
+Explanation:
+The target 3 is found in row 0 and column 1.
+
+
+Sample Input-2:
+---------------
+3 4
+1 3 5 7
+10 11 16 20
+23 30 34 60
+13
+
+Sample Output-2:
+----------------
+-1
+
+Explanation:
+The target 13 does not exist in the matrix, so the output is -1.
+
+
+
+
+U1_DAA_Binary_Search_AP20_Split_Array_with_Minimized_LargestSum
+You are given an integer array nums and an integer k. 
+Your task is to split nums into k non-empty subarrays such that 
+the largest sum of any subarray is minimized.
+
+A subarray is a contiguous part of the array. You need to return the minimized 
+largest sum of the split.
+
+Input Format:
+--------------
+Line-1: Integers representing the elements of the array nums, separated by commas.
+Line-2: An integer k, representing the number of subarrays to split nums into.
+
+Output Format:
+---------------
+Line-1: Print a single integer representing the minimized largest sum after 
+splitting the array into k subarrays.
+
+Constraints:
+-------------
+1 ≤ nums.length ≤ 1000
+0 ≤ nums[i] ≤ 10^6
+1 ≤ k ≤ min(50, nums.length)
+
+Sample Input-1:
+---------------
+7,2,5,10,8
+2
+
+Sample Output-1:
+----------------
+18
+
+Explanation:
+There are four ways to split nums into two subarrays. The best way is 
+to split it into [7, 2, 5] and [10, 8], 
+where the largest sum among the two subarrays is only 18.
+
+
+Sample Input-2:
+---------------
+1,2,3,4,5
+2
+
+Sample Output-2:
+----------------
+9
+
+Explanation:
+The best way to split nums into two subarrays is [1, 2, 3] and [4, 5], 
+where the largest sum is 9.
+
+
+
+
+U1_DAA_Binary_Search_AP19_Pair_Difference
+Mr. Ram works in a manufacturing industry where items of different weights are produced. 
+His task is to find pairs of items whose weight difference is equal to a given value k. 
+You are asked to write a program to help Mr. Ram achieve this without using extra space.
+
+Input Format:
+-------------
+Line-1: An integer n, the number of items (weights).
+Line-2: n space-separated positive integers representing the weights of the items.
+Line3: An integer k, the desired difference between the weights of the paired items.
+
+Output Format:
+--------------
+Line-1 to n: Print the pairs of integers where the difference between the two numbers in each pair is exactly k.
+Each pair should be printed on a new line.
+
+Constraints:
+------------
+The input list will contain distinct integers.
+You are not allowed to use extra space, so you must solve the problem in-place 
+or by using a fixed amount of space.
+
+
+Sample Input-1:
+---------------
+8
+1 2 3 4 5 6 7 8
+3
+
+Sample Output-1:
+----------------
+1 4
+2 5
+3 6
+4 7
+5 8
+
+Sample Input-2:
+---------------
+10
+5 10 15 20 25 30 35 40 45 50
+5
+
+Sample Output-2:
+----------------
+5 10
+10 15
+15 20
+20 25
+25 30
+30 35
+35 40
+40 45
+45 50
+
+
+
+
+
+U1_DAA_Binary_Search_SP15_Median_Of_Sorted_Arrays
+In a school, the 5th standard class is divided into two sections, Rose and Lotus. 
+The teacher has recorded the scores of students from both sections in their Mathematics exam. 
+The marks for both sections are provided in ascending order. 
+The task is to compute the median of the combined marks of both sections.
+
+You are given the number of students in each section and their respective marks. 
+Your task is to find the median of the combined sorted marks from both sections.
+
+The overall run-time complexity of your solution should be O(log(min(m + n))).
+
+Input Format:
+-------------
+Line-1: An integer m, representing the number of students in section Rose.
+Line-2: An integer n, representing the number of students in section Lotus.
+Line-3: m space-separated integers, representing the scores of students in section Rose, sorted in ascending order.
+Line-4: n space-separated integers, representing the scores of students in section Lotus, sorted in ascending order.
+
+Output Format:
+--------------
+Line-1: Print a single float representing the median of the combined sorted marks from both sections.
+
+Constraints:
+------------
+0 ≤ m, n ≤ 1000
+The marks of students are in the range 0 ≤ marks ≤ 100.
+Time complexity: O(log(min(m + n)))
+Space complexity: O(1)
+
+Sample Input-1:
+---------------
+4
+6
+32 45 70 95
+40 50 59 67 73 84
+
+Sample Output-1:
+----------------
+63.0
+
+Explanation: The combined sorted marks are: [32, 40, 45, 50, 59, 67, 70, 73, 84, 95].
+The median is 63.0.
+
+
+Sample Input-2:
+---------------
+5
+6
+10 20 30 40 50
+35 44 60 70 80 90
+
+Sample Output-2:
+----------------
+44.0
+
+Explanation: The combined sorted marks are: [10, 20, 30, 35, 40, 44, 50, 60, 70, 80, 90].
+The median is 44.0.
+
+Sample Input-3:
+---------------
+4
+6
+3 6 8 10
+14 17 20 33 44 55
+
+Sample Output-3:
+-----------------
+15.5
+
+Explanation: The combined sorted marks are: [3, 6, 8, 10, 14, 17, 20, 33, 44, 55].
+The median is (10 + 14) / 2 = 15.5.
+
+
+Sample Input-4:
+----------------
+3
+5
+50 60 80
+7 10 20 30 40
+
+Sample Output-4:
+----------------
+35.0
+
+Explanation: The combined sorted marks are: [7, 10, 20, 30, 40, 50, 60, 80].
+The median is 35.0.
+
+
+
+
+U1_DAA_Binary_Search_SP14_Koko_Eating_Bananas
+
+Koko loves to eat bananas. There are n piles of bananas, where the i-th pile has 
+piles[i] bananas. 
+The guards have gone, and Koko can decide her own banana eating speed k (bananas per hour). 
+Each hour, she chooses any pile of bananas and eats k bananas from that pile. 
+If the pile has less than k bananas, she eats all of them instead and does not 
+eat any more bananas during that hour.
+
+Koko likes to finish eating all the bananas within h hours. 
+
+Your task is to find the minimum integer value of k such that she can eat all 
+the bananas within h hours.
+
+Input Format:
+-------------
+Line-1: Two integers n and h, where n is the number of piles and h is the maximum 
+number of hours Koko has to eat all the bananas.
+Line-2: n space-separated integers, representing the number of bananas in each pile.
+
+Output Format:
+--------------
+Return the minimum eating speed k such that Koko can eat all the bananas within 
+h hours.
+
+Constraints:
+------------
+1 ≤ n ≤ 10^4
+1 ≤ piles[i] ≤ 10^9
+1 ≤ h ≤ 10^9
+
+
+Sample Input-1:
+---------------
+4 8
+3 6 7 11
+
+Sample Output-1:
+----------------
+4
+
+Explanation:
+Koko can eat at a speed of k = 4 bananas per hour:
+	In the first hour, she eats 3 bananas from pile 1 (completing the pile).
+	In the second hour, she eats 4 bananas from pile 2, leaving 2 bananas.
+	In the third hour, she eats the remaining 2 bananas from pile 2.
+	In the fourth and fifth hours, she eats the pile 3 and 4. 
+	Total time: 4 + 2 + 1 + 1 = 8 hours.
+
+Sample Input-2:
+---------------
+5 7
+30 11 23 4 20
+
+Sample Output-2:
+----------------
+30
+
+Explanation:
+Koko can finish all bananas at a speed of k = 30. She eats each pile in an hour.
+
+
+Sample Input-3:
+---------------
+5 6
+30 11 23 4 20
+
+Sample Output-3:
+23
+
+Explanation:
+Koko can eat all bananas in 6 hours with a speed of k = 23.
+
+
+
+U1_DAA_Binary_Search_AP18_LCP_HashMap
+
+Given an array of strings strs, find the longest common prefix among all strings.
+
+If there is no common prefix, return an empty string "".
+
+NOTE: Using Hashmap
+
+Input Format:
+-------------
+Line-1: An integer n, the number of strings in the array.
+Line-2: The next n lines contain n space-separated strings representing the elements of the string array strs.
+
+Output Format:
+--------------
+Line-1: Print a single string, which is the longest common prefix among all the strings. If no common prefix exists, print an empty string.
+
+Constraints:
+------------
+1 ≤ n ≤ 200
+0 ≤ strs[i].length ≤ 200
+strs[i] consists of only lowercase English letters.
+
+
+Sample Input-1:
+---------------
+3
+flower flow flight
+
+Sample Output-1:
+----------------
+fl
+
+Explanation:
+The longest common prefix of the strings flower, flow, and flight is "fl".
+
+Sample Input-2:
+---------------
+3
+dog racecar car
+
+Sample Output-2:
+----------------
+""
+
+Explanation:
+There is no common prefix among the input strings.
+
+
+
+U1_DAA_Binary_Search_SP13_LCP
+
+Given an array of strings strs, find the longest common prefix among all strings.
+
+If there is no common prefix, return an empty string "".
+
+NOTE: Solve Using Binary Search
+
+Input Format:
+-------------
+Line-1: An integer n, the number of strings in the array.
+Line-2: The next n lines contain n space-separated strings representing the 
+elements of the string array strs.
+
+Output Format:
+--------------
+Line-1: Print a single string, which is the longest common prefix among all the strings. 
+If no common prefix exists, print an empty string.
+
+Constraints:
+------------
+1 ≤ n ≤ 200
+0 ≤ strs[i].length ≤ 200
+strs[i] consists of only lowercase English letters.
+
+
+Sample Input-1:
+---------------
+3 
+flower flow flight
+
+Sample Output-1:
+----------------
+fl
+
+Explanation:
+The longest common prefix of the strings flower, flow, and flight is "fl".
+
+Sample Input-2:
+---------------
+3
+dog racecar car
+
+Sample Output-2:
+----------------
+""
+
+Explanation:
+There is no common prefix among the input strings.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
