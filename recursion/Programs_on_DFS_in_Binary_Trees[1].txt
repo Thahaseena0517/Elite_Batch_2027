@@ -1,0 +1,222 @@
+Program1) 
+Given an array, construct binary tree and return the length of the diameter of the tree.
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+The length of a path between two nodes is represented by the number of edges between them.
+
+Use Depth First Search approach.
+
+Note: A leaf is a node with no children and -1 represents null value.
+
+You are free to implement the code in any programming language 
+
+Sample test case
+
+case=1
+input=5
+1 2 3 4 5
+output=3
+
+         1
+        / \
+       /   \
+      2     3
+     / \  
+    4   5
+     
+    Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3].
+
+case=2
+input=2
+1 2
+output=1
+
+case=3
+input=14
+1 2 3 4 5 -1 -1 8 -1 9 -1 10 -1 11
+output=6
+
+case=4
+input=18
+1 2 3 4 5 6 7 8 -1 9 -1 -1 12 -1 -1 10 -1 11
+output=7
+
+// Structure of Node
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int data)
+    {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+// Build binary tree from level-order array. -1 means null.
+Node buildTree(int[] arr)
+{
+    if (arr.length == 0 || arr[0] == -1)
+    {
+        return null;
+    }
+    Node root = new Node(arr[0]);
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(root);
+    int i = 1; // Start from the second element
+    while (!queue.isEmpty() && i < arr.length)
+    {
+        Node current = queue.poll();
+        if (i < arr.length && arr[i] != -1)
+        {
+            current.left = new Node(arr[i]);
+            queue.add(current.left);
+        }
+        i++;
+        if (i < arr.length && arr[i] != -1)
+        {
+            current.right = new Node(arr[i]);
+            queue.add(current.right);
+        }
+        i++;
+    }
+    return root;
+}
+
+
+Program2)
+
+Given two arrays, construct binary trees root1 and root2 respectively.
+
+Imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree.
+
+Return the merged tree. 
+Note: The merging process must start from the root nodes of both trees.
+
+Use Depth First Search approach.
+
+Note: Use the below method levelOrder() for level order traversal, given the root node.
+You are free to implement the code in any programming language 
+
+Sample test case
+
+case=1
+input=4
+1 3 2 5
+7
+2 1 3 -1 4 -1 7
+output=[3, 4, 5, 5, 4, 7]
+
+         1                 2                                       3
+        / \               / \                                     / \
+       /   \             /   \                                   /   \
+      3     2           1     3              -->                4     5
+     /                   \     \                               / \     \
+    5                     4     7                             5   4     7
+
+Explanation:
+Input: line1 is the number of elements in binary tree1, followed by their values, followed by number of elements in binary tree2, followed by their values.
+Output: merged tree
+
+case=2
+input=1
+1
+2
+1 2
+output=[2, 2]
+
+case=3
+input=7
+1 2 3 4 5 6 7
+7
+1 2 3 -1 5 -1 7
+output=[2, 4, 6, 4, 10, 6, 14]
+
+case=4
+input=7
+40 30 50 -1 -1 45 60
+7
+40 30 50 25 -1 -1 60
+output=[80, 60, 100, 25, 45, 120]
+
+// Structure of Node
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int data)
+    {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+// Build binary tree from level-order array. -1 means null.
+Node buildTree(int[] arr)
+{
+    if (arr.length == 0 || arr[0] == -1)
+        return null;
+
+    Node root = new Node(arr[0]);
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(root);
+
+    int i = 1; // Start from the second element
+    while (!queue.isEmpty() && i < arr.length)
+    {
+        Node current = queue.poll();
+
+        // Assign left child
+        if (i < arr.length && arr[i] != -1)
+        {
+            current.left = new Node(arr[i]);
+            queue.add(current.left);
+        }
+        i++;
+
+        // Assign right child
+        if (i < arr.length && arr[i] != -1)
+        {
+            current.right = new Node(arr[i]);
+            queue.add(current.right);
+        }
+        i++;
+    }
+    return root;
+}
+
+void levelOrder(Node root, List<Integer> result)
+{
+    Queue<Node> queue = new LinkedList<>();
+    if(root == null)
+        return;
+
+    queue.add(root);
+
+    // we count the root as level 1
+    int depth = 1;
+    while(!queue.isEmpty())
+    {
+        // number of nodes at the current level
+        int levelSize = queue.size();
+        for(int i=0; i<levelSize; i++)
+        {
+            Node curNode = queue.poll();
+            result.add(curNode.data);
+            // add the left child first
+            if(curNode.left != null)
+            {
+                queue.add(curNode.left);
+            }
+            if(curNode.right != null)
+            {
+                queue.add(curNode.right);
+            }
+        }
+        // increase depth after processing all nodes at the current level
+        depth++;
+    }
+}
+
+
+
+
