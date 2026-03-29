@@ -1,0 +1,175 @@
+Day 38 programs
+
+Ram and Bheem are using a Desktop Computer.One day they found that keyboard 
+is defective in which if you type backspace button,it will print '$', 
+instead of removing one previous character.
+
+Bheem and Ram have tried to type one word each on the same keyboard.
+Return true, if both tried to type the same word. Otherwise return false.
+
+Note:backspace for an empty text will continue empty.
+
+Input Format:
+-------------
+Line-1:Two space seperated strings represents words w1,w2.
+
+ 
+Output Format:
+--------------
+Print a boolean result.
+ 
+Constraints:
+
+    1 <= w1.length, w2.length <= 200
+    w1 and w2 only contain lowercase letters and '$' characters.
+
+
+ 
+Sample Input-1:
+---------------
+pq$r  pt$r
+
+Sample Output-1:
+----------------
+true
+
+Explanation:
+------------
+Both wants to type 'pr'
+
+Sample Input-2:
+---------------
+se$$at cea$$t
+
+Sample Output-2:
+----------------
+false
+
+Sample Input-3:
+---------------
+s$$at ce$$at
+
+Sample Output-2:
+----------------
+true
+
+Explanation:
+------------
+Both wants to type 'at'.
+
+
+You are given a phrase and a paper of size m*n.
+So you can type exactly m * n characters on that paper.
+i.e,. there are 'm' rows and in each row you can type 'n' characters
+You need to type the phrase on the paper with some rules.
+
+The rules are as follows:
+    - A word in the phrase cannot be split into two lines.
+    - The order of words in the phrase shuld not change.
+    - Two consecutive words in a line must be separated by a single space.
+
+Your task is to find out how many times the phrase can be typed on the paper.
+
+
+Constraint:
+-----------
+Length of each word is <=10.
+
+Input Format:
+-------------
+Line-1: Three space separated integers m, n, and s, grid size m*n, number of words.
+Line-2: 's' space separated strings, set of words
+
+Output Format:
+--------------
+Print an integer, no.of times set of words fit into the grid.
+
+
+Sample Input-1:
+---------------
+2 8 2
+socail distance
+
+Sample Output-1:
+----------------
+1
+
+Explanation:
+------------
+social__
+distance
+
+
+Sample Input-2:
+---------------
+3 6 3
+a bc def
+
+Sample Output-2:
+----------------
+2
+
+Explanation:
+------------
+a_bc__
+def_a_
+bc_def
+
+
+Mr Hacker has given a color code system as a grid of size R*C, the color codes 
+are in the range of 1 to 10 and the grid is 0-indexed.
+
+He has given a task to crack the original grid by using three values, Ri, Cj, Code.
+The way to crack the original color codes in the grid is as follows:
+    1. You have to start updating the color codes from (Ri,Cj) position in 
+    the grid with the given color code, 'Code'.
+    2. Updating color codes means, replace the color codes from the cell (Ri,Cj) 
+      in the grid, and replace all the cells connected in 4 directions
+      (Up, Down, Left, Right) and having same color-code of starting cell.
+    3. Repeat the step-2 from the updated cells until no more cells to update.
+
+Your task is to help Mr.Hacker to get the original color-code system grid
+and print it.
+
+
+Input Format:
+-------------
+Line-1: Two space sepearted integers, R and C.
+Next R lines: C space separated integers, grid[][].
+Last line: Three space sepaarted integers, Ri,Cj and Code.
+
+Output Format:
+--------------
+Print the resultant grid.
+
+
+Sample Input-1:
+---------------
+3 4
+1 0 1 1
+0 1 1 1
+1 1 0 1
+1 3 3
+
+Sample Output-1:
+----------------
+1 0 3 3
+0 3 3 3
+3 3 0 3
+
+
+Sample Input-2:
+---------------
+3 4
+1 0 1 1
+0 1 1 1
+1 1 0 1
+0 0 3
+
+Sample Output-2:
+----------------
+3 0 1 1
+0 1 1 1
+1 1 0 1
+
+

@@ -1,0 +1,239 @@
+Day 40 Programs
+
+Day 40 Program 1
+You are working in a genetics laboratory where you are tasked with correcting 
+DNA sequences. Each DNA strand is represented as a sequence of characters 'A', 
+'C', 'G', and 'T'. Sometimes, due to mutations or errors during sequencing, the 
+DNA strand (originalDNA) must be modified to match a targetDNA sequence exactly.
+
+You can perform the following mutation operations:
+- Insert a nucleotide (A, C, G, or T) into the DNA strand.
+- Delete a nucleotide from the DNA strand.
+- Replace a nucleotide with another one.
+
+Each operation counts as one step.
+
+Your task is to find the minimum number of mutation operations needed to 
+transform the originalDNA into the targetDNA.
+
+Input format:
+-------------
+2 space seperated strings, originalDNA, targetDNA
+
+Output format:
+--------------
+An integer, the minimum number of mutation operations
+
+
+Example 1:
+-----------
+Input:
+ACGT AGT
+
+Output:
+1
+
+Explanation:
+Delete 'C': "ACGT" → "AGT"
+Only 1 mutation is needed.
+
+Example 2:
+----------
+Input:
+GATTAC GCATGCU
+
+Output:
+4
+
+Explanation:
+- Replace 'A' with 'C': "GATTAC" → "GCTTAC"
+- Replace 'T' with 'A': "GCTTAC" → "GCATAC"
+- Replace 'A' with 'G': "GCATAC" → "GCATGC"
+- Insert 'U' at the end: "GCATGC" → "GCATGCU"
+
+Thus, 4 mutations are needed.
+import java.util.*;
+
+class Sol {
+
+    static int[][] dp;
+
+    static int check(String s1, String s2, int i, int j){
+        if(i == s1.length()) return s2.length() - j;
+        if(j == s2.length()) return s1.length() - i;
+
+        if(dp[i][j] != -1) return dp[i][j];
+
+        if(s1.charAt(i) == s2.charAt(j)) {
+            return dp[i][j] = check(s1, s2, i + 1, j + 1);
+        }
+        int insert = 1 + check(s1, s2, i, j + 1);
+        int delete = 1 + check(s1, s2, i + 1, j);
+        int replace = 1 + check(s1, s2, i + 1, j + 1);
+        return dp[i][j] = Math.min(insert, Math.min(delete, replace));
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String[] str = sc.nextLine().split(" ");
+
+        int n = str[0].length();
+        int m = str[1].length();
+
+        dp = new int[n][m];
+        for(int[] row : dp) Arrays.fill(row, -1);
+
+        System.out.println(check(str[0], str[1], 0, 0));
+    }
+}
+
+
+Vishal has given a task to find the successor of a given alphabet 'alp' 
+in a given string str[]. The alphabets in the given string str[] are 
+all lowercase letters and always in non-decreasing order.
+
+A successor of 'alp' is the next smallest alphabet exist in the string str[],
+which is greater than 'alp'. Assume that alphabets can be considered in 
+cyclic fashion. For example: Successor for alp='z' in str[]="bcd" is 'b'.
+
+Help Vishal to return the answer.
+
+Can you solve it in O(log(n)) complexity?
+
+Input Format:
+-------------
+Line-1:A string str[]
+Line-2: a character represents an alphabet.
+ 
+Output Format:
+--------------
+Print a character which is the successor.
+ 
+Constraints:
+ 2 <= str.length<= 10^4
+'alp' is a lowercase letter.
+
+ 
+Sample Input-1:
+---------------
+adghijl
+f 
+Sample Output-1:
+----------------
+g
+
+Sample Input-2:
+---------------
+abcdefghi
+j
+
+Sample Output-2:
+----------------
+a
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String str=sc.next();
+        char ch=sc.next().charAt(0);
+        int l=0,h=str.length()-1;
+        int res=0;
+        while(l<=h){
+            int m=(l+h)/2;
+            // if(m>=str.length()){
+            //     res=0;
+            //     break;
+            // }
+            if(str.charAt(m)>ch){
+                res=m;
+                h=m-1;
+            }
+            else {
+                l=m+1;
+            }
+        }
+        System.out.println(str.charAt(res));
+    }
+}
+
+
+You are navigating a spaceship through a galaxy represented as an m x n space map.  
+The spaceship starts from the top-left sector (sector[0][0]) and its mission is 
+to safely reach the bottom-right sector (sector[m-1][n-1]).
+
+Each sector on the map can either be clear (0) or blocked by an asteroid field (1).  
+The spaceship can only move right or downward at any moment.  
+It cannot pass through sectors with asteroid fields.
+
+Return the total number of distinct safe routes the spaceship can take to reach 
+its destination at the bottom-right corner.
+
+
+Input format:
+-------------
+2 space seperated integers, m & n
+next m lines of representing the sector 
+
+Output format:
+--------------
+An integer, the total number of distinct safe routes
+
+
+
+Example 1:
+----------
+Input:
+3 3
+0 0 0
+0 1 0
+0 0 0
+
+Output:
+2
+
+Explanation:  
+There’s one asteroid field blocking the center of the 3×3 map.  
+Two possible safe navigation paths:
+- Move → Move → Down → Down
+- Down → Down → Move → Move
+
+Example 2:
+---------
+Input:
+2 2
+0 1
+0 0
+
+Output:
+1
+
+
+Constraints:
+- m == sectorMap.length
+- n == sectorMap[i].length
+- 1 <= m, n <= 100
+- sectorMap[i][j] is either 0 (clear) or 1 (asteroid field)
+
+import java.util.*;
+
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int m=sc.nextInt();
+        int[][] mat=new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                mat[i][j]=sc.nextInt();
+            }
+        }
+        System.out.println(check(mat,n-1,m-1));
+    }
+    static int check(int[][] mat,int r, int c){
+        if( r<0 || c<0) return 0;
+        if(mat[r][c]==1) return 0;
+        if(r==0 && c==0) return 1;
+         int down=1+check(mat,r-1,c);
+         int rig=1+check(mat,r,c-1);
+        return down+rig;
+    }
+}

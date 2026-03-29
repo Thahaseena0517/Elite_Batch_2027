@@ -1,0 +1,352 @@
+Day33 Program-1
+You are given a set of releases of a software and you are asked to find the most
+recent release. There may be multiple checkins of the software in a given branch. 
+Each branch may also have sub branches. For example release 3-5-4 refers to the 
+fourth checkin in the fifth sub branch of the third main branch. 
+This hierarchy can go upto any number of levels. 
+
+If a level is missing it is considered as level 0 in that hierarchy. 
+For example 3-5-7 is  same as 3-5-7-0 or even same as 3-5-7-0-0. 
+The higher numbers denote more recent releases. 
+
+For example 3-5-7-1 is more recent than 3-5-7 but less recent than 3-6.
+
+Input Format:
+-------------
+A single line space separated strings, list of releases 
+
+Output Format:
+--------------
+Print the latest release of the software.
+
+
+Sample Input-1:
+---------------
+1-2 1-2-3-0-0 1-2-3
+
+Sample Output-1:
+----------------
+1-2-3
+
+Sample Input-2:
+---------------
+3-5-4 3-5-7 3-5-7-1 3-5-7-0-0 3-6
+
+Sample Output-2:
+----------------
+3-6
+
+Day33 Program-2
+Imagine you are the curator of a historic library, where books are arranged in a 
+unique catalog system based on their publication years. The library’s archive is 
+structured like a hierarchical tree, with each book’s publication year stored at 
+a node. You are given the nodes of this catalog tree starting with main node
+and a list of query years.
+
+For each query year, you need to find two publication years:
+- The first is the latest year in the archive that is less than or equal to the 
+  query year. If no such book exists, use -1.
+- The second is the earliest year in the archive that is greater than or equal 
+  to the query year. If no such book exists, use -1.
+
+Display the results as an list of pairs, where each pair corresponds to a query.
+
+Example 1:
+----------
+Input: 
+2006 2002 2013 2001 2004 2009 2015 2014
+2002 2005 2016
+
+Output:
+[[2002, 2002], [2004, 2006], [2015, -1]] 
+
+Archive Structure:
+
+          2006
+         /    \
+     2002     2013
+     /   \     /   \
+  2001  2004  2009  2015
+                     /
+                  2014
+                  
+Explanation:  
+- For the query 2002, the latest publication year that is ≤ 2002 is 2002, and 
+  the earliest publication year that is ≥ 2002 is also 2002.  
+- For the query 2005, the latest publication year that is ≤ 2005 is 2004, and 
+  the earliest publication year that is ≥ 2005 is 2006.  
+- For the query 2016, the latest publication year that is ≤ 2016 is 2015, but 
+  there is no publication year ≥ 2016, so we output -1 for the second value.
+
+Example 2:
+----------
+Input:  
+2004 2009
+2003
+
+Output:
+[[-1, 2004]]
+
+Explanation:  
+- For the query 2003, there is no publication year ≤ 2003, while the earliest 
+  publication year that is ≥ 2003 is 2004.
+
+Constraints:
+- The total number of books in the archive is in the range [2, 10^5].
+- Each publication year is between 1 and 10^6.
+- The number of queries n is in the range [1, 10^5].
+- Each query year is between 1 and 10^6.
+
+Day33 Program-3
+An operating system allows users to switch between open applications using a 
+custom Application Switcher. The switcher follows the Most Recently Used (MRU) 
+principle, meaning that the last accessed application moves to the front of the queue.
+
+When a user presses the Switch Key (SK) K times, the K-th application in the list 
+becomes the most recently used. Your task is to determine the final arrangement 
+of applications after K switches.
+
+Constraints
+------------
+N - The number of applications currently open (1 ≤ N ≤ 100).
+K - The number of times the user presses the Switch Key (SK) (0 ≤ K ≤ 10^5).
+An array of N unique integers representing application identifiers.
+
+Operations
+------------
+Each time the user presses the switch key, the next application moves to the front of the list.
+The order of other applications remains unchanged.
+
+Input Format
+---------------
+An integer N - number of applications.
+An integer K - number of switch operations.
+An array of N integers representing application identifiers.
+
+Output Format
+----------------
+An array of N integers representing the new order of applications.
+
+
+Sample Input:
+---------------
+5
+2
+10 20 30 40 50
+
+Sample Output:
+---------------
+[30, 10, 20, 40, 50]
+
+Explanation:
+-----------
+Initial list: [10, 20, 30, 40, 50]
+Press Switch Key once → Moves to 20 → [20, 10, 30, 40, 50]
+Press Switch Key twice → Moves to 30 → [30, 10, 20, 40, 50]
+
+Sample Input:
+---------------
+7
+5
+5 15 25 35 45 55 65
+
+Sample Output:
+----------------
+[55, 5, 15, 25, 35, 45, 65]
+
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        int k=sc.nextInt();
+        ArrayList<Integer> list=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            list.add(sc.nextInt());
+        }
+        // for(int i=0;i<n;i++){
+        //     arr[i]=sc.nextInt();
+        // }
+        // //  System.out.println("yes");
+        // int j=1;
+        // for(int i=0;i<k;i++){
+        //     int t=arr[j];
+        //     arr[j]=arr[0];
+        //     arr[0]=t;
+        //     j++;
+        // }
+        int x=list.get((k)%n);
+        list.remove((k)%n);
+        list.add(0,x);
+        
+        System.out.println(list);
+        // System.out.println(Arrays.toString(arr));
+    
+    }
+}
+
+Day33 Program-4
+A bookstore manager is analyzing the best-selling books from their records. 
+Each record contains a book title, author, and publishing date in the format 
+"DD-MM-YYYY".
+
+Your task is to extract and count the number of distinct publishing years from 
+the given list of best-selling books.
+
+Input Format
+------------
+A string containing multiple book records, where each book entry includes a 
+publishing date in "DD-MM-YYYY" format.
+
+Output Format
+--------------
+Return an integer representing the total number of distinct publishing years 
+in the given records.
+
+
+Sample Input:
+--------------
+The Great Gatsby by F. Scott Fitzgerald was published on 10-04-1925. To Kill a Mockingbird by Harper Lee was published on 11-07-1960.
+
+Sample Output:
+----------------
+2
+
+Explanation:
+--------------
+The books were published in 1925 and 1960.
+Total distinct years = 2.
+
+
+Sample Input:
+-------------
+1984 by George Orwell was published on 08-06-1949. Animal Farm by George Orwell was published on 17-08-1945. The Catcher in the Rye by J.D. Salinger was published on 16-07-1951
+
+Sample Output:
+---------------
+3
+
+Explanation:
+-------------
+The books were published in 1945, 1949, and 1951.
+Total distinct years = 3.
+
+
+Sample Input:
+---------------
+Pride and Prejudice by Jane Austen was published on 28-01-1812. Sense and Sensibility by Jane Austen was published on 30-10-1812. Emma by Jane Austen was published on 23-12-1812.
+
+Sample Output:
+----------------
+1
+import java.util.*;
+
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String[] str=sc.nextLine().split(" ");
+        ArrayList<String> li=new ArrayList<>();
+        for(int i=0;i<str.length;i++){
+            if(str[i].contains("-") && str[i].length()==11 && str[i].charAt(2)=='-' && str[i].charAt(5)=='-') li.add(str[i]);
+        }
+        // sc.next();
+        Set<String> s=new HashSet<>();
+        for(int i=0;i<li.size();i++){
+            s.add(li.get(i).split("-")[2]);
+        }
+        // sc.next();
+        System.out.println();
+        System.out.println(s.size());
+    }
+}
+
+
+Day33 Program-5
+A game rewards players with points when they complete levels. However, 
+to maintain fairness and difficulty progression, the game designer wants 
+to adjust the points assigned to each level so that:
+    - All levels must have distinct rewards.
+    - The total reward points should be minimized, ensuring that the reward 
+    for each level is at least as much as it was originally assigned.
+
+Given N levels and an array of N integers 7representing the initial rewards for 
+each level, determine the minimum total reward points the game can assign after 
+making the necessary adjustments.
+
+Constraints
+-----------
+1 ≤ N ≤ 100 (total levels)
+1 ≤ reward[i] ≤ 1000 (minimum reward per level)
+The given rewards array may contain duplicate values
+
+Input Format
+------------
+An integer N - representing the number of levels.
+An array of N integers - representing the initial rewards.
+
+Output Format
+-------------
+A single integer, representing the minimum total reward points after ensuring 
+that all levels have unique rewards.
+
+
+Sample Input:
+-------------
+5
+10 20 30 40 50
+
+Sample Output:
+--------------
+150
+
+Explanation:
+-----------
+Since all reward points are already unique, the total remains:
+10 + 20 + 30 + 40 + 50 = 150.
+
+Sample Input:
+-------------
+5
+10 30 20 30 20
+
+Sample Output:
+--------------
+112
+
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        ArrayList<Integer> li=new ArrayList<>();
+        // Set<Integer> s=new HashSet<>();
+        int sum=0;
+        for(int i=0;i<n;i++){
+            int a=sc.nextInt();
+            while(li.contains(a)){
+                a++;
+            }
+            li.add(a);
+            sum+=a;
+            // if(!li.contains(a)) {
+            //     li.add(a);
+            //     sum+=a;
+            // }
+            // else{
+            //     while(true){
+            //         a=a+1;
+            //         if(!li.contains(a)){
+            //             li.add(a);
+            //             sum+=a;
+            //             break;
+            //         }
+            //     }
+                
+            // }
+            
+        }
+        
+        System.out.println(sum);
+    }
+}

@@ -1,0 +1,225 @@
+Day 36 Programs
+Day-36 Program-1
+A digit sum is the sum of all the digits of a number.
+e.g., 123=> 1 + 2 + 3 => 6, So, digit sum of 123 is 6.
+
+You are given an integer N. 
+Find the digit sum of each number from 1 to N.
+And group them according to their digit sum.
+
+Your task is to find and print the number of groups have the largest size.
+
+Input Format:
+-------------
+An integer N
+
+Output Format:
+--------------
+Print an integer, number of groups with largest size.
+
+Sample Input-1:
+---------------
+13
+
+Sample Output-1:
+----------------
+4
+
+Explanation:
+------------
+There are 9 groups formed: [1,10], [2,11], [3,12], [4,13], [5], [6], [7], [8], [9]. 
+There are 4 groups having largest size-2.
+
+
+Sample Input-2:
+---------------
+24
+
+Sample Output-2:
+----------------
+5
+
+import java.util.*;
+class Sol{
+    static int sum(int n){
+        int sum=0;
+        while(n>0){
+            sum+=n%10;
+            n=n/10;
+        }
+        return sum;
+    }
+    
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        Map<Integer,ArrayList<Integer>> map=new HashMap<>();
+        for(int i=1;i<=n;i++){
+            int s=sum(i);
+            map.putIfAbsent(i,new ArrayList<>());
+            map.get(s).add(i);
+        }
+        int maxi=0;
+        for(ArrayList<Integer> arr:map.values()){
+            maxi=Math.max(maxi,arr.size());
+        }
+        int count=0;
+        for(ArrayList<Integer> arr:map.values()){
+            if(arr.size()==maxi) count++;
+        }
+        System.out.println(count);
+        
+        
+    }
+}
+
+
+Day-36 Program-2
+A crew of N players played a game for one time, and got some scores.
+They have to stand in the same positions after they played the game.
+ 
+There is a constraint that, the player-K score, should not be greater or smaller 
+than both of his neighbors. To achieve this constraint, there are few steps to 
+be followed as mentioned:
+    	- If the score of player-K is smaller than both his neighbors,then his 
+    	  score is incremented by 1.
+    	- If the score of player-K is greater than both his neighbors,then his 
+    	  score is decremented by 1. 
+    	- The first and last elements never change.
+    	Repeat these steps, until the constraint is satisified.
+   
+  Your task is to find and print the resultant array of scores, after the constraint is achieved.
+   
+NOTE: Players are not allowed to swap their positions to achieve the constraint.
+  
+Input Format:
+-------------
+Line-1: An integer N, number of players.
+Line-2: N space separated integers represemts scores of each player.
+  
+Output Format:
+--------------
+Print integer array, the resultant scores.
+   
+Sample Input-1:
+---------------
+6
+4 3 5 2 6 3
+  
+Sample Output-1:
+----------------
+[4, 4, 4, 4, 4, 3]
+
+Explanation: 
+------------------
+Initially, the scores are changed from [4, 3, 5, 2, 6, 3] to [4, 4, 4, 3, 5, 3].
+Next step, the scores are changed from [4, 4, 4, 3, 5, 3] to [4, 4, 4, 4, 4, 3].
+No more operations can be done to this array.
+   
+
+Sample Input-2:
+---------------
+8
+5 1 4 2 7 4 6 3
+  
+Sample Output-2:
+----------------
+[5, 3, 3, 3, 5, 5, 5, 3]
+
+import java.util.*;
+class Sol{
+    
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+       
+        while(true){
+             int a=0;
+            for(int i=1;i<n-1;i++){
+            if(arr[i]>arr[i-1] && arr[i]>arr[i+1]){
+                arr[i]=arr[i]-1;
+                a++;
+            }
+            else if(arr[i]<arr[i-1] && arr[i]<arr[i+1] ){
+                arr[i]=arr[i]+1;
+                a++;
+            }
+            if(a==0) break;
+            
+           }
+        }
+        for(int i=0;i<n;i++){
+            System.out.print(arr[i]+" ");
+        }
+       
+    }
+}
+
+
+FLIPKART online grocery zone offering best prices, and combo offers on a variety
+of items. The store has N items which are been sold with a certian price per unit.
+
+There are also combo offers, and each combo offer consists of one or more 
+variety of items with a price tag. Each combo offer is represented in the form 
+of a list, the last number represents the amount you need to pay for this combo 
+offer, other values represents how many specific items you could get if you buy 
+this offer. 
+
+Customer can avail the combo offers as many times as they wanted.
+
+Now you are been given pricelist of N items, K number of combo offers, and 
+the number of items of each variety need to buy. 
+
+Now it's your turn to find the lowest price you have to pay for to buy exactly 
+certain items as given, where you could make optimal use of the combo offers.
+
+
+Input Format:
+-------------
+Line-1: Two integers N and K, number of varieties, and number of Combo offers 
+Line-2: N space seprated inteegrs, prices of N varieties.
+Next K lines: 'N+1' space separated inteegrs, number of items of each variety and
+              and last number is cost to buy all these variety of items.
+Last Line: N space separated integers, number of items of each variety to buy.
+
+Output Format:
+--------------
+Print an integer, lowest price to pay for items to buy.
+
+
+Sample Input-1:
+---------------
+2 2
+3 6
+3 1 12
+2 3 17
+6 6
+
+Sample Output-1:
+----------------
+40
+
+Explanation:
+------------
+There are two variety of items, X and Y. Their prices are Rs.3 and Rs. 6 respectively.
+In combo offer-1, you can pay Rs.12 for 3X and 1Y
+In combo offer-2, you can pay Rs.17 for 2A and 3B.
+You need to buy 6A and 6B, so you may pay Rs.34 for 4X and 6Y (combo offer-2), 
+and Rs.6 for 2X. So Total of Rs.40
+
+
+Sample Input-2:
+---------------
+3 2
+1 2 3
+1 2 0 4
+2 1 2 8
+3 4 2
+
+Sample Output-2:
+----------------
+14

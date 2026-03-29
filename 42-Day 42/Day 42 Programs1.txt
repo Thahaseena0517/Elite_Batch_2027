@@ -1,0 +1,214 @@
+Day 42 Programs
+
+Mr. Chandra has an portrait photo with size M*N pixels, 
+where M is the length of the portrait and N is width of the portrait.
+
+You are given an integer S in pixels,
+Your task is to help Mr. Chammak Chandra to find the actual values 
+[M, N] using the following specifications:
+- The size of portrait should be equal to S. i.e., S = M*N.
+ - N is always smaller than in M, i.e., N <= M
+ - The diffrence between length and width, (M-N) should be minimum.
+And print the result as a pair M and N.
+
+NOTE: S is always a positive integer.
+
+Input Format:
+-------------
+Line-1 -> An integer S, size of the portrait.
+
+Output Format:
+--------------
+Print the result as a pair of integers.
+
+
+Sample Input-1:24
+---------------
+24
+
+Sample Output-1:
+----------------
+6 4
+
+
+Sample Input-2:
+---------------
+550
+
+Sample Output-2:
+----------------
+25 22
+
+
+import java.util.*;
+class Sol{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        double n=sc.nextInt();
+        long round=Math.round(Math.sqrt(n));
+        long i=round;
+        while(i>0){
+            if(n%i==0){
+                System.out.println((int)n/i);
+                System.out.println(i);
+                break;
+            }
+            i--;
+        }
+    }
+}
+
+Mr Parandhamayya working with words.
+He is given a word W, you need to divide the word into N non-empty parts, 
+such that all the newly formed words should be distinct, and 
+if you append all those words should form original word W.
+
+Your task is to help Mr Parandhamayya to divide the word into N parts,
+such that, the value of N should be maximized, and print N.
+
+Input Format:
+-------------
+Line-1: A string W, a word.
+
+Output Format:
+--------------
+Print an integer result, the value of N.
+
+
+Sample Input-1:
+---------------
+banana
+
+Sample Output-1:
+----------------
+4
+
+Explanation: 
+------------
+One way to divide the word is "b","a","n","ana".
+If you divide it like "b","a","n","an","a".The word "a" will be repeated.
+So it is not allowed to divide like the second way.
+
+
+Sample Input-2:
+---------------
+mississippi
+
+Sample Output-2:
+----------------
+7
+
+Explanation: 
+------------
+One of the way to divide the word is "m","i","s","si","ssi","p","pi".
+
+NOTE: Subsequences are not allowed.
+
+
+
+
+Indian Super League organizing a football match at Eden Gardens.
+The teams are Bangalore and Chennai are playing opposite each other.
+
+After Match starts, each team making some goals at certain time, 
+for example, goal 'goal[i]' was made by a player at time 'time[i]'.
+goal[i]: indicates the team number 0 (Bangalore) or 1 (Chennai).
+time[i]: indicates the time of the goal made.
+
+Now, your task is to find out the leading team at given time t[j].
+
+Input Format:
+------------------
+Line-1: Two integers N and K, no of goals-> goal[i] and no of times-> t[j]
+Line-2: N space seperated integers only 0's and 1', goals[i]
+Line-3: N space seperated integers, time[i]
+Line-4: K space seperated integers , t[i]
+ 
+Output Format:
+------------------
+Print K space seperated integers as result.
+
+
+Sample Input-1:
+---------------
+7 5
+0 1 1 0 0 1 0
+0 5 10 15 20 25 30
+3 12 25 15 24
+
+Sample Output-1:
+----------------
+0 1 1 0 0
+
+Explanation:
+------------
+At time 3, the goals are [0], and 0 is leading.
+At time 12, the goals are [0,1,1], and 1 is leading.
+At time 25, the goals are [0,1,1,0,0,1], and 1 is leading (as ties go to the most recent goal)
+At time 15, the goals are [0,1,1,0], and 0 is leading (as ties go to the most recent goal)
+At time 24, the goals are [0,1,1,0,0], and 0 is leading.
+
+import java.util.*;
+class Sol{
+    static int check(int key,int[] arr){
+        int l=0,h=arr.length-1,res=0;
+        while(l<=h){
+            int m=(l+h)/2;
+            if(arr[m]==key){
+                return m;
+            }
+            else if(arr[m]<key){
+                res=m;
+                l=m+1;
+            }
+            else{
+                h=m-1;
+            }
+        }
+        return res;
+    }
+    // static int check1(int idx,int[] g){
+    //     int s1=0,s0=0;
+    //     for(int i=0;i<=idx;i++){
+    //         if(g[i]==0) s0++;
+    //         else s1++;
+    //     }
+    //     // return s0==s1?g[idx]:s0>s1:0:1;
+    //     if(s0==s1) return g[idx];
+    //     else if (s0>s1) return 0;
+    //     else return 1;
+    // }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int k=sc.nextInt();
+        int[] g=new int[n];
+        int[] ti=new int[n];
+        int[] t=new int[k];
+        for(int i=0;i<n;i++){
+            g[i]=sc.nextInt();
+        }
+        for(int i=0;i<n;i++){
+            ti[i]=sc.nextInt();
+        }
+        for(int i=0;i<k;i++){
+            t[i]=sc.nextInt();
+        }
+        int[] le=new int[n];
+        int s0=0,s1=0;
+        for(int i=0;i<n;i++){
+            if(g[i]==0) s0++;
+            else s1++;
+            
+            if(s0>s1) le[i]=0;
+            else if(s1>s0) le[i]=1;
+            else le[i]=g[i];
+        }
+        for(int i=0;i<t.length;i++){
+            int a=check(t[i],ti);
+            // int b=check1(a,g);
+            // System.out.println(b);
+            System.out.print(le[a]+" ");
+        }
+    }
+}
