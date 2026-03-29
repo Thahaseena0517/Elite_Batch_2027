@@ -8,6 +8,6 @@ The repository includes:
 
 - 📌 **Daily programs** and hands-on practice files  
 - 🗂️ **FSD- ZIP files**  
-- 💡 **Important interview-focused topics** discussed in class  
+
 
 
